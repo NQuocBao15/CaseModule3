@@ -14,8 +14,7 @@ public class User {
     private EGender gender;
     private Role role;
 
-    public User(int id, String name, String phone, String username, String password, String address, Date dob, EGender gender, Role role) {
-        this.id = id;
+    public User(String name, String phone, String username, String password, String address, Date dob, EGender gender, Role role) {
         this.name = name;
         this.phone = phone;
         this.username = username;
