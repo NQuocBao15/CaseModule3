@@ -14,6 +14,16 @@ public class AdminController extends HttpServlet {
     private UserService userService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if(action == null){
+            action = "";
+        }
+        switch (action){
+            default -> showAdmin(req,resp);
+        }
+    }
+
+    private void showAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("admin/index.jsp").forward(req,resp);
     }
 
