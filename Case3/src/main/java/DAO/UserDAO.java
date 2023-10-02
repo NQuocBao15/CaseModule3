@@ -28,12 +28,14 @@ public class UserDAO extends DatabaseConnection{
                 "FROM users u " +
                 "JOIN roles r ON u.role_id = r.id " +
                 "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? " +
+                "OR lower(u.address) LIKE ? OR lower(u.gender) LIKE ? or LOWER(r.name) LIKE ? " +
                 "LIMIT ? OFFSET ?";
 
         var SELECT_COUNT = "SELECT COUNT(1) cnt " +
                 "FROM users u " +
                 "JOIN roles r ON u.role_id = r.id " +
-                "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? ";
+                "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? " +
+                "OR lower(u.address) LIKE ? OR lower(u.gender) LIKE ? or LOWER(r.name) LIKE ? ";
 
         try {
             Connection connection = getConnection();
@@ -42,8 +44,11 @@ public class UserDAO extends DatabaseConnection{
             preparedStatement.setString(1,search);
             preparedStatement.setString(2,search);
             preparedStatement.setString(3,search);
-            preparedStatement.setInt(4,TOTAL_ELEMENT);
-            preparedStatement.setInt(5,(page-1)*TOTAL_ELEMENT);
+            preparedStatement.setString(4,search);
+            preparedStatement.setString(5,search);
+            preparedStatement.setString(6,search);
+            preparedStatement.setInt(7,TOTAL_ELEMENT);
+            preparedStatement.setInt(8,(page-1)*TOTAL_ELEMENT);
             System.out.println(preparedStatement);
 
             var rs = preparedStatement.executeQuery();
@@ -57,6 +62,9 @@ public class UserDAO extends DatabaseConnection{
             preparedStatementCount.setString(1,search);
             preparedStatementCount.setString(2,search);
             preparedStatementCount.setString(3,search);
+            preparedStatementCount.setString(4,search);
+            preparedStatementCount.setString(5,search);
+            preparedStatementCount.setString(6,search);
             System.out.println(preparedStatementCount);
 
             var rsCount = preparedStatementCount.executeQuery();
@@ -94,9 +102,10 @@ public class UserDAO extends DatabaseConnection{
         user.setName(rs.getString("name"));
         user.setPhone(rs.getString("phone"));
         user.setUsername(rs.getString("username"));
+        user.setAddress(rs.getString("address"));
         user.setDob(rs.getDate("dob"));
         user.setGender(EGender.valueOf(rs.getString("gender")));
-        user.setRole(new Role(rs.getInt("role_id")));
+        user.setRole(new Role(rs.getInt("role_id"),rs.getString("role_name")));
 
         return user;
     }
