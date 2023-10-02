@@ -22,14 +22,6 @@ public class Product {
         this.category = category;
     }
 
-    public Product(String name, Category category, String description, BigDecimal price,String img) {
-        this.name = name;
-        this.price = price;
-        this.img = img;
-        this.description = description;
-        this.category = category;
-    }
-
     public int getId() {
         return id;
     }

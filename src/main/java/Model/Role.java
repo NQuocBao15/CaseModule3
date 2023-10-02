@@ -1,19 +1,19 @@
 package Model;
 
-public class Category {
+public class Role {
     private int id;
     private String name;
 
-    public Category() {
+    public Role() {
     }
 
-    public Category(int id) {
-        this.id = id;
-    }
-
-    public Category(int id, String name) {
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Role(int roleId) {
+        this.id = roleId;
     }
 
     public int getId() {
