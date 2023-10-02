@@ -33,6 +33,7 @@ public class UserController extends HttpServlet {
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("roles", roleService.findAll());
         req.setAttribute("genders", EGender.values());
+        req.setAttribute("message", req.getParameter("messsage"));
         req.getRequestDispatcher("user/create.jsp").forward(req,resp);
     }
 
@@ -62,8 +63,9 @@ public class UserController extends HttpServlet {
         }
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) {
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         userService.create(getUserByRequest(req));
+        resp.sendRedirect("/user?message=Created Successfully");
     }
 
     private User getUserByRequest(HttpServletRequest req) {

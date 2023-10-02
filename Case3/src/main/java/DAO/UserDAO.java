@@ -28,16 +28,12 @@ public class UserDAO extends DatabaseConnection{
                 "FROM users u " +
                 "JOIN roles r ON u.role_id = r.id " +
                 "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? " +
-                "OR LOWER(u.address) LIKE ? OR LOWER(u.dob) LIKE ? OR LOWER(u.gender) LIKE ? OR LOWER(r.name) LIKE ? " +
-                "GROUP BY u.id " +
                 "LIMIT ? OFFSET ?";
 
         var SELECT_COUNT = "SELECT COUNT(1) cnt " +
                 "FROM users u " +
-                "JOIN roles r ON r.role_id = r.id " +
-                "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? " +
-                "OR LOWER(u.address) LIKE ? OR LOWER(u.dob) LIKE ? OR LOWER(u.gender) LIKE ? OR LOWER(r.name) LIKE ? " +
-                "GROUP BY u.id ";
+                "JOIN roles r ON u.role_id = r.id " +
+                "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? ";
 
         try {
             Connection connection = getConnection();
@@ -46,12 +42,8 @@ public class UserDAO extends DatabaseConnection{
             preparedStatement.setString(1,search);
             preparedStatement.setString(2,search);
             preparedStatement.setString(3,search);
-            preparedStatement.setString(4,search);
-            preparedStatement.setString(5,search);
-            preparedStatement.setString(6,search);
-            preparedStatement.setString(7,search);
-            preparedStatement.setInt(8,TOTAL_ELEMENT);
-            preparedStatement.setInt(9,(page-1)*TOTAL_ELEMENT);
+            preparedStatement.setInt(4,TOTAL_ELEMENT);
+            preparedStatement.setInt(5,(page-1)*TOTAL_ELEMENT);
             System.out.println(preparedStatement);
 
             var rs = preparedStatement.executeQuery();
@@ -65,10 +57,6 @@ public class UserDAO extends DatabaseConnection{
             preparedStatementCount.setString(1,search);
             preparedStatementCount.setString(2,search);
             preparedStatementCount.setString(3,search);
-            preparedStatementCount.setString(4,search);
-            preparedStatementCount.setString(5,search);
-            preparedStatementCount.setString(6,search);
-            preparedStatementCount.setString(7,search);
             System.out.println(preparedStatementCount);
 
             var rsCount = preparedStatementCount.executeQuery();
@@ -82,7 +70,7 @@ public class UserDAO extends DatabaseConnection{
         return result;
     }
     public void create(User user){
-        String CREATE_USER = "INSERT INTO `demojdbc`.`users` (`name`, `phone`, `username`, `password`, `address`, `dob`, `gender`, `role_id`) " +
+        String CREATE_USER = "INSERT INTO `candycake`.`users` (`name`, `phone`, `username`, `password`, `address`, `dob`, `gender`, `role_id`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection connection = getConnection();
@@ -105,8 +93,7 @@ public class UserDAO extends DatabaseConnection{
         user.setId(rs.getInt("id"));
         user.setName(rs.getString("name"));
         user.setPhone(rs.getString("phone"));
-        user.setUsername(rs.getString("userName"));
-        user.setAddress(rs.getString("email"));
+        user.setUsername(rs.getString("username"));
         user.setDob(rs.getDate("dob"));
         user.setGender(EGender.valueOf(rs.getString("gender")));
         user.setRole(new Role(rs.getInt("role_id")));
