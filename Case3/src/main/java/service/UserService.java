@@ -19,4 +19,16 @@ public class UserService {
         user.setPassword(PasswordEncryptionUtil.encryptPassword(user.getPassword()));
         userDAO.create(user);
     }
+
+    public User findById(int id) {
+        return userDAO.findById(id);
+    }
+
+    public void update(int id, User user) {
+        userDAO.update(id, user);
+    }
+
+    public void delete(int id) {
+        userDAO.delete(id);
+    }
 }

@@ -24,7 +24,7 @@ public class UserDAO extends DatabaseConnection{
         }
         search = "%" + search.trim().toLowerCase() + "%";
 
-        var SELECT_ALL = "SELECT u.*, r.name role_name " +
+        var SELECT_ALL = "SELECT u.*, r.name as role_name " +
                 "FROM users u " +
                 "JOIN roles r ON u.role_id = r.id " +
                 "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? " +
@@ -108,5 +108,57 @@ public class UserDAO extends DatabaseConnection{
         user.setRole(new Role(rs.getInt("role_id"),rs.getString("role_name")));
 
         return user;
+    }
+
+    public User findById(int id) {
+        String SELECT_BY_ID = "SELECT u.*, r.name role_name FROM users u " +
+                "JOIN roles r ON  u.role_id = r.id " +
+                "WHERE u.id = ?";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
+            preparedStatement.setInt(1,id);
+            var rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                return  getUserByResultSet(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void update(int id, User user) {
+        String UPDATE_USER ="UPDATE `candycake`.`users` " +
+                "SET `name` = ?, `phone` = ?, `username` = ?, `address` = ?, `dob` = ?, `gender` = ?, `role_id` = ? " +
+                "WHERE `id` = ?";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER);
+            preparedStatement.setString(1,user.getName());
+            preparedStatement.setString(2,user.getPhone());
+            preparedStatement.setString(3,user.getUsername());
+            preparedStatement.setString(4,user.getAddress());
+            preparedStatement.setDate(5,user.getDob());
+            preparedStatement.setString(6,user.getGender().toString());
+            preparedStatement.setInt(7,user.getRole().getId());
+            preparedStatement.setInt(8,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void delete(int id) {
+        String DELETE_BY_ID = "DELETE FROM `candycake`.`users` " +
+                "WHERE (`id` = ?)";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID);
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

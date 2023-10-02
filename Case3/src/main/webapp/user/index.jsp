@@ -129,7 +129,7 @@
               <td>${user.gender}</td>
               <td>${user.role.name}</td>
               <td>
-                <a href="/user?action=edit&id=${user.id}" class="btn btn-warning mb-2">Edit</a>
+                <a href="/user?action=edit&id=${user.id}" class="btn btn-info mb-2">Edit</a>
                 <button class="btn btn-danger mb-2" onclick="showConfirmation('${user.id}', '${user.name}')">Delete</button>
               </td>
             </tr>

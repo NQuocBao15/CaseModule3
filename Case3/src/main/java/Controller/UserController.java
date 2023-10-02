@@ -27,7 +27,21 @@ public class UserController extends HttpServlet {
         switch (action){
             default -> showList(req,resp);
             case "create" -> showCreate(req,resp);
+            case "edit" -> showUpdate(req,resp);
+            case "delete" -> delete(req,resp);
         }
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        userService.delete(Integer.parseInt(req.getParameter("id")));
+        resp.sendRedirect("/user?message=Deleted Successfully");
+    }
+
+    private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", userService.findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("roles", roleService.findAll());
+        req.setAttribute("genders", EGender.values());
+        req.getRequestDispatcher("user/edit.jsp").forward(req,resp);
     }
 
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,7 +74,13 @@ public class UserController extends HttpServlet {
         }
         switch (action){
             case "create" -> create(req,resp);
+            case "edit" -> edit(req,resp);
         }
+    }
+
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        userService.update(Integer.parseInt(req.getParameter("id")),getUserByRequest(req));
+        resp.sendRedirect("/user?message=Updated Successfully");
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
