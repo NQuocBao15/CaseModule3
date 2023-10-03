@@ -66,9 +66,9 @@
         <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
         <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
-        <a href="/user" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>User</a>
+        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
         <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-        <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+        <a href="/express" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Express</a>
       </div>
     </nav>
   </div>
@@ -80,47 +80,13 @@
     <div class="container">
       <div class="card container px-6" style="height: 100vh">
         <h3 class="text-center">Create User</h3>
-        <form action="/user?action=edit" method="post">
-          <input type="hidden" name="id" value="${user.id}">
+        <form action="/express?action=create" method="post">
           <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="${user.name}" required="">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
           </div>
-          <div class="mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" required="">
-          </div>
-          <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="${user.username}" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" id="address" name="address" value="${user.address}" required="">
-          </div>
-          <div class="mb-3">
-            <label for="dob" class="form-label">Date of birth</label>
-            <input type="date" class="form-control" id="dob" name="dob" value="${user.dob}" required="">
-          </div>
-          <div class="mb-3">
-            <label for="gender" class="form-label">Gender</label>
-            <select class="form-control" name="gender" id="gender" required="">
-              <c:forEach var="gender" items="${genders}">
-                <option value="${gender}" ${gender == user.gender ? "selected":""}>${gender}</option>
-              </c:forEach>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Role</label>
-            <select class="form-control" name="role" id="role" required="">
-              <c:forEach var="role" items="${roles}">
-                <option value="${role.id}" ${role.id == user.role.id ? "selectd":""}>${role.name}</option>
-              </c:forEach>
-            </select>
-          </div>
-
-          <a href="/user" class="btn btn-dark mb-2">Cancel</a>
-          <button type="submit" class="btn btn-warning mb-2">Update</button>
+          <a href="/express" class="btn btn-dark mb-2">Cancel</a>
+          <button type="submit" class="btn btn-primary mb-2">Create</button>
         </form>
       </div>
 

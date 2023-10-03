@@ -29,7 +29,8 @@ public class UserDAO extends DatabaseConnection{
                 "JOIN roles r ON u.role_id = r.id " +
                 "WHERE LOWER(u.name) LIKE ? OR u.phone LIKE ? OR LOWER(u.username) LIKE ? " +
                 "OR lower(u.address) LIKE ? OR lower(u.gender) LIKE ? or LOWER(r.name) LIKE ? " +
-                "LIMIT ? OFFSET ?";
+                "ORDER BY u.id " +
+                "LIMIT ? OFFSET ? ";
 
         var SELECT_COUNT = "SELECT COUNT(1) cnt " +
                 "FROM users u " +

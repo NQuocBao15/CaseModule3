@@ -73,6 +73,7 @@
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
                     <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>User</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                    <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
                 </div>
             </nav>
         </div>
