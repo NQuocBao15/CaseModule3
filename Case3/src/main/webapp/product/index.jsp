@@ -60,222 +60,98 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="index.html" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
-                <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>User</a>
-                <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product Import</a>
+                <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
+                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
             </div>
         </nav>
     </div>
     <!-- Sidebar End -->
 
-
-    <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-            </a>
-            <a href="#" class="sidebar-toggler flex-shrink-0">
-                <i class="fa fa-bars"></i>
-            </a>
-            <div class="navbar-nav align-items-center ms-auto">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="fa fa-envelope me-lg-2"></i>
-                        <span class="d-none d-lg-inline-flex">Message</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="ms-2">
-                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                    <small>15 minutes ago</small>
-                                </div>
-                            </div>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="ms-2">
-                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                    <small>15 minutes ago</small>
-                                </div>
-                            </div>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="ms-2">
-                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                    <small>15 minutes ago</small>
-                                </div>
-                            </div>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item text-center">See all message</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="fa fa-bell me-lg-2"></i>
-                        <span class="d-none d-lg-inline-flex">Notificatin</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">
-                            <h6 class="fw-normal mb-0">Profile updated</h6>
-                            <small>15 minutes ago</small>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <h6 class="fw-normal mb-0">New user added</h6>
-                            <small>15 minutes ago</small>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <h6 class="fw-normal mb-0">Password changed</h6>
-                            <small>15 minutes ago</small>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item text-center">See all notifications</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                             style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">My Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Log Out</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Navbar End -->
+        <div class="container">
+            <div class="card container px-6" style="height: 100vh">
+                <h3 class="text-center">Management Product</h3>
+                <c:if test="${message != null}">
+                    <h6 class="d-none" id="message">${message}</h6>
+                </c:if>
 
-        <!-- Recent Sales Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div>
+                <div style="display: flex; align-items: center;">
+                    <div style="margin-right: auto;">
                         <a href="/product?action=create" class="btn btn-primary mb-2">Create</a>
                     </div>
-                    <div>
-                        <form action="/product?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
-                            <div>
-                                <input type="text" id="search" value="${search}" name="search" class="form-control" style="width: 85%" placeholder="Search Product">
-                            </div>
-                            <div style="margin-left: 10px;">
-                                <button id="searchButton" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0">
-                        <thead>
-                        <tr class="text-dark">
-                            <th scope="col">Name</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">IMG</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="product" items="${page.content}">
-                            <tr>
-                                <td>
-                                        ${product.name}
-                                </td>
-                                <td>
-                                        ${product.category.name}
-                                </td>
-                                <td>
-                                        ${product.description}
-                                </td>
-                                <td>
-                                        ${product.price}
-                                </td>
-                                <td style="width: 70px;height: 50px">
-                                    <img src=" img/${product.img}" style="max-width: 100%; height: auto;">
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-info" href="/product?action=edit&id=${product.id}">
-                                        Edit
-                                    </a>
-                                    <a class="btn btn-danger"
-                                       onclick="return confirm('Do you want remove ${product.name} ?')"
-                                       href="/product?action=delete&id=${product.id}">
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                    <form action="/user?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
+                        <div>
+                            <input type="text" id="search" value="${search}" name="search" class="form-control" style="width: 85%" placeholder="Search Product">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            <button id="searchButton" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
                 </div>
 
-            </div>
-        </div>
-        <nav aria-label="...">
-            <c:set var="url" value="/product?page="/>
-            <ul class="pagination">
-                <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
-                    <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
-                       aria-disabled="true">Previous</a>
-                </li>
-                <c:forEach var="number" begin="1" end="${page.totalPage}">
-                    <c:if test="${number == page.currentPage}">
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="${url}${number}">${number}</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${number != page.currentPage}">
-                        <li class="page-item">
-                            <a class="page-link" href="${url}${number}">${number}</a>
-                        </li>
-                    </c:if>
-                </c:forEach>
-                <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
-                    <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- Recent Sales End -->
-        <!-- Footer Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light rounded-top p-4">
-                <div class="row">
-                    <div class="col-12 col-sm-6 text-center text-sm-start">
-                        © <a href="#">Your Site Name</a>, All Right Reserved.
-                    </div>
-                    <div class="col-12 col-sm-6 text-center text-sm-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        <br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com"
-                                          target="_blank">ThemeWagon</a>
-                    </div>
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>IMG</th>
+                        <th>Action</th>
+                    </tr>
+                    <c:forEach var="product" items="${page.content}">
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.category.name}</td>
+                        <td>${product.description}</td>
+                        <td>${product.price}</td>
+                        <td style="width: 70px;height: 50px">
+                            <img src=" img/${product.img}" style="max-width: 100%; height: auto;">
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="/product?action=edit&id=${product.id}">Edit</a>
+                            <a class="btn btn-danger" onclick="return confirm('Do you want remove ${product.name} ?')" href="/product?action=delete&id=${product.id}">Delete</a>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+                    <nav aria-label="...">
+                        <c:set var="url" value="/product?page="/>
+                        <ul class="pagination">
+                            <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
+                                <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
+                                   aria-disabled="true">Previous</a>
+                            </li>
+                            <c:forEach var="number" begin="1" end="${page.totalPage}">
+                                <c:if test="${number == page.currentPage}">
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="${url}${number}">${number}</a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${number != page.currentPage}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${url}${number}">${number}</a>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                            <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
+                                <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
+
         </div>
-        <!-- Footer End -->
+        <!-- Navbar End -->
+
     </div>
-    <!-- Content End -->
+    <!-- Content Start -->
 
 
     <!-- Back to Top -->
