@@ -71,7 +71,6 @@
                         <a href="element.html" class="dropdown-item">Other Elements</a>
                     </div>
                 </div>
-<<<<<<< Updated upstream
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
@@ -83,9 +82,9 @@
                         </div>
                     </div>
                     <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
+                    <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
                     <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>User</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                    <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                     <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
                 </div>
             </nav>
