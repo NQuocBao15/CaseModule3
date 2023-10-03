@@ -22,11 +22,11 @@ public class ProductDao extends DatabaseConnection {
         }
         search = "%" + search.toLowerCase() + "%";
         var SELECT_ALL = " SELECT p.*, c.`name` category_name " +
-                "FROM `products` p JOIN `categories` c on c.`id` = p.`category_id` " +
+                "FROM `products` p LEFT JOIN  `categories` c on c.`id` = p.`category_id` " +
                 " WHERE  (LOWER(p.`name`) LIKE ? OR LOWER(c.`name`) LIKE ?  ) " +
                 " LIMIT ? OFFSET ?  ";
         var SELECT_COUNT = "SELECT COUNT(1) cnt FROM  `products` p " +
-                " JOIN `categories` c on  c.id = p.`category_id` " +
+                " LEFT JOIN `categories` c on  c.id = p.`category_id` " +
                 " WHERE  (LOWER(p.`name`) LIKE ? OR LOWER(c.`name`) LIKE ?  ) ";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
@@ -55,8 +55,9 @@ public class ProductDao extends DatabaseConnection {
 
     public List<Product> findAll() {
         var content = new ArrayList<Product>();
-        var SELECT_ALL = " SELECT p.*, c.`name` category_name " +
-                "FROM `products` p JOIN `categories` c on c.`id` = p.`category_id` ";
+        var SELECT_ALL = " SELECT p.*, c.`name` category_name \n" +
+                " FROM `products` p LEFT JOIN `categories` c on c.`id` = p.`category_id` " +
+                " GROUP By p.`id`";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
             preparedStatement.setInt(1, 0);
@@ -118,23 +119,9 @@ public class ProductDao extends DatabaseConnection {
         }
     }
 
-//    public void restore(int id) {
-//        String DELETE = "UPDATE `products` " +
-//                " SET `deleted` = '0' " +
-//                " WHERE (`id` = ?) ";
-//        try (Connection connection = getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-//            preparedStatement.setInt(1, id);
-//            preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-
-
     public Product findById(int id) {
         var SELECT_BY_ID = "SELECT p.*, c.name category_name " +
-                "FROM `products` p JOIN `categories` c on " +
+                "FROM `products` p LEFT JOIN `categories` c on " +
                 "c.`id` = p.`category_id` " +
                 "WHERE p.`id` = ? ";
         try (Connection connection = getConnection();
@@ -167,13 +154,14 @@ public class ProductDao extends DatabaseConnection {
         searchValue = "%" + searchValue + "%";
         String SELECT_SEARCH = "SELECT p.`id`,p.`name`,p.`price`,c.`name`,p.`price`,p.`description` " +
                 " FROM `products` p " +
-                " JOIN `categories` c ON p.`category_id`= c.`id` " +
-                " HAVING lower(p.`name` ) like ?";
+                "LEFT JOIN `categories` c ON p.`category_id`= c.`id` " +
+                " HAVING lower(p.`name` ) like ? OR lower(c.`name`) like ? ";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SEARCH)) {
             System.out.println(preparedStatement);
             preparedStatement.setString(1, searchValue);
             preparedStatement.setString(2, searchValue);
+            preparedStatement.setString(3, searchValue);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 result.add(new Product(

@@ -81,12 +81,6 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            <form class="d-none d-md-flex ms-4" onsubmit="event.preventDefault(); searchFunction();">
-                <input type="search" id="searchProduct" value="${search}" name="search"
-                       class="form-control border-0"
-                       placeholder="Search Product Title">
-                <button id="searchButton" class="btn btn-primary">Search</button>
-            </form>
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -174,9 +168,18 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Recent Salse</h6>
                     <div>
                         <a href="/product?action=create" class="btn btn-primary mb-2">Create</a>
+                    </div>
+                    <div>
+                        <form action="/product?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
+                            <div>
+                                <input type="text" id="search" value="${search}" name="search" class="form-control" style="width: 85%" placeholder="Search Product">
+                            </div>
+                            <div style="margin-left: 10px;">
+                                <button id="searchButton" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -333,12 +336,12 @@
 </form>
 
 <script>
-    function searchFunction() {
-        var searchQuery = document.getElementById("searchBook").value;
-        var currentUrl = window.location.href;
-        var searchUrl = currentUrl + "?search=" + encodeURIComponent(searchQuery);
-        window.location.href = searchUrl;
-    }
+    // function searchFunction() {
+    //     var searchQuery = document.getElementById("search").value;
+    //     var currentUrl = window.location.href;
+    //     var searchUrl = currentUrl + "?search=" + encodeURIComponent(searchQuery);
+    //     window.location.href = searchUrl;
+    // }
 </script>
 
 </body>

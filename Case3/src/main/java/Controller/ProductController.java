@@ -31,7 +31,7 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "create" -> showProductCreate(req, resp);
             case "edit" -> showProductEdit(req, resp);
-            case "searchImport" -> showSearchImport(req, resp);
+            case "search" -> showSearch(req, resp);
 //            case "restore" -> showRestore(req, resp);
             case "delete" -> delete(req, resp);
             default -> showListProduct(req, resp);
@@ -40,13 +40,8 @@ public class ProductController extends HttpServlet {
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productService.delete(Integer.parseInt(req.getParameter("id")));
-        resp.sendRedirect("/product?message=Deleted");
+        resp.sendRedirect("/product?message=Deleted successfully");
     }
-
-//    private void showRestore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        showTable(req, true, resp);
-//    }
-
 
     private void showListProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req,  resp);
@@ -73,12 +68,12 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "create" -> createProduct(req, resp);
             case "edit" -> editProduct(req, resp);
-            case "searchImport" -> showSearchImport(req, resp);
+            case "search" -> showSearch(req, resp);
 //            case "restore" -> restore(req, resp);
         }
     }
 
-    private void showSearchImport(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void showSearch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("products"
                 , productService.performSearch(req.getParameter("search"))
         );
