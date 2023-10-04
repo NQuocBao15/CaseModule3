@@ -84,14 +84,16 @@
     <div class="container">
       <div class="card container px-6" style="height: 100vh">
         <h3 class="text-center">Create Product Import</h3>
-        <form action="/product-import?action=create" method="post">
+        <form action="/product-import?action=create" method="post" onsubmit="return">
           <div class="mb-3">
             <label for="code" class="form-label">Import Code</label>
-            <input type="text" class="form-control" id="code" name="code" required>
+            <input type="text" class="form-control" id="code" name="code" required="true">
+            <div id="code-error" class="text-danger"></div>
           </div>
           <div class="mb-3">
             <label for="importDate" class="form-label">Import Date</label>
-            <input type="date" class="form-control" id="importDate" name="importDate" required>
+            <input type="date" class="form-control" id="importDate" name="importDate" required="true">
+            <div id="importDate-error" class="text-danger"></div>
           </div>
           <div class="row mb-3">
             <div class="col-4">
@@ -156,6 +158,51 @@
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
 <script>
+  var codeInput = document.getElementById('code');
+  var codeError = document.getElementById('code-error');
+
+  codeInput.addEventListener('blur', function (){
+    var codeValue = codeInput.value;
+    if (codeValue .length < 6) {
+      codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+      codeError.textContent = 'Code phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+    } else {
+      codeInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+      codeError.textContent = ''; // Xóa thông báo lỗi
+    }
+  })
+
+  document.querySelector('form').addEventListener('submit', function(event) {
+
+    var codeValue = codeInput.value;
+    if (codeValue .length < 6) {
+      event.preventDefault(); // Ngăn chặn gửi form đi
+
+      codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+      codeError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+      codeInput.focus(); // Tập trung vào trường password không hợp lệ
+    }
+
+
+  });
+
+  var importDateInput = document.getElementById('importDate');
+  var importDateError = document.getElementById('importDate-error');
+
+  importDateInput .addEventListener("blur", function() {
+    var importDateValue = new Date(importDateInput.value).getTime();
+    var currentDate = new Date().getTime();
+
+    if (importDateValue > currentDate) {
+      importDateInput.classList.add("is-invalid");
+      importDateError.textContent = "Ngày không hợp lệ, không phải là ngày tương lai";
+    } else {
+      importDateInput.classList.remove("is-invalid");
+      importDateError.textContent = "";
+    }
+
+  });
   // <![CDATA[  <-- For SVG support
   // if ('WebSocket' in window) {
   //   (function () {
