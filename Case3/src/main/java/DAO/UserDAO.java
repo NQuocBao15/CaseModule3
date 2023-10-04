@@ -180,4 +180,51 @@ public class UserDAO extends DatabaseConnection{
             System.out.println(e.getMessage());
         }
     }
+    public User findByUsername(String username) {
+        String SELECT_USERNAME = "SELECT u.*, r.name role_name FROM `users` u " +
+                " LEFT JOIN `roles` r ON  u.role_id = r.id " +
+                "WHERE u.username LIKE ? ";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERNAME);
+            preparedStatement.setString(1, username);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setPhone(rs.getString("phone"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setAddress(rs.getString("address"));
+                user.setDob(rs.getDate("dob"));
+                user.setGender(EGender.valueOf(rs.getString("gender")));
+                user.setRole(new Role(rs.getInt("role_id"),rs.getString("role_name")));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void register(User user) {
+        String CREATE_USER = "INSERT INTO `users` (`name`, `phone`, `username`, `password`, `address`, `dob`, `gender`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getPhone());
+            preparedStatement.setString(3, user.getUsername());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getAddress());
+            preparedStatement.setDate(6, user.getDob());
+            preparedStatement.setString(7, user.getGender().toString());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

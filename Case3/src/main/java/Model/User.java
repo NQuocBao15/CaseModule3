@@ -12,6 +12,17 @@ public class User {
     private Date dob;
     private EGender gender;
     private Role role;
+    public User() {
+    }
+    public User(String name, String phone, String username, String password, String address, Date dob, EGender gender) {
+        this.name = name;
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.dob = dob;
+        this.gender = gender;
+    }
 
     public User(String name, String phone, String username, String password, String address, Date dob, EGender gender, Role role) {
         this.name = name;

@@ -51,113 +51,123 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!-- Spinner Start -->
-    <div id="spinner"
-         class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-
-
-    <!-- Sidebar Start -->
-    <div class="sidebar pe-4 pb-3">
-        <nav class="navbar bg-light navbar-light">
-            <a href="index.html" class="navbar-brand mx-4 mb-3">
-                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product</h3>
-            </a>
-            <div class="d-flex align-items-center ms-4 mb-4">
-                <div class="position-relative">
-                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
-                    <span>Admin</span>
+    <c:choose>
+        <c:when test="${user.role.id eq '1'}">
+            <!-- Spinner Start -->
+            <div id="spinner"
+                 class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-            <div class="navbar-nav w-100">
-                <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product Import</a>
-                <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+            <!-- Spinner End -->
+
+
+            <!-- Sidebar Start -->
+            <div class="sidebar pe-4 pb-3">
+                <nav class="navbar bg-light navbar-light">
+                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product</h3>
+                    </a>
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            <a href="/admin"></a>
+                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">${user.name}</h6>
+                            <span>${user.role.name}</span>
+                        </div>
+                    </div>
+                    <div class="navbar-nav w-100">
+                        <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
+                        <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product
+                            Import</a>
+                        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
+                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                        <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                    </div>
+                </nav>
             </div>
-        </nav>
-    </div>
-    <!-- Sidebar End -->
+            <!-- Sidebar End -->
 
-    <div class="content">
-        <!-- Navbar Start -->
-        <div class="container">
-            <div class="card container px-6" style="height: 100vh">
+            <div class="content">
+                <!-- Navbar Start -->
+                <div class="container">
+                    <div class="card container px-6" style="height: 100vh">
 
-                <c:if test="${product.id == 0}">
-                <h3 class="text-center">Create Product</h3>
-                <form action="/product?action=create" method="post" enctype="multipart/form-data">
-                    </c:if>
-                    <c:if test="${product.id != 0}">
-                    <h3 class="text-center">Edit Product</h3>
-                    <form action="/product?action=edit&id=${product.id}" method="post" enctype="multipart/form-data">
-                        </c:if>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="${product.name}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
-                            <select class="form-control" name="category" id="category">
-                                <c:forEach var="category" items="${categories}">
-                                    <option value="${category.id}"
-                                            <c:if test="${category.id == product.category.id}">
-                                                selected
-                                            </c:if>
-                                    >${category.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" name="price" id="price"
-                                   value="${product.price}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <input type="text" class="form-control" name="description" id="description"
-                                   value="${product.description}">
-                        </div>
+                        <c:if test="${product.id == 0}">
+                        <h3 class="text-center">Create Product</h3>
+                        <form action="/product?action=create" method="post" enctype="multipart/form-data">
+                            </c:if>
+                            <c:if test="${product.id != 0}">
+                            <h3 class="text-center">Edit Product</h3>
+                            <form action="/product?action=edit&id=${product.id}" method="post"
+                                  enctype="multipart/form-data">
+                                </c:if>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           value="${product.name}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-control" name="category" id="category">
+                                        <c:forEach var="category" items="${categories}">
+                                            <option value="${category.id}"
+                                                    <c:if test="${category.id == product.category.id}">
+                                                        selected
+                                                    </c:if>
+                                            >${category.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="number" class="form-control" name="price" id="price"
+                                           value="${product.price}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="text" class="form-control" name="description" id="description"
+                                           value="${product.description}">
+                                </div>
 
-                        <div class="mb-3">
-<%--                            <label for="file" class="form-label">Image</label>--%>
-<%--                            <input accept="image/*" value="img/${product.img}" type="file"--%>
-<%--                                   onchange="loadFile(event)" name="img" id="file">--%>
-<%--                            <p><img id="output" width="300"/></p>--%>
-                            <p><img id="output" width="300"
-                                    <c:if test="${product.img != null}">src="../img/${product.img}"</c:if>
-                                    <c:if test="${product.img == null}">src="../img/default-image.jpg"</c:if>
-                            /></p>
-                            <div class="file btn btn-primary first justify-content-center " style="width: 80px;">
-                                Upload
-                                <input type="file" accept="image/*" name="img" id="file" onchange="loadFile(event)">
-                            </div>
-<%--                            <div id="imageContainer"></div>--%>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="/product" class="btn btn-primary ">Back</a>
-                    </form>
-                </form>
+                                <div class="mb-3">
+                                        <%--                            <label for="file" class="form-label">Image</label>--%>
+                                        <%--                            <input accept="image/*" value="img/${product.img}" type="file"--%>
+                                        <%--                                   onchange="loadFile(event)" name="img" id="file">--%>
+                                        <%--                            <p><img id="output" width="300"/></p>--%>
+                                    <p><img id="output" width="300"
+                                            <c:if test="${product.img != null}">src="../img/${product.img}"</c:if>
+                                            <c:if test="${product.img == null}">src="../img/default-image.jpg"</c:if>
+                                    /></p>
+                                    <div class="file btn btn-primary first justify-content-center "
+                                         style="width: 80px;">
+                                        Upload
+                                        <input type="file" accept="image/*" name="img" id="file"
+                                               onchange="loadFile(event)">
+                                    </div>
+                                        <%--                            <div id="imageContainer"></div>--%>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="/product" class="btn btn-primary ">Back</a>
+                            </form>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- Navbar End -->
+
             </div>
-
-        </div>
-        <!-- Navbar End -->
-
-    </div>
-    <!-- Content Start -->
+            <!-- Content Start -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </c:when>
+    </c:choose>
 </div>
 
 <!-- JavaScript Libraries -->
@@ -209,6 +219,7 @@
     } else {
         console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
     }
+
     // ]]>
 
     function changeImage() {

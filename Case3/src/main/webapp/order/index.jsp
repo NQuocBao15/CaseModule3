@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html lang="en"><head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta charset="utf-8">
     <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -38,43 +39,19 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!-- Spinner Start -->
-    <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-
-
-    <!-- Sidebar Start -->
-    <div class="sidebar pe-4 pb-3">
-        <nav class="navbar bg-light navbar-light">
-            <a href="index.html" class="navbar-brand mx-4 mb-3">
-                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>User</h3>
-            </a>
-            <div class="d-flex align-items-center ms-4 mb-4">
-                <div class="position-relative">
-                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
-                    <span>Admin</span>
+    <c:choose>
+        <c:when test="${user.role.id eq '1'}">
+            <!-- Spinner Start -->
+            <div id="spinner"
+                 class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-            <div class="navbar-nav w-100">
-                <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
-                <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-            </div>
-        </nav>
-    </div>
-    <!-- Sidebar End -->
+            <!-- Spinner End -->
 
 
+<<<<<<< Updated upstream
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
@@ -87,79 +64,132 @@
 
                 <div style="display: flex; align-items: center;">
                     <div style="margin-right: auto;">
+=======
+            <!-- Sidebar Start -->
+            <div class="sidebar pe-4 pb-3">
+                <nav class="navbar bg-light navbar-light">
+                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>User</h3>
+                    </a>
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            <a href="/admin"></a>
+                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">${user.name}</h6>
+                            <span>${user.role.name}</span>
+                        </div>
+>>>>>>> Stashed changes
                     </div>
-                    <form action="/order?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
-                        <div>
-                            <input type="text" id="searchOrder" value="${search}" name="search" class="form-control" style="width: 85%" placeholder="Search Order">
-                        </div>
-                        <div style="margin-left: 10px;">
-                            <button id="searchButton" class="btn btn-primary">Search</button>
-                        </div>
-                    </form>
-                </div>
-
-                <table class="table table-striped">
-                    <tbody><tr>
-                        <td>Id Order</td>
-                        <td>Create At</td>
-                        <td>Customer Name</td>
-                        <td>Products</td>
-                        <td>Total</td>
-                        <td>Status</td>
-                        <td>Action</td>
-                    </tr>
-                    <c:forEach var="order" items="${page.content}">
-                    <tr>
-                        <td>${order.idOrder}</td>
-                        <td>${order.createAt}</td>
-                        <td>${order.customerName}</td>
-                        <td>${order.products}</td>
-                        <td>${order.total}</td>
-                        <td>${order.status}</td>
-                        <td>
-                            <c:if test="${order.status != 'DONE'}">
-                            <a href="/order?action=edit&id=${order.idOrder}" class="btn btn-info mb-2">Edit</a>
-                            </c:if>
-                            <c:if test="${order.status == 'PAID'}">
-                                <button class="btn btn-danger mb-2" onclick="showConfirmation('${order.idOrder}')">Delete</button>
-                            </c:if>
-                        </td>
-                    </tr>
-                    </c:forEach>
-                </table>
-                <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
-                    <nav aria-label="...">
-                        <c:set var="url" value="/order?search=${search}&page="/>
-                        <ul class="pagination">
-                            <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
-                                <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
-                                   aria-disabled="true">Previous</a>
-                            </li>
-                            <c:forEach var="number" begin="1" end="${page.totalPage}">
-                                <c:if test="${number == page.currentPage}">
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="${url}${number}">${number}</a>
-                                    </li>
-                                </c:if>
-                                <c:if test="${number != page.currentPage}">
-                                    <li class="page-item">
-                                        <a class="page-link" href="${url}${number}">${number}</a>
-                                    </li>
-                                </c:if>
-                            </c:forEach>
-                            <li class="page-item <c:if test="${page.currentPage >= page.totalPage}">disabled</c:if>">
-                                <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                    <div class="navbar-nav w-100">
+                        <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
+                        <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
+                            Import</a>
+                        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
+                        <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                        <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                    </div>
+                </nav>
             </div>
+            <!-- Sidebar End -->
 
-        </div>
-        <!-- Navbar End -->
 
-    </div>
-    <!-- Content End -->
+            <!-- Content Start -->
+            <div class="content">
+                <!-- Navbar Start -->
+                <div class="container">
+                    <div class="card container px-6" style="height: 100vh">
+                        <h3 class="text-center">Management Order</h3>
+                        <c:if test="${message != null}">
+                            <h6 class="d-none" id="message">${message}</h6>
+                        </c:if>
+
+                        <div style="display: flex; align-items: center;">
+                            <div style="margin-right: auto;">
+                                <a href="/order?action=create" class="btn btn-primary">Create</a>
+                            </div>
+                            <form action="/order?page=${page.currentPage}"
+                                  style="display: flex; align-items: center; margin-right: 10px;">
+                                <div>
+                                    <input type="text" id="searchOrder" value="${search}" name="search"
+                                           class="form-control" style="width: 85%" placeholder="Search Order">
+                                </div>
+                                <div style="margin-left: 10px;">
+                                    <button id="searchButton" class="btn btn-primary">Search</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td>Id Order</td>
+                                <td>Create At</td>
+                                <td>Customer Name</td>
+                                <td>Products</td>
+                                <td>Total</td>
+                                <td>Status</td>
+                                <td>Action</td>
+                            </tr>
+                            <c:forEach var="order" items="${page.content}">
+                            <tr>
+                                <td>${order.idOrder}</td>
+                                <td>${order.createAt}</td>
+                                <td>${order.customerName}</td>
+                                <td>${order.products}</td>
+                                <td>${order.total}</td>
+                                <td>${order.status}</td>
+                                <td>
+                                    <c:if test="${order.status != 'DONE'}">
+                                        <a href="/order?action=edit&id=${order.idOrder}"
+                                           class="btn btn-info mb-2">Edit</a>
+                                    </c:if>
+                                    <c:if test="${order.status == 'PAID'}">
+                                        <button class="btn btn-danger mb-2"
+                                                onclick="showConfirmation('${order.idOrder}')">Delete
+                                        </button>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            </c:forEach>
+                        </table>
+                        <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+                            <nav aria-label="...">
+                                <c:set var="url" value="/order?search=${search}&page="/>
+                                <ul class="pagination">
+                                    <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
+                                        <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
+                                           aria-disabled="true">Previous</a>
+                                    </li>
+                                    <c:forEach var="number" begin="1" end="${page.totalPage}">
+                                        <c:if test="${number == page.currentPage}">
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="${url}${number}">${number}</a>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${number != page.currentPage}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="${url}${number}">${number}</a>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
+                                    <li class="page-item <c:if test="${page.currentPage >= page.totalPage}">disabled</c:if>">
+                                        <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Navbar End -->
+
+            </div>
+            <!-- Content End -->
+        </c:when>
+    </c:choose>
 </div>
 
 <!-- JavaScript Libraries -->
@@ -175,14 +205,16 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 <script>
     const message = document.getElementById('message');
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
 
-    document.getElementById("searchButton").addEventListener("click", function() {
+    document.getElementById("searchButton").addEventListener("click", function () {
         var searchInput = document.getElementById("searchOrder").value;
         var searchUrl = "/order?action=search&result=" + encodeURIComponent(searchInput);
         window.location.href = searchUrl;
@@ -199,4 +231,5 @@
 </script>
 
 
-</body></html>
+</body>
+</html>

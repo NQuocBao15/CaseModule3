@@ -6,6 +6,10 @@ import Model.User;
 import Utils.PasswordEncryptionUtil;
 import service.dto.Page;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 public class UserService {
@@ -35,5 +39,26 @@ public class UserService {
 
     public void delete(int id) {
         userDAO.delete(id);
+    }
+    public boolean login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        var user = userDAO.findByUsername(username);
+        if (user != null && PasswordEncryptionUtil.checkPassword(password, user.getPassword())) {
+            HttpSession httpSession = req.getSession();
+            httpSession.setAttribute("user", user);
+            httpSession.setAttribute("loggedIn", true);
+            if (user.getRole().getName().equals("admin")) {
+                resp.sendRedirect("/admin?&message=Login Success");
+            } else {
+                resp.sendRedirect("/client?message=Login Success");
+            }
+            return true;
+        }
+        return false;
+    }
+    public void register(User user) {
+        user.setPassword(PasswordEncryptionUtil.encryptPassword(user.getPassword()));
+        userDAO.register(user);
     }
 }
