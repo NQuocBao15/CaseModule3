@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExpressDAO extends DatabaseConnection{
     public Page<Express> findAll(int page, String search){
@@ -60,6 +61,22 @@ public class ExpressDAO extends DatabaseConnection{
             System.out.println(e.getMessage());
         }
         return result;
+    }
+    public List<Express> findAll(){
+        List<Express> expresses = new ArrayList<>();
+        String SELECT_ALL = "SELECT * FROM express e";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                expresses.add(getExpressByResultSet(rs));
+            }
+            return expresses;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     private Express getExpressByResultSet(ResultSet rs) throws SQLException {

@@ -1,7 +1,6 @@
 package Model;
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
 
 public class User {
     private int id;
@@ -25,7 +24,13 @@ public class User {
         this.role = role;
     }
 
-    public User() {
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public User(int id) {
+        this.id = id;
     }
 
     public int getId() {

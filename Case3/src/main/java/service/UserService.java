@@ -6,6 +6,8 @@ import Model.User;
 import Utils.PasswordEncryptionUtil;
 import service.dto.Page;
 
+import java.util.List;
+
 public class UserService {
     private UserDAO userDAO;
     public UserService(){
@@ -13,6 +15,9 @@ public class UserService {
     }
     public Page<User> findAll(int page, String search){
         return userDAO.findAll(page,search);
+    }
+    public List<User> findAll(){
+        return userDAO.findAll();
     }
 
     public void create(User user) {

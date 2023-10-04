@@ -14,6 +14,11 @@ public class Express {
         this.name = name;
     }
 
+    public Express(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

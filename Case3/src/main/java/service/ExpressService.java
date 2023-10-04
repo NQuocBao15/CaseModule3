@@ -16,6 +16,9 @@ public class ExpressService {
     public Page<Express> findAll(int page, String search){
         return expressDAO.findAll(page, search);
     }
+    public List<Express> findAll(){
+        return expressDAO.findAll();
+    }
 
     public void create(Express express) {
 

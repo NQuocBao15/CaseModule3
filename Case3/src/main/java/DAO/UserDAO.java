@@ -78,6 +78,24 @@ public class UserDAO extends DatabaseConnection{
         }
         return result;
     }
+
+    public List<User> findAll(){
+        List<User> users = new ArrayList<>();
+        String SELECT_ALL = "SELECT u.*, r.name as role_name " +
+                "FROM users u " +
+                "JOIN roles r ON u.role_id = r.id ";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+            var rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                users.add(getUserByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return users;
+    }
     public void create(User user){
         String CREATE_USER = "INSERT INTO `candycake`.`users` (`name`, `phone`, `username`, `password`, `address`, `dob`, `gender`, `role_id`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -94,11 +112,11 @@ public class UserDAO extends DatabaseConnection{
             preparedStatement.setInt(8, user.getRole().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("hello" + e.getMessage());
         }
     }
     private User getUserByResultSet(ResultSet rs) throws SQLException {
-        var user = new User();
+        var user = new User(rs.getInt("id"), rs.getString("name"));
         user.setId(rs.getInt("id"));
         user.setName(rs.getString("name"));
         user.setPhone(rs.getString("phone"));
