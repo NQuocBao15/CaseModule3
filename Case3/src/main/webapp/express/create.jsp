@@ -50,12 +50,10 @@
             </div>
             <!-- Spinner End -->
 
-
-<<<<<<< Updated upstream
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <a href="/admin" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Express</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
@@ -70,6 +68,8 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
+                        <a href="/admin" class="nav-item nav-link"><i
+                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>
@@ -80,70 +80,21 @@
                 </nav>
             </div>
             <!-- Sidebar End -->
-=======
-  <!-- Sidebar Start -->
-  <div class="sidebar pe-4 pb-3">
-    <nav class="navbar bg-light navbar-light">
-      <a href="/admin" class="navbar-brand mx-4 mb-3">
-        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Express</h3>
-      </a>
-      <div class="d-flex align-items-center ms-4 mb-4">
-        <div class="position-relative">
-          <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-          <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-        </div>
-        <div class="ms-3">
-          <h6 class="mb-0">Jhon Doe</h6>
-          <span>Admin</span>
-        </div>
-      </div>
-      <div class="navbar-nav w-100">
-        <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-        <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-        <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
-        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-        <a href="/express" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Express</a>
-      </div>
-    </nav>
-  </div>
-  <!-- Sidebar End -->
->>>>>>> Stashed changes
-
-
-<<<<<<< Updated upstream
-  <!-- Content Start -->
-  <div class="content">
-    <div class="container">
-      <div class="card container px-6" style="height: 100vh">
-        <h3 class="text-center">Create Express</h3>
-        <form action="/express?action=create" method="post" onsubmit="return">
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required="true">
-            <div id="name-error" class="text-danger"></div>
-          </div>
-          <a href="/express" class="btn btn-dark mb-2">Cancel</a>
-          <button type="submit" class="btn btn-primary mb-2">Create</button>
-        </form>
-      </div>
-=======
             <!-- Content Start -->
             <div class="content">
                 <div class="container">
                     <div class="card container px-6" style="height: 100vh">
-                        <h3 class="text-center">Create User</h3>
-                        <form action="/express?action=create" method="post">
+                        <h3 class="text-center">Create Express</h3>
+                        <form action="/express?action=create" method="post" onsubmit="return">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control" id="name" name="name" required="true">
+                                <div id="name-error" class="text-danger"></div>
                             </div>
                             <a href="/express" class="btn btn-dark mb-2">Cancel</a>
                             <button type="submit" class="btn btn-primary mb-2">Create</button>
                         </form>
                     </div>
->>>>>>> Stashed changes
-
                 </div>
             </div>
             <!-- Content End -->
@@ -203,68 +154,31 @@
 <%--  // ]]>--%>
 <%--</script>--%>
 <script>
-<<<<<<< Updated upstream
-  var nameInput = document.getElementById('name');
-  var nameError = document.getElementById('name-error');
-  nameInput.addEventListener('blur', function (){
-    var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
-    if (!nameRegex.test(nameInput.value)) {
-      nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-      nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
-    } else {
-      nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-      nameError.textContent = ''; // Xóa thông báo lỗi
-    }
-  });
-  document.querySelector('form').addEventListener('submit', function(event) {
+    var nameInput = document.getElementById('name');
+    var nameError = document.getElementById('name-error');
+    nameInput.addEventListener('blur', function () {
+        var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            nameError.textContent = ''; // Xóa thông báo lỗi
+        }
+    });
+    document.querySelector('form').addEventListener('submit', function (event) {
 
-    var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
-    if (!nameRegex.test(nameInput.value)) {
-      event.preventDefault(); // Ngăn chặn gửi form đi
+        var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
 
-      nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-      nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+            nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
 
-      nameInput.focus(); // Tập trung vào trường name không hợp lệ
-    }
-  });
-=======
+            nameInput.focus(); // Tập trung vào trường name không hợp lệ
+        }
+    });
     // <![CDATA[  <-- For SVG support
-    if ('WebSocket' in window) {
-        (function () {
-            function refreshCSS() {
-                var sheets = [].slice.call(document.getElementsByTagName("link"));
-                var head = document.getElementsByTagName("head")[0];
-                for (var i = 0; i < sheets.length; ++i) {
-                    var elem = sheets[i];
-                    var parent = elem.parentElement || head;
-                    parent.removeChild(elem);
-                    var rel = elem.rel;
-                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                    }
-                    parent.appendChild(elem);
-                }
-            }
-
-            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-            var address = protocol + window.location.host + window.location.pathname + '/ws';
-            var socket = new WebSocket(address);
-            socket.onmessage = function (msg) {
-                if (msg.data == 'reload') window.location.reload();
-                else if (msg.data == 'refreshcss') refreshCSS();
-            };
-            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                console.log('Live reload enabled.');
-                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-            }
-        })();
-    } else {
-        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-    }
-    // ]]>
->>>>>>> Stashed changes
 </script>
 
 

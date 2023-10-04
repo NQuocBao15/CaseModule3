@@ -42,23 +42,6 @@
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>
-<<<<<<< Updated upstream
-            <!-- Spinner End -->
-=======
-            <div class="navbar-nav w-100">
-                <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product Import</a>
-                <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-            </div>
-        </nav>
-    </div>
-    <!-- Sidebar End -->
->>>>>>> Stashed changes
-
-
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
@@ -77,6 +60,7 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
+                        <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>

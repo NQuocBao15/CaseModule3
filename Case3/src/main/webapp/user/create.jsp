@@ -45,7 +45,6 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-<<<<<<< Updated upstream
     <c:choose>
         <c:when test="${user.role.id eq '1'}">
             <!-- Spinner Start -->
@@ -76,6 +75,7 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
+                        <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>
@@ -84,45 +84,9 @@
                         <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
                     </div>
                 </nav>
-=======
-    <!-- Spinner Start -->
-    <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-
-
-    <!-- Sidebar Start -->
-    <div class="sidebar pe-4 pb-3">
-        <nav class="navbar bg-light navbar-light">
-            <a href="/admin" class="navbar-brand mx-4 mb-3">
-                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>User</h3>
-            </a>
-            <div class="d-flex align-items-center ms-4 mb-4">
-                <div class="position-relative">
-                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
-                    <span>Admin</span>
-                </div>
-            </div>
-            <div class="navbar-nav w-100">
-                <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
-                <a href="/user" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>User</a>
-                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
->>>>>>> Stashed changes
             </div>
             <!-- Sidebar End -->
 
-
-<<<<<<< Updated upstream
     <!-- Content Start -->
     <div class="content">
         <div class="container">
@@ -178,72 +142,6 @@
                     <a href="/user" class="btn btn-dark mb-2">Cancel</a>
                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
                 </form>
-=======
-            <!-- Content Start -->
-            <div class="content">
-                <div class="container">
-                    <div class="card container px-6" style="height: 100vh">
-                        <h3 class="text-center">Create User</h3>
-                        <form action="/user?action=create" method="post" onsubmit="return validateForm()">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required="true"
-                                       onblur="validateName()">
-                                <div id="name-error" class="text-danger"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" id="phone" name="phone" required="true"
-                                       onblur="validatePhone()">
-                                <div id="phone-error" class="text-danger"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required="true"
-                                       onblur="validateUsername()">
-                                <div id="username-error" class="text-danger"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password"
-                                       required="true" onblur="validatePassword()">
-                                <div id="password-error" class="text-danger"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" required="true"
-                                       onblur="validateAddress()">
-                                <div id="address-error" class="text-danger"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="dob" class="form-label">Date of birth</label>
-                                <input type="date" class="form-control" id="dob" name="dob" required="true"
-                                       onblur="validateDob()">
-                                <div id="dob-error" class="text-danger"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender" class="form-label">Gender</label>
-                                <select class="form-control" name="gender" id="gender" required="">
-                                    <c:forEach var="gender" items="${genders}">
-                                        <option value="${gender}">${gender}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Role</label>
-                                <select class="form-control" name="role" id="role" required="">
-                                    <c:forEach var="role" items="${roles}">
-                                        <option value="${role.id}">${role.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <a href="/user" class="btn btn-dark mb-2">Cancel</a>
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                        </form>
-                    </div>
-
-                </div>
->>>>>>> Stashed changes
             </div>
             <!-- Content End -->
         </c:when>
