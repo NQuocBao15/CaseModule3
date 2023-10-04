@@ -26,7 +26,7 @@ public class OrderDAO extends DatabaseConnection{
                 "JOIN products p ON ot.product_id = p.id " +
                 "JOIN users u ON o.customer_id = u.id " +
                 "GROUP BY o.id, o.create_at " +
-                "HAVING LOWER(u.name) LIKE ? OR LOWER(GROUP_CONCAT(p.name)) LIKE ? " +
+                "HAVING LOWER(u.name) LIKE ? OR LOWER(GROUP_CONCAT(p.name)) LIKE ? OR o.status LIKE ?" +
                 "LIMIT ? OFFSET ?";
         var SELECT_COUNT = "SELECT count(1) cnt FROM (" +
                 "SELECT o.id, o.create_at, u.name, GROUP_CONCAT(p.name) as products, o.total, o.status FROM orders o " +
@@ -34,14 +34,15 @@ public class OrderDAO extends DatabaseConnection{
                 "JOIN products p ON ot.product_id = p.id " +
                 "JOIN users u ON o.customer_id = u.id " +
                 "GROUP BY o.id, o.create_at " +
-                "HAVING LOWER(u.name) LIKE ? OR LOWER(GROUP_CONCAT(p.name)) LIKE ?) T";
+                "HAVING LOWER(u.name) LIKE ? OR LOWER(GROUP_CONCAT(p.name)) LIKE ? OR o.status LIKE ?) T";
         try{
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
             preparedStatement.setString(1,search);
             preparedStatement.setString(2,search);
-            preparedStatement.setInt(3,TOTAL_ELEMENT);
-            preparedStatement.setInt(4,(page-1)*TOTAL_ELEMENT);
+            preparedStatement.setString(3,search);
+            preparedStatement.setInt(4,TOTAL_ELEMENT);
+            preparedStatement.setInt(5,(page-1)*TOTAL_ELEMENT);
             System.out.println(preparedStatement);
 
             var rs = preparedStatement.executeQuery();
@@ -56,6 +57,7 @@ public class OrderDAO extends DatabaseConnection{
             PreparedStatement preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
             preparedStatementCount.setString(1,search);
             preparedStatementCount.setString(2,search);
+            preparedStatementCount.setString(3,search);
             System.out.println(preparedStatementCount);
 
             var rsCount = preparedStatementCount.executeQuery();

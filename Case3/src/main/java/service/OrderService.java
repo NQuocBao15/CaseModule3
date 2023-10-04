@@ -6,6 +6,8 @@ import service.dto.OrderListResponse;
 import service.dto.Page;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class OrderService {
     private OrderDAO orderDAO;
@@ -22,6 +24,7 @@ public class OrderService {
 
     public void update(HttpServletRequest req) {
         orderDAO.update(Integer.parseInt(req.getParameter("id")),req.getParameter("status"));
+        LocalDate date = LocalDate.now();
     }
 
     public void delete(HttpServletRequest req) {

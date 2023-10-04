@@ -87,7 +87,6 @@
 
                 <div style="display: flex; align-items: center;">
                     <div style="margin-right: auto;">
-                        <a href="/order?action=create" class="btn btn-primary">Create</a>
                     </div>
                     <form action="/order?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
                         <div>

@@ -85,35 +85,35 @@
         <div class="container">
             <div class="card container px-6" style="height: 100vh">
                 <h3 class="text-center">Create User</h3>
-                <form action="/user?action=create" method="post" onsubmit="return validateForm()">
+                <form action="/user?action=create" method="post" onsubmit="return">
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required="true" onblur="validateName()">
+                        <input type="text" class="form-control" id="name" name="name" required="true">
                         <div id="name-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required="true" onblur="validatePhone()">
+                        <input type="text" class="form-control" id="phone" name="phone" required="true">
                         <div id="phone-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required="true" onblur="validateUsername()">
+                        <input type="text" class="form-control" id="username" name="username" required="true">
                         <div id="username-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required="true" onblur="validatePassword()">
+                        <input type="password" class="form-control" id="password" name="password" required="true">
                         <div id="password-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required="true" onblur="validateAddress()">
+                        <input type="text" class="form-control" id="address" name="address" required="true" >
                         <div id="address-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="dob" class="form-label">Date of birth</label>
-                        <input type="date" class="form-control" id="dob" name="dob" required="true" onblur="validateDob()">
+                        <input type="date" class="form-control" id="dob" name="dob" required="true">
                         <div id="dob-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
@@ -196,100 +196,6 @@
 
 <%--Làm valid data--%>
 <script>
-    // function validateName() {
-    //     var nameInput = document.getElementById('name');
-    //     var nameError = document.getElementById('name-error');
-    //     var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/; // Biểu thức chính quy kiểm tra name không chứa kí tự số hoặc kí tự đặc biệt
-    //
-    //     if (!nameRegex.test(nameInput.value)) {
-    //         nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-    //         nameError.textContent = 'Tên không hợp lệ, chứa ít nhất 6 kí tự không bao gồm kí tự số và kí tự đặc biệt'; // Hiển thị thông báo lỗi
-    //     } else {
-    //         nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-    //         nameError.textContent = ''; // Xóa thông báo lỗi
-    //     }
-    // }
-    //
-    // function validateUsername() {
-    //     var usernameInput = document.getElementById('username');
-    //     var usernameError = document.getElementById('username-error');
-    //
-    //     if (usernameInput.value.length < 6) {
-    //         usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-    //         usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
-    //     } else {
-    //         usernameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-    //         usernameError.textContent = ''; // Xóa thông báo lỗi
-    //     }
-    // }
-    //
-    // function validatePhone() {
-    //     var phoneInput = document.getElementById('phone');
-    //     var phoneError = document.getElementById('phone-error');
-    //     var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
-    //
-    //     if (!phoneRegex.test(phoneInput.value)) {
-    //         phoneInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-    //         phoneError.textContent = 'Số điện thoại phải bắt đầu bằng số 0, phải đủ 10 chữ số'; // Hiển thị thông báo lỗi
-    //     } else {
-    //         phoneInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-    //         phoneError.textContent = ''; // Xóa thông báo lỗi
-    //     }
-    // }
-    //
-    // function validatePassword() {
-    //     var passwordInput = document.getElementById('password');
-    //     var passwordError = document.getElementById('password-error');
-    //
-    //     if (passwordInput.value.length < 6) {
-    //         passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-    //         passwordError.textContent = 'Mật khẩu phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
-    //     } else {
-    //         passwordInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-    //         passwordError.textContent = ''; // Xóa thông báo lỗi
-    //     }
-    // }
-    //
-    // function validateAddress() {
-    //     var addressInput = document.getElementById('address');
-    //     var addressError = document.getElementById('address-error');
-    //     var addressRegex = /^[a-zA-Z0-9\s,\.\-']+.{6,}$/; // Biểu thức chính quy kiểm tra address
-    //
-    //     if (!addressRegex.test(addressInput.value)) {
-    //         addressInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-    //         addressError.textContent = 'Địa chỉ không hợp lệ, tối thiểu 6 kí tự'; // Hiển thị thông báo lỗi
-    //     } else {
-    //         addressInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-    //         addressError.textContent = ''; // Xóa thông báo lỗi
-    //     }
-    // }
-    //
-    // function validateDob() {
-    //     var dobInput = document.getElementById('dob');
-    //     var dobError = document.getElementById('dob-error');
-    //     var dobValue = new Date(dobInput.value);
-    //     var currentDate = new Date();
-    //     var minAge = 10;
-    //     var maxAge = 100;
-    //
-    //     // Tính tuổi
-    //     var age = currentDate.getFullYear() - dobValue.getFullYear();
-    //     if (currentDate.getMonth() < dobValue.getMonth() ||
-    //         (currentDate.getMonth() === dobValue.getMonth() && currentDate.getDate() < dobValue.getDate())) {
-    //         age--;
-    //     }
-    //
-    //     if (isNaN(dobValue) || age < minAge || age > maxAge) {
-    //         dobInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-    //         dobError.textContent = 'Ngày sinh không hợp lệ. Vui lòng nhập ngày sinh có tuổi lớn hơn 10 và nhỏ hơn 100'; // Hiển thị thông báo lỗi
-    //         return false;
-    //     } else {
-    //         dobInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-    //         dobError.textContent = ''; // Xóa thông báo lỗi
-    //         return true;
-    //     }
-    // }
-
     var nameInput = document.getElementById('name');
     var nameError = document.getElementById('name-error');
     var phoneInput = document.getElementById('phone');

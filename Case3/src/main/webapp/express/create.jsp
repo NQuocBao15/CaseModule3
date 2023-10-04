@@ -78,11 +78,12 @@
   <div class="content">
     <div class="container">
       <div class="card container px-6" style="height: 100vh">
-        <h3 class="text-center">Create User</h3>
-        <form action="/express?action=create" method="post">
+        <h3 class="text-center">Create Express</h3>
+        <form action="/express?action=create" method="post" onsubmit="return">
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" name="name" required="true">
+            <div id="name-error" class="text-danger"></div>
           </div>
           <a href="/express" class="btn btn-dark mb-2">Cancel</a>
           <button type="submit" class="btn btn-primary mb-2">Create</button>
@@ -108,42 +109,68 @@
 <!-- Template Javascript -->
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
+<%--<script>--%>
+<%--  // <![CDATA[  <-- For SVG support--%>
+<%--  if ('WebSocket' in window) {--%>
+<%--    (function () {--%>
+<%--      function refreshCSS() {--%>
+<%--        var sheets = [].slice.call(document.getElementsByTagName("link"));--%>
+<%--        var head = document.getElementsByTagName("head")[0];--%>
+<%--        for (var i = 0; i < sheets.length; ++i) {--%>
+<%--          var elem = sheets[i];--%>
+<%--          var parent = elem.parentElement || head;--%>
+<%--          parent.removeChild(elem);--%>
+<%--          var rel = elem.rel;--%>
+<%--          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {--%>
+<%--            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');--%>
+<%--            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());--%>
+<%--          }--%>
+<%--          parent.appendChild(elem);--%>
+<%--        }--%>
+<%--      }--%>
+<%--      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';--%>
+<%--      var address = protocol + window.location.host + window.location.pathname + '/ws';--%>
+<%--      var socket = new WebSocket(address);--%>
+<%--      socket.onmessage = function (msg) {--%>
+<%--        if (msg.data == 'reload') window.location.reload();--%>
+<%--        else if (msg.data == 'refreshcss') refreshCSS();--%>
+<%--      };--%>
+<%--      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {--%>
+<%--        console.log('Live reload enabled.');--%>
+<%--        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);--%>
+<%--      }--%>
+<%--    })();--%>
+<%--  }--%>
+<%--  else {--%>
+<%--    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');--%>
+<%--  }--%>
+<%--  // ]]>--%>
+<%--</script>--%>
 <script>
-  // <![CDATA[  <-- For SVG support
-  if ('WebSocket' in window) {
-    (function () {
-      function refreshCSS() {
-        var sheets = [].slice.call(document.getElementsByTagName("link"));
-        var head = document.getElementsByTagName("head")[0];
-        for (var i = 0; i < sheets.length; ++i) {
-          var elem = sheets[i];
-          var parent = elem.parentElement || head;
-          parent.removeChild(elem);
-          var rel = elem.rel;
-          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-          }
-          parent.appendChild(elem);
-        }
-      }
-      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-      var address = protocol + window.location.host + window.location.pathname + '/ws';
-      var socket = new WebSocket(address);
-      socket.onmessage = function (msg) {
-        if (msg.data == 'reload') window.location.reload();
-        else if (msg.data == 'refreshcss') refreshCSS();
-      };
-      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-        console.log('Live reload enabled.');
-        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-      }
-    })();
-  }
-  else {
-    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-  }
-  // ]]>
+  var nameInput = document.getElementById('name');
+  var nameError = document.getElementById('name-error');
+  nameInput.addEventListener('blur', function (){
+    var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+    if (!nameRegex.test(nameInput.value)) {
+      nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+      nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+    } else {
+      nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+      nameError.textContent = ''; // Xóa thông báo lỗi
+    }
+  });
+  document.querySelector('form').addEventListener('submit', function(event) {
+
+    var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+    if (!nameRegex.test(nameInput.value)) {
+      event.preventDefault(); // Ngăn chặn gửi form đi
+
+      nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+      nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+      nameInput.focus(); // Tập trung vào trường name không hợp lệ
+    }
+  });
 </script>
 
 
