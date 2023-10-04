@@ -46,7 +46,7 @@
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
-            <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <a href="/admin" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product</h3>
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">
@@ -83,7 +83,7 @@
                     <div style="margin-right: auto;">
                         <a href="/product?action=create" class="btn btn-primary mb-2">Create</a>
                     </div>
-                    <form action="/user?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
+                    <form action="/product?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
                         <div>
                             <input type="text" id="search" value="${search}" name="search" class="form-control" style="width: 85%" placeholder="Search Product">
                         </div>
@@ -209,7 +209,6 @@
     }
     // ]]>
 </script>
-</form>
 
 <script>
     // function searchFunction() {

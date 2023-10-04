@@ -29,24 +29,6 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
-    <style>
-        div {
-            position: relative;
-            overflow: hidden;
-        }
-
-        #file {
-            position: absolute;
-            font-size: 50px;
-            opacity: 0;
-            right: 0;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -64,7 +46,7 @@
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
-            <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <a href="/admin" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product</h3>
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">
@@ -92,61 +74,73 @@
         <!-- Navbar Start -->
         <div class="container">
             <div class="card container px-6" style="height: 100vh">
+                <h3 class="text-center">Management Product</h3>
+                <c:if test="${message != null}">
+                    <h6 class="d-none" id="message">${message}</h6>
+                </c:if>
 
-                <c:if test="${product.id == 0}">
-                <h3 class="text-center">Create Product</h3>
-                <form action="/product?action=create" method="post" enctype="multipart/form-data">
-                    </c:if>
-                    <c:if test="${product.id != 0}">
-                    <h3 class="text-center">Edit Product</h3>
-                    <form action="/product?action=edit&id=${product.id}" method="post" enctype="multipart/form-data">
-                        </c:if>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="${product.name}">
+                <div style="display: flex; align-items: center;">
+                    <div style="margin-right: auto;">
+                        <a href="/product-import?action=create" class="btn btn-primary mb-2">Create</a>
+                    </div>
+                    <form action="/product-import?page=${page.currentPage}" style="display: flex; align-items: center; margin-right: 10px;">
+                        <div>
+                            <input type="text" id="search" value="${search}" name="search" class="form-control" style="width: 85%" placeholder="Search Product Import">
                         </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
-                            <select class="form-control" name="category" id="category">
-                                <c:forEach var="category" items="${categories}">
-                                    <option value="${category.id}"
-                                            <c:if test="${category.id == product.category.id}">
-                                                selected
-                                            </c:if>
-                                    >${category.name}</option>
-                                </c:forEach>
-                            </select>
+                        <div style="margin-left: 10px;">
+                            <button id="searchButton" class="btn btn-primary">Search</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" name="price" id="price"
-                                   value="${product.price}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <input type="text" class="form-control" name="description" id="description"
-                                   value="${product.description}">
-                        </div>
-
-                        <div class="mb-3">
-<%--                            <label for="file" class="form-label">Image</label>--%>
-<%--                            <input accept="image/*" value="img/${product.img}" type="file"--%>
-<%--                                   onchange="loadFile(event)" name="img" id="file">--%>
-<%--                            <p><img id="output" width="300"/></p>--%>
-                            <p><img id="output" width="300"
-                                    <c:if test="${product.img != null}">src="../img/${product.img}"</c:if>
-                                    <c:if test="${product.img == null}">src="../img/default-image.jpg"</c:if>
-                            /></p>
-                            <div class="file btn btn-primary first justify-content-center " style="width: 80px;">
-                                Upload
-                                <input type="file" accept="image/*" name="img" id="file" onchange="loadFile(event)">
-                            </div>
-<%--                            <div id="imageContainer"></div>--%>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="/product" class="btn btn-primary ">Back</a>
                     </form>
-                </form>
+                </div>
+
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <th>Code</th>
+                        <th>Date Import</th>
+                        <th>Products</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                    <c:forEach var="productImport" items="${page.content}">
+                    <tr>
+                        <td>${productImport.code}</td>
+                        <td>${productImport.importDate}</td>
+                        <td>${productImport.products}</td>
+                        <td>${productImport.totalAmount}</td>
+                        <td>
+                            <a class="btn btn-info" href="/product-import?action=edit&id=${productImport.id}">Edit</a>
+                            <a class="btn btn-danger" onclick="return confirm('Do you want remove ${productImport.code} ?')" href="/product-import?action=delete&id=${productImport.id}">Delete</a>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+                    <nav aria-label="...">
+                        <c:set var="url" value="/product-import?page="/>
+                        <ul class="pagination">
+                            <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
+                                <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
+                                   aria-disabled="true">Previous</a>
+                            </li>
+                            <c:forEach var="number" begin="1" end="${page.totalPage}">
+                                <c:if test="${number == page.currentPage}">
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="${url}${number}">${number}</a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${number != page.currentPage}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${url}${number}">${number}</a>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                            <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
+                                <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
         </div>
@@ -210,24 +204,8 @@
         console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
     }
     // ]]>
-
-    function changeImage() {
-        var inputImage = document.getElementById('image-input');
-        var imgPreview = document.getElementById('img-preview');
-
-        if (inputImage.value === "") {
-            imgPreview.src = "default-image.jpg";
-        } else {
-            imgPreview.src = inputImage.value;
-        }
-    }
-
-    var loadFile = function (event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
 </script>
-
+</form>
 
 <script>
     // function searchFunction() {

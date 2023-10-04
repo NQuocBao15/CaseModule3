@@ -55,12 +55,12 @@ public class ProductDao extends DatabaseConnection {
 
     public List<Product> findAll() {
         var content = new ArrayList<Product>();
-        var SELECT_ALL = " SELECT p.*, c.`name` category_name \n" +
-                " FROM `products` p LEFT JOIN `categories` c on c.`id` = p.`category_id` " +
-                " GROUP By p.`id`";
+        var SELECT_ALL = " SELECT p.*, c.name category_name \n" +
+                " FROM products p LEFT JOIN categories c on c.id = p.category_id " +
+                " GROUP By p.id";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
-            preparedStatement.setInt(1, 0);
+//            preparedStatement.setInt(1, 0);
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {

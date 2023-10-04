@@ -62,25 +62,15 @@
             </div>
             <div class="navbar-nav w-100">
                 <div class="navbar-nav w-100">
+                    <a href="/admin" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                     <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
                     <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>User</a>
                     <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                     <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
                 </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
-=======
-                <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
-                <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>User</a>
-                <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
             </div>
-        </nav>
-    </div>
-    <!-- Sidebar End -->
->>>>>>> Stashed changes
+        <!-- Sidebar End -->
 
 
     <!-- Content Start -->
@@ -474,10 +464,6 @@
     <!-- Content End -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-</div>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -491,6 +477,9 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+        </nav>
+    </div>
+</div>
 </body>
 
 </html>
