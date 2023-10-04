@@ -33,6 +33,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -79,30 +85,36 @@
         <div class="container">
             <div class="card container px-6" style="height: 100vh">
                 <h3 class="text-center">Create User</h3>
-                <form action="/user?action=create" method="post">
+                <form action="/user?action=create" method="post" onsubmit="return validateForm()">
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required="">
+                        <input type="text" class="form-control" id="name" name="name" required="true" onblur="validateName()">
+                        <div id="name-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required="">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required="true" onblur="validatePhone()">
+                        <div id="phone-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required="">
+                        <input type="text" class="form-control" id="username" name="username" required="true" onblur="validateUsername()">
+                        <div id="username-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required="">
+                        <input type="password" class="form-control" id="password" name="password" required="true" onblur="validatePassword()">
+                        <div id="password-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required="">
+                        <input type="text" class="form-control" id="address" name="address" required="true" onblur="validateAddress()">
+                        <div id="address-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="dob" class="form-label">Date of birth</label>
-                        <input type="date" class="form-control" id="dob" name="dob" required="">
+                        <input type="date" class="form-control" id="dob" name="dob" required="true" onblur="validateDob()">
+                        <div id="dob-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
@@ -144,42 +156,308 @@
 <!-- Template Javascript -->
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
+<%--<script>--%>
+<%--    // <![CDATA[  <-- For SVG support--%>
+<%--    if ('WebSocket' in window) {--%>
+<%--        (function () {--%>
+<%--            function refreshCSS() {--%>
+<%--                var sheets = [].slice.call(document.getElementsByTagName("link"));--%>
+<%--                var head = document.getElementsByTagName("head")[0];--%>
+<%--                for (var i = 0; i < sheets.length; ++i) {--%>
+<%--                    var elem = sheets[i];--%>
+<%--                    var parent = elem.parentElement || head;--%>
+<%--                    parent.removeChild(elem);--%>
+<%--                    var rel = elem.rel;--%>
+<%--                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {--%>
+<%--                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');--%>
+<%--                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());--%>
+<%--                    }--%>
+<%--                    parent.appendChild(elem);--%>
+<%--                }--%>
+<%--            }--%>
+<%--            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';--%>
+<%--            var address = protocol + window.location.host + window.location.pathname + '/ws';--%>
+<%--            var socket = new WebSocket(address);--%>
+<%--            socket.onmessage = function (msg) {--%>
+<%--                if (msg.data == 'reload') window.location.reload();--%>
+<%--                else if (msg.data == 'refreshcss') refreshCSS();--%>
+<%--            };--%>
+<%--            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {--%>
+<%--                console.log('Live reload enabled.');--%>
+<%--                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);--%>
+<%--            }--%>
+<%--        })();--%>
+<%--    }--%>
+<%--    else {--%>
+<%--        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');--%>
+<%--    }--%>
+<%--    // ]]>--%>
+<%--</script>--%>
+
+<%--Làm valid data--%>
 <script>
-    // <![CDATA[  <-- For SVG support
-    if ('WebSocket' in window) {
-        (function () {
-            function refreshCSS() {
-                var sheets = [].slice.call(document.getElementsByTagName("link"));
-                var head = document.getElementsByTagName("head")[0];
-                for (var i = 0; i < sheets.length; ++i) {
-                    var elem = sheets[i];
-                    var parent = elem.parentElement || head;
-                    parent.removeChild(elem);
-                    var rel = elem.rel;
-                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                    }
-                    parent.appendChild(elem);
-                }
-            }
-            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-            var address = protocol + window.location.host + window.location.pathname + '/ws';
-            var socket = new WebSocket(address);
-            socket.onmessage = function (msg) {
-                if (msg.data == 'reload') window.location.reload();
-                else if (msg.data == 'refreshcss') refreshCSS();
-            };
-            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                console.log('Live reload enabled.');
-                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-            }
-        })();
-    }
-    else {
-        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-    }
-    // ]]>
+    // function validateName() {
+    //     var nameInput = document.getElementById('name');
+    //     var nameError = document.getElementById('name-error');
+    //     var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/; // Biểu thức chính quy kiểm tra name không chứa kí tự số hoặc kí tự đặc biệt
+    //
+    //     if (!nameRegex.test(nameInput.value)) {
+    //         nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+    //         nameError.textContent = 'Tên không hợp lệ, chứa ít nhất 6 kí tự không bao gồm kí tự số và kí tự đặc biệt'; // Hiển thị thông báo lỗi
+    //     } else {
+    //         nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+    //         nameError.textContent = ''; // Xóa thông báo lỗi
+    //     }
+    // }
+    //
+    // function validateUsername() {
+    //     var usernameInput = document.getElementById('username');
+    //     var usernameError = document.getElementById('username-error');
+    //
+    //     if (usernameInput.value.length < 6) {
+    //         usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+    //         usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+    //     } else {
+    //         usernameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+    //         usernameError.textContent = ''; // Xóa thông báo lỗi
+    //     }
+    // }
+    //
+    // function validatePhone() {
+    //     var phoneInput = document.getElementById('phone');
+    //     var phoneError = document.getElementById('phone-error');
+    //     var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
+    //
+    //     if (!phoneRegex.test(phoneInput.value)) {
+    //         phoneInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+    //         phoneError.textContent = 'Số điện thoại phải bắt đầu bằng số 0, phải đủ 10 chữ số'; // Hiển thị thông báo lỗi
+    //     } else {
+    //         phoneInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+    //         phoneError.textContent = ''; // Xóa thông báo lỗi
+    //     }
+    // }
+    //
+    // function validatePassword() {
+    //     var passwordInput = document.getElementById('password');
+    //     var passwordError = document.getElementById('password-error');
+    //
+    //     if (passwordInput.value.length < 6) {
+    //         passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+    //         passwordError.textContent = 'Mật khẩu phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+    //     } else {
+    //         passwordInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+    //         passwordError.textContent = ''; // Xóa thông báo lỗi
+    //     }
+    // }
+    //
+    // function validateAddress() {
+    //     var addressInput = document.getElementById('address');
+    //     var addressError = document.getElementById('address-error');
+    //     var addressRegex = /^[a-zA-Z0-9\s,\.\-']+.{6,}$/; // Biểu thức chính quy kiểm tra address
+    //
+    //     if (!addressRegex.test(addressInput.value)) {
+    //         addressInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+    //         addressError.textContent = 'Địa chỉ không hợp lệ, tối thiểu 6 kí tự'; // Hiển thị thông báo lỗi
+    //     } else {
+    //         addressInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+    //         addressError.textContent = ''; // Xóa thông báo lỗi
+    //     }
+    // }
+    //
+    // function validateDob() {
+    //     var dobInput = document.getElementById('dob');
+    //     var dobError = document.getElementById('dob-error');
+    //     var dobValue = new Date(dobInput.value);
+    //     var currentDate = new Date();
+    //     var minAge = 10;
+    //     var maxAge = 100;
+    //
+    //     // Tính tuổi
+    //     var age = currentDate.getFullYear() - dobValue.getFullYear();
+    //     if (currentDate.getMonth() < dobValue.getMonth() ||
+    //         (currentDate.getMonth() === dobValue.getMonth() && currentDate.getDate() < dobValue.getDate())) {
+    //         age--;
+    //     }
+    //
+    //     if (isNaN(dobValue) || age < minAge || age > maxAge) {
+    //         dobInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+    //         dobError.textContent = 'Ngày sinh không hợp lệ. Vui lòng nhập ngày sinh có tuổi lớn hơn 10 và nhỏ hơn 100'; // Hiển thị thông báo lỗi
+    //         return false;
+    //     } else {
+    //         dobInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+    //         dobError.textContent = ''; // Xóa thông báo lỗi
+    //         return true;
+    //     }
+    // }
+
+    var nameInput = document.getElementById('name');
+    var nameError = document.getElementById('name-error');
+    var phoneInput = document.getElementById('phone');
+    var phoneError = document.getElementById('phone-error');
+    var usernameInput = document.getElementById('username');
+    var usernameError = document.getElementById('username-error');
+    var passwordInput = document.getElementById('password');
+    var passwordError = document.getElementById('password-error');
+    var addressInput = document.getElementById('address');
+    var addressError = document.getElementById('address-error');
+    var dobInput = document.getElementById('dob');
+    var dobError = document.getElementById('dob-error');
+
+    nameInput.addEventListener('blur', function (){
+        var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            nameError.textContent = ''; // Xóa thông báo lỗi
+        }
+    });
+
+    phoneInput.addEventListener('blur', function() {
+        var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
+
+        if (!phoneRegex.test(phoneInput.value)) {
+            phoneInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            phoneError.textContent = 'Số điện thoại phải bắt đầu bằng số 0, phải đủ 10 chữ số'; // Hiển thị thông báo lỗi
+        } else {
+            phoneInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            phoneError.textContent = ''; // Xóa thông báo lỗi
+        }
+    });
+
+    usernameInput.addEventListener('blur', function (){
+        var usernameValue = usernameInput.value;
+        if (usernameValue.length < 6) {
+            usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            usernameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            usernameError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    passwordInput.addEventListener('blur', function (){
+        var passwordValue = passwordInput.value;
+        if (passwordValue.length < 6) {
+            passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            passwordError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            passwordInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            passwordError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    addressInput.addEventListener('blur', function(){
+        var addressRegex = /^[a-zA-Z0-9\s,\.\-']+.{6,}$/;
+        if (!addressRegex.test(addressInput.value)) {
+            addressInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            addressError.textContent = 'Địa chỉ không hợp lệ, tối thiểu 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            addressInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            addressError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    dobInput.addEventListener("blur", function() {
+        var dobValue = new Date(dobInput.value);
+        var currentDate = new Date();
+
+        var age = currentDate.getFullYear() - dobValue.getFullYear();
+        var monthDiff = currentDate.getMonth() - dobValue.getMonth();
+        var dayDiff = currentDate.getDate() - dobValue.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--; // Chưa đến sinh nhật năm nay, giảm tuổi đi 1
+        }
+
+        if (age < 10 || age > 100) {
+            dobInput.classList.add("is-invalid");
+            dobError.textContent = "Tuổi không hợp lệ, tuổi từ 10 đến 100";
+        } else {
+            dobInput.classList.remove("is-invalid");
+            dobError.textContent = "";
+        }
+    });
+
+
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+
+        var dobValue = new Date(dobInput.value);
+        var currentDate = new Date();
+
+        var age = currentDate.getFullYear() - dobValue.getFullYear();
+        var monthDiff = currentDate.getMonth() - dobValue.getMonth();
+        var dayDiff = currentDate.getDate() - dobValue.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--; // Chưa đến sinh nhật năm nay, giảm tuổi đi 1
+        }
+
+
+        if (age < 10 || age > 100) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            dobInput.classList.add("is-invalid");
+            dobError.textContent = "Tuổi không hợp lệ, tuổi từ 10 đến 100";
+
+            dobInput.focus(); // Tập trung vào trường dob không hợp lệ
+        }
+
+        var addressRegex = /^[a-zA-Z0-9\s,\.\-']+.{6,}$/;
+        if (!addressRegex.test(addressInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            addressInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            addressError.textContent = 'Địa chỉ không hợp lệ, tối thiểu 6 kí tự'; // Hiển thị thông báo lỗi
+
+            addressInput.focus(); // Tập trung vào trường address không hợp lệ
+        }
+
+        var passwordValue = passwordInput.value;
+        if (passwordValue.length < 6) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            passwordError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            passwordInput.focus(); // Tập trung vào trường password không hợp lệ
+        }
+
+        var usernameValue = usernameInput.value;
+        if (usernameValue.length < 6) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            usernameInput.focus(); // Tập trung vào trường username không hợp lệ
+        }
+
+        var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
+        if (!phoneRegex.test(phoneInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            phoneInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            phoneError.textContent = 'Số điện thoại phải bắt đầu bằng số 0, phải đủ 10 chữ số'; // Hiển thị thông báo lỗi
+
+            phoneInput.focus(); // Tập trung vào trường phone không hợp lệ
+        }
+
+        var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            nameInput.focus(); // Tập trung vào trường name không hợp lệ
+        }
+    });
+
+
+
 </script>
 
 
