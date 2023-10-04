@@ -23,4 +23,11 @@ public class OrderService {
     public void update(HttpServletRequest req) {
         orderDAO.update(Integer.parseInt(req.getParameter("id")),req.getParameter("status"));
     }
+
+    public void delete(HttpServletRequest req) {
+        int idOrder = Integer.parseInt(req.getParameter("id"));
+        orderDAO.deleteOrderItem(idOrder);
+        orderDAO.deleteOrder(idOrder);
+
+    }
 }

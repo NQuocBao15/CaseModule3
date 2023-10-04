@@ -30,7 +30,13 @@ public class OrderController extends HttpServlet {
         switch (action){
             default -> showList(req,resp);
             case "edit" -> showEdit(req,resp);
+            case "delete" -> delete(req,resp);
         }
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        orderService.delete(req);
+        resp.sendRedirect("/order?message=Deleted Successfuly");
     }
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

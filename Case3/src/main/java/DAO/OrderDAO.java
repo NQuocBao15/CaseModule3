@@ -126,4 +126,32 @@ public class OrderDAO extends DatabaseConnection{
             System.out.println(e.getMessage());
         }
     }
+
+    public void deleteOrder(int idOrder) {
+        String DELETE_ORDER = "DELETE FROM `candycake`.`orders` " +
+                "WHERE (`id` = ?)";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER);
+            preparedStatement.setInt(1,idOrder);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteOrderItem(int idOrder) {
+        String DELETE_ORDER_ITEM = "DELETE FROM `candycake`.`order_items` " +
+                "WHERE (`order_id` = ?)";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER_ITEM);
+            preparedStatement.setInt(1,idOrder);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
