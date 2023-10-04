@@ -8,7 +8,11 @@ public class DatabaseConnection {
     private final String JDBC_URL = "jdbc:mysql://localhost:3306/candycake"; // sửa chữ bài tập thành database của mình;
     private final String JDBC_USERNAME = "root";
     //                            password của mình
+<<<<<<< Updated upstream
     private final String JDBC_PASSWORD = "phuc2891998";
+=======
+    private final String JDBC_PASSWORD = "duc131097";
+>>>>>>> Stashed changes
 
     protected Connection getConnection() {
         Connection connection = null;
