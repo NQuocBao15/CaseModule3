@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductDao extends DatabaseConnection {
     public Page<Product> findAll(int page, String search) {
         var result = new Page<Product>();
-        final int TOTAL_ELEMENT = 5;
+        final int TOTAL_ELEMENT = 8;
         result.setCurrentPage(page);
         var content = new ArrayList<Product>();
         if (search == null) {

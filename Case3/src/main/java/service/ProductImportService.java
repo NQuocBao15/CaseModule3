@@ -2,6 +2,7 @@ package service;
 
 import DAO.ProductImportDAO;
 import Model.ProductImport;
+import Model.ProductImportDetail;
 import service.dto.Page;
 import service.dto.ProductImportListResponse;
 
@@ -83,5 +84,9 @@ public class ProductImportService {
     }
     public ProductImport findById(int id){
         return productImportDAO.findById(id);
+    }
+
+    public ProductImportDetail getQuantityByIdProduct(int id) {
+        return productImportDAO.getQuantityByIdProduct(id);
     }
 }

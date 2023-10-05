@@ -56,7 +56,7 @@ public class ProductImportDAO extends DatabaseConnection {
         final int TOTAL_ELEMENT = 5;
         result.setCurrentPage(page);
         var content = new ArrayList<ProductImportListResponse>();
-        if(search == null){
+        if (search == null) {
             search = "";
         }
         search = "%" + search.toLowerCase() + "%";
@@ -67,7 +67,7 @@ public class ProductImportDAO extends DatabaseConnection {
                 "WHERE lower(pi.code) like ? or lower(p.name) like ? " +
                 "GROUP BY pi.id " +
                 "LIMIT ? OFFSET ?";
-        String SELECT_COUNT =  "select count(*) cnt from (SELECT pi.id, pi.code, pi.date_import, GROUP_CONCAT(p.name) products, pi.total FROM " +
+        String SELECT_COUNT = "select count(*) cnt from (SELECT pi.id, pi.code, pi.date_import, GROUP_CONCAT(p.name) products, pi.total FROM " +
                 "product_imports pi " +
                 "LEFT JOIN product_import_details pid on pi.id = pid.product_import_id " +
                 "LEFT JOIN products p on p.id = pid.product_id " +
@@ -80,10 +80,10 @@ public class ProductImportDAO extends DatabaseConnection {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
             System.out.println(preparedStatement);
-            preparedStatement.setString(1,search);
-            preparedStatement.setString(2,search);
-            preparedStatement.setInt(3,TOTAL_ELEMENT);
-            preparedStatement.setInt(4,(page-1)*TOTAL_ELEMENT);
+            preparedStatement.setString(1, search);
+            preparedStatement.setString(2, search);
+            preparedStatement.setInt(3, TOTAL_ELEMENT);
+            preparedStatement.setInt(4, (page - 1) * TOTAL_ELEMENT);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 content.add(new ProductImportListResponse(
@@ -96,11 +96,11 @@ public class ProductImportDAO extends DatabaseConnection {
             }
             result.setContent(content);
             var preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
-            preparedStatementCount.setString(1,search);
-            preparedStatementCount.setString(2,search);
+            preparedStatementCount.setString(1, search);
+            preparedStatementCount.setString(2, search);
             var rsCount = preparedStatementCount.executeQuery();
             if (rsCount.next()) {
-                result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") /TOTAL_ELEMENT));
+                result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -139,6 +139,7 @@ public class ProductImportDAO extends DatabaseConnection {
         }
         return null;
     }
+
     public void deleteImportDetail(int productImportId) {
 
         String DELETE_IMPORT_DETAIL = "DELETE FROM `c0623g1`.`product_import_details` WHERE (`product_import_id` = ?);";
@@ -150,7 +151,7 @@ public class ProductImportDAO extends DatabaseConnection {
             preparedStatementDeleteImportDetail.executeUpdate();
 
             var preparedStatementDeleteImport = connection.prepareStatement(DELETE_IMPORT);
-            preparedStatementDeleteImport.setInt(1,productImportId);
+            preparedStatementDeleteImport.setInt(1, productImportId);
             preparedStatementDeleteImport.executeUpdate();
 
         } catch (SQLException e) {
@@ -158,7 +159,7 @@ public class ProductImportDAO extends DatabaseConnection {
         }
     }
 
-    public void updateProductImport(ProductImport productImport){
+    public void updateProductImport(ProductImport productImport) {
         String CREATE = "UPDATE `c0623g1`.`product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
 
         try (Connection connection = getConnection();
@@ -172,5 +173,27 @@ public class ProductImportDAO extends DatabaseConnection {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public ProductImportDetail getQuantityByIdProduct(int id) {
+        var result = new ProductImportDetail();
+        result.setId(id);
+        String GET_PRODUCT_QUANTITY = "SELECT p.*, (select sum(pid.quantity-pid.quantity_sold) from product_import_details pid " +
+                "join products p on pid.product_id = p.id " +
+                "where p.id = ? " +
+                "group by p.id) as quantity FROM candycake2.products p  " +
+                "where p.id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_QUANTITY)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, id);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                result.setQuantity(rs.getInt("quantity"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 }
