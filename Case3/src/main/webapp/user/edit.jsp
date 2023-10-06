@@ -82,39 +82,64 @@
 
             <!-- Content Start -->
             <div class="content">
+                <div>
+                    <!-- Navbar Start -->
+                    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                            <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                        </a>
+                        <a href="#" class="sidebar-toggler flex-shrink-0">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="navbar-nav align-items-center ms-auto">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                         style="width: 40px; height: 40px;">
+                                    <span class="d-none d-lg-inline-flex">${user.name}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                    <a href="/admin" class="dropdown-item">My Profile</a>
+                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
+                                    <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
                 <div class="container">
                     <div class="card container px-6" style="height: 100vh">
                         <h3 class="text-center">Edit User</h3>
                         <form action="/user?action=edit" method="post">
-                            <input type="hidden" name="id" value="${user.id}">
+                            <input type="hidden" name="id" value="${userUpdate.id}">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="${user.name}"
+                                <input type="text" class="form-control" id="name" name="name" value="${userUpdate.name}"
                                        required="true" onblur="validateName()">
                                 <div id="name-error" class="text-danger"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"
+                                <input type="text" class="form-control" id="phone" name="phone" value="${userUpdate.phone}"
                                        required="true" onblur="validatePhone()">
                                 <div id="phone-error" class="text-danger"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
-                                       value="${user.username}"
+                                       value="${userUpdate.username}"
                                        readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="text" class="form-control" id="address" name="address"
-                                       value="${user.address}"
+                                       value="${userUpdate.address}"
                                        required="true" onblur="validateAddress()">
                                 <div id="address-error" class="text-danger"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="dob" class="form-label">Date of birth</label>
-                                <input type="date" class="form-control" id="dob" name="dob" value="${user.dob}"
+                                <input type="date" class="form-control" id="dob" name="dob" value="${userUpdate.dob}"
                                        required="true"
                                        onblur="validateDob()">
                                 <div id="dob-error" class="text-danger"></div>
@@ -123,7 +148,7 @@
                                 <label for="gender" class="form-label">Gender</label>
                                 <select class="form-control" name="gender" id="gender" required="">
                                     <c:forEach var="gender" items="${genders}">
-                                        <option value="${gender}" ${gender == user.gender ? "selected":""}>${gender}</option>
+                                        <option value="${gender}" ${gender == userUpdate.gender ? "selected":""}>${gender}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -131,7 +156,7 @@
                                 <label class="form-label">Role</label>
                                 <select class="form-control" name="role" id="role" required="">
                                     <c:forEach var="role" items="${roles}">
-                                        <option value="${role.id}" ${role.id == user.role.id ? "selectd":""}>${role.name}</option>
+                                        <option value="${role.id}" ${role.id == userUpdate.role.id ? "selectd":""}>${role.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>

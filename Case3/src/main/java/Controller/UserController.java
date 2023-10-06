@@ -39,7 +39,7 @@ public class UserController extends HttpServlet {
     }
 
     private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("user", userService.findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("userUpdate", userService.findById(Integer.parseInt(req.getParameter("id"))));
         req.setAttribute("roles", roleService.findAll());
         req.setAttribute("genders", EGender.values());
         req.getRequestDispatcher("user/edit.jsp").forward(req,resp);

@@ -11,10 +11,22 @@
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/auth/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/auth/register.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/admin/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/admin/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/express/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/express/create.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/express/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/express/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/express/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/express/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/create.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product/create.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/create.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

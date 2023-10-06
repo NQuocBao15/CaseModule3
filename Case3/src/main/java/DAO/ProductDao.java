@@ -66,10 +66,11 @@ public class ProductDao extends DatabaseConnection {
             while (rs.next()) {
                 content.add(getProductByResultSet(rs));
             }
+            return content;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return content;
+        return null;
     }
 
     public void create(Product product) {
