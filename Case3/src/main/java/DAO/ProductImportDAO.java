@@ -65,7 +65,8 @@ public class ProductImportDAO extends DatabaseConnection {
                 "LEFT JOIN product_import_details pid on pi.id = pid.product_import_id " +
                 "LEFT JOIN products p on p.id = pid.product_id " +
                 "WHERE lower(pi.code) like ? or lower(p.name) like ? " +
-                "GROUP BY pi.id " +
+                "GROUP BY pi.id  " +
+                "ORDER BY pi.id " +
                 "LIMIT ? OFFSET ?";
         String SELECT_COUNT = "select count(*) cnt from (SELECT pi.id, pi.code, pi.date_import, GROUP_CONCAT(p.name) products, pi.total FROM " +
                 "product_imports pi " +
@@ -109,7 +110,7 @@ public class ProductImportDAO extends DatabaseConnection {
     }
 
     public ProductImport findById(int id) {
-        String FIND_BY_ID = "SELECT pi.*, pid.id pid_id, pid.product_id p_id, pid.amount, pid.quantity  FROM product_imports as pi " +
+        String FIND_BY_ID = "SELECT pi.*, pid.id pid_id, pid.product_id p_id, pid.price, pid.quantity  FROM product_imports as pi " +
                 "JOIN product_import_details pid on pid.product_import_id = pi.id WHERE pi.id = ?";
 
         try (Connection connection = getConnection();
@@ -122,12 +123,12 @@ public class ProductImportDAO extends DatabaseConnection {
             while (rs.next()) {
                 productImport.setCode(rs.getString("code"));
                 productImport.setId(rs.getInt("id"));
-                productImport.setDateImport(rs.getDate("import_date"));
-                productImport.setTotal(rs.getBigDecimal("total_amount"));
+                productImport.setDateImport(rs.getDate("date_import"));
+                productImport.setTotal(rs.getBigDecimal("total"));
                 var productImportDetail = new ProductImportDetail();
                 productImportDetail.setId(rs.getInt("pid_id"));
                 productImportDetail.setProduct(new Product(rs.getInt("p_id")));
-                productImportDetail.setPrice(rs.getBigDecimal("amount"));
+                productImportDetail.setPrice(rs.getBigDecimal("price"));
                 productImportDetail.setQuantity(rs.getInt("quantity"));
                 productImportDetails.add(productImportDetail);
 
@@ -142,25 +143,36 @@ public class ProductImportDAO extends DatabaseConnection {
 
     public void deleteImportDetail(int productImportId) {
 
-        String DELETE_IMPORT_DETAIL = "DELETE FROM `c0623g1`.`product_import_details` WHERE (`product_import_id` = ?);";
-        String DELETE_IMPORT = "DELETE FROM `product_imports` where (id = ?)";
+        String DELETE_IMPORT_DETAIL = "DELETE FROM `candycake`.`product_import_details` WHERE (`product_import_id` = ?);";
+//        String DELETE_IMPORT = "DELETE FROM `product_imports` where (id = ?)";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatementDeleteImportDetail = connection.prepareStatement(DELETE_IMPORT_DETAIL)) {
             preparedStatementDeleteImportDetail.setInt(1, productImportId);
             preparedStatementDeleteImportDetail.executeUpdate();
 
+<<<<<<< Updated upstream
             var preparedStatementDeleteImport = connection.prepareStatement(DELETE_IMPORT);
             preparedStatementDeleteImport.setInt(1, productImportId);
             preparedStatementDeleteImport.executeUpdate();
+=======
+//            var preparedStatementDeleteImport = connection.prepareStatement(DELETE_IMPORT);
+//            preparedStatementDeleteImport.setInt(1,productImportId);
+//            preparedStatementDeleteImport.executeUpdate();
+>>>>>>> Stashed changes
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
+<<<<<<< Updated upstream
     public void updateProductImport(ProductImport productImport) {
         String CREATE = "UPDATE `c0623g1`.`product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
+=======
+    public void updateProductImport(ProductImport productImport){
+        String CREATE = "UPDATE `candycake`.`product_imports` SET `code` = ?, `date_import` = ?, `total` = ? WHERE (`id` = ?);";
+>>>>>>> Stashed changes
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
@@ -168,6 +180,20 @@ public class ProductImportDAO extends DatabaseConnection {
             preparedStatement.setDate(2, productImport.getDateImport());
             preparedStatement.setBigDecimal(3, productImport.getTotal());
             preparedStatement.setInt(4, productImport.getId());
+            System.out.println(productImport);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteProductImport(int id) {
+        String DELETE_PRODUCT_IMPORT = "DELETE FROM `candycake`.`product_imports` " +
+                "WHERE (`id` = ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_IMPORT)) {
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -197,3 +223,4 @@ public class ProductImportDAO extends DatabaseConnection {
         return result;
     }
 }
+

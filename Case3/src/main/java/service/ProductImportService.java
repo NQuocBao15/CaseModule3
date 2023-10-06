@@ -81,6 +81,7 @@ public class ProductImportService {
 
     public void delete(int id) {
         productImportDAO.deleteImportDetail(id);
+        productImportDAO.deleteProductImport(id);
     }
     public ProductImport findById(int id){
         return productImportDAO.findById(id);

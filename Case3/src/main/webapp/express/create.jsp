@@ -68,8 +68,7 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="/admin" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>

@@ -51,8 +51,7 @@ public class ProductImportController extends HttpServlet {
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        req.setAttribute("productImport", productImportService
-                .findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("productImport", productImportService.findById(Integer.parseInt(req.getParameter("id"))));
         var products = productService.findAll();
         req.setAttribute("products", products);
         req.setAttribute("productsJSON", new ObjectMapper().writeValueAsString(products));

@@ -50,7 +50,7 @@
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
             <a href="/admin" class="navbar-brand mx-4 mb-3">
-                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product Import</h3>
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">
                 <div class="position-relative">
@@ -58,16 +58,17 @@
                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
-                    <span>Admin</span>
+                    <h6 class="mb-0">${user.name}</h6>
+                    <span>${user.role.name}</span>
                 </div>
             </div>
             <div class="navbar-nav w-100">
+                <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product Import</a>
+                <a href="/product-import" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Product Import</a>
                 <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
                 <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                <a href="/express" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                <a href="/express" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>Express</a>
             </div>
         </nav>
     </div>
@@ -86,7 +87,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="importDate" class="form-label">Import Date</label>
-                        <input type="date" class="form-control" id="importDate" name="importDate" required value="${productImport.importDate}">
+                        <input type="date" class="form-control" id="importDate" name="importDate" required value="${productImport.dateImport}">
+                        <div id="importDate-error" class="text-danger"></div>
                     </div>
                     <%--        <div class="mb-3">--%>
                     <%--            <label for="totalAmount" class="form-label">Tổng giá trị</label>--%>
@@ -125,7 +127,7 @@
                                     <input type="number" class="form-control" name="quantities" value="${piDetail.quantity}" required>
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control" name="amounts" value="${piDetail.amount}" required>
+                                    <input type="number" class="form-control" name="amounts" value="${piDetail.price}" required>
                                 </div>
                                 <div class="col-2 d-flex justify-content-end">
                                     <button type="button" class="btn btn-danger" onclick="deleteRow(${status.index + 1})">Delete</button>
@@ -133,6 +135,7 @@
                             </div>
                         </c:forEach>
                     </div>
+                    <a href="/product-import" class="btn btn-dark">Cancel</a>
                     <button type="submit" class="btn btn-primary">Edit import</button>
                 </form>
             </div>
@@ -196,6 +199,58 @@
     //   console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
     // }
 
+    var codeInput = document.getElementById('code');
+    var codeError = document.getElementById('code-error');
+
+    codeInput.addEventListener('blur', function (){
+        var codeValue = codeInput.value;
+        if (codeValue .length < 6) {
+            codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            codeError.textContent = 'Code phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            codeInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            codeError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    var importDateInput = document.getElementById('importDate');
+    var importDateError = document.getElementById('importDate-error');
+
+    importDateInput .addEventListener("blur", function() {
+        var importDateValue = new Date(importDateInput.value).getTime();
+        var currentDate = new Date().getTime();
+
+        if (importDateValue > currentDate) {
+            importDateInput.classList.add("is-invalid");
+            importDateError.textContent = "Ngày không hợp lệ, không phải là ngày tương lai";
+        } else {
+            importDateInput.classList.remove("is-invalid");
+            importDateError.textContent = "";
+        }
+
+    });
+    document.querySelector('form').addEventListener('submit', function(event) {
+
+        if (importDateValue > currentDate) {
+            importDateInput.classList.add("is-invalid");
+            importDateError.textContent = "Ngày không hợp lệ, không phải là ngày tương lai";
+            importDateInput.focus();
+        }
+
+
+        var codeValue = codeInput.value;
+        if (codeValue .length < 6) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            codeError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            codeInput.focus(); // Tập trung vào trường password không hợp lệ
+        }
+
+
+    });
+
 
     const productId = document.getElementById('product');
     const productImportDetail = document.getElementById('product-import-detail');
@@ -231,6 +286,10 @@
     }
 
     function deleteRow(number) {
+        if (rowCount === 1) {
+            toastr.warn('At least 1 product');
+            return;
+        }
         rowCount--;
         const row = document.getElementById('product-import-' + number);
         productImportDetail.removeChild(row);

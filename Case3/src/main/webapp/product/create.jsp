@@ -97,8 +97,7 @@
             <div class="content">
                 <!-- Navbar Start -->
                 <div class="container">
-                    <div class="card container px-6" style="height: 100vh">
-
+                    <div class="card container px-6" style="height: 100%">
                         <c:if test="${product.id == 0}">
                         <h3 class="text-center">Create Product</h3>
                         <form action="/product?action=create" method="post" enctype="multipart/form-data">
@@ -161,13 +160,11 @@
 
                 </div>
                 <!-- Navbar End -->
-
             </div>
             <!-- Content Start -->
 
 
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <!-- Back to Top --
         </c:when>
     </c:choose>
 </div>
