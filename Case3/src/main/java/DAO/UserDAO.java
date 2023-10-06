@@ -227,4 +227,20 @@ public class UserDAO extends DatabaseConnection{
             System.out.println(e.getMessage());
         }
     }
+
+    public void changePassword(int id, String passwordNew) {
+
+        String CHANGE_PASSWORD="UPDATE `users` " +
+                " SET `password` = ? " +
+                " WHERE (`id` = ?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_PASSWORD);
+            preparedStatement.setString(1, passwordNew);
+            preparedStatement.setInt(2,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

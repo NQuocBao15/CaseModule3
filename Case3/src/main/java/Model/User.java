@@ -44,6 +44,11 @@ public class User {
         this.id = id;
     }
 
+
+    public User(String password) {
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

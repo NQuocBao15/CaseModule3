@@ -14,13 +14,16 @@ import java.util.List;
 
 public class UserService {
     private UserDAO userDAO;
-    public UserService(){
+
+    public UserService() {
         userDAO = new UserDAO();
     }
-    public Page<User> findAll(int page, String search){
-        return userDAO.findAll(page,search);
+
+    public Page<User> findAll(int page, String search) {
+        return userDAO.findAll(page, search);
     }
-    public List<User> findAll(){
+
+    public List<User> findAll() {
         return userDAO.findAll();
     }
 
@@ -40,6 +43,7 @@ public class UserService {
     public void delete(int id) {
         userDAO.delete(id);
     }
+
     public boolean login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -57,8 +61,23 @@ public class UserService {
         }
         return false;
     }
+
     public void register(User user) {
         user.setPassword(PasswordEncryptionUtil.encryptPassword(user.getPassword()));
         userDAO.register(user);
+    }
+
+    public boolean checkChangePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        String passwordInput = req.getParameter("passwordOld");
+        return PasswordEncryptionUtil.checkPassword(passwordInput, user.getPassword());
+    }
+
+    public void changePassword(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        String passwordNew = PasswordEncryptionUtil.encryptPassword(req.getParameter("passwordNew"));
+        userDAO.changePassword(user.getId(), passwordNew);
     }
 }
