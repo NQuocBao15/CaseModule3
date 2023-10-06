@@ -21,12 +21,12 @@
     <style>
         .card {
             max-width: 1000px;
-            max-height: 500px/* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
+            max-height: 500px /* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
         }
 
         .card img {
             max-width: 70%;
-            max-height: 90%;/* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
+            max-height: 90%; /* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
             height: auto; /* Đảm bảo tỷ lệ hình ảnh được duy trì */
             width: auto;
         }
@@ -113,7 +113,8 @@
                         <div class="wrap-slick3 flex-sb flex-w">
                             <div class="slick3 gallery-lb">
                                 <div class="card d-flex align-items-center bg-white pt-2 pb-2">
-                                    <img src="../img${product.img}" class="img-fluid" style="margin: 4px" alt="IMG-PRODUCT" id="imgProduct">
+                                    <img src="../img${product.img}" class="img-fluid" style="margin: 4px"
+                                         alt="IMG-PRODUCT" id="imgProduct">
                                 </div>
                             </div>
                         </div>
@@ -130,9 +131,9 @@
                         </h4>
                         <p class="stext-106 cl2 product-price" id="priceProduct">Price: <fmt:formatNumber
                                 value="${product.price}" pattern="###,###,### đ"/></p>
-<%--                        <p class="stext-102 cl3 p-t-23" id="quantityProduct">--%>
-<%--                            Quantity: ${product.quantity}--%>
-<%--                        </p>--%>
+                        <%--                        <p class="stext-102 cl3 p-t-23" id="quantityProduct">--%>
+                        <%--                            Quantity: ${product.quantity}--%>
+                        <%--                        </p>--%>
                         <p class="stext-102 cl3 p-t-23" id="describeProduct">
                             Description: ${product.description}
                         </p>
@@ -148,7 +149,8 @@
                                     </div>
 
                                     <label>
-                                        <input min="1" max="${productImportDetail.quantity}" name="quantity" type="number" value="1" style="text-align: center">
+                                        <input min="1" max="${productImportDetail.quantity}" name="quantity"
+                                               type="number" value="1" style="text-align: center">
                                     </label>
 
                                     <div class="btn-num-product-up cl8 hov-b tn3 trans-04 flex-c-m"
@@ -156,9 +158,15 @@
                                         <i class="fs-16 zmdi zmdi-plus"></i>
                                     </div>
                                 </div>
-                                <a href="/homes?action=addToCart&id=${product.id}&quantity=" class="add-to-cart-btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                <c:if test="${not empty loggedIn}">
+                                <a href="/homes?action=addToCart&id=${product.id}&quantity="
+                                   class="add-to-cart-btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                     Add to cart
                                 </a>
+                                </c:if>
+                                <c:if test="${empty loggedIn}">
+                                    <a href="/auth" class="login-btn">Login to Add to cart</a>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -235,3 +243,4 @@
 </body>
 
 </html>
+</jsp:root>

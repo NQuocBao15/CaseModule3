@@ -35,7 +35,9 @@ public class UserService {
     public User findById(int id) {
         return userDAO.findById(id);
     }
-
+public User findPasswordById(int id) {
+    return userDAO.findPasswordById(id);
+}
     public void update(int id, User user) {
         userDAO.update(id, user);
     }
@@ -71,6 +73,7 @@ public class UserService {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String passwordInput = req.getParameter("passwordOld");
+
         return PasswordEncryptionUtil.checkPassword(passwordInput, user.getPassword());
     }
 

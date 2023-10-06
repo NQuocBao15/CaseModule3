@@ -243,4 +243,36 @@ public class UserDAO extends DatabaseConnection{
             throw new RuntimeException(e);
         }
     }
+    public User findPasswordById(int id) {
+        String SELECT_BY_ID = "SELECT u.*, r.name role_name FROM users u " +
+                "JOIN roles r ON  u.role_id = r.id " +
+                "WHERE u.id = ?";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
+            preparedStatement.setInt(1,id);
+            var rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                return  getUserPasswordByResultSet(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private User getUserPasswordByResultSet(ResultSet rs) throws SQLException {
+        var user = new User(rs.getInt("id"), rs.getString("name"));
+        user.setId(rs.getInt("id"));
+        user.setName(rs.getString("name"));
+        user.setPhone(rs.getString("phone"));
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password"));
+        user.setAddress(rs.getString("address"));
+        user.setDob(rs.getDate("dob"));
+        user.setGender(EGender.valueOf(rs.getString("gender")));
+        user.setRole(new Role(rs.getInt("role_id"),rs.getString("role_name")));
+
+        return user;
+    }
 }

@@ -48,7 +48,7 @@
                 <c:if test="${message != null}">
                     <h6 class="d-none" id="message">${message}</h6>
                 </c:if>
-                <form action="/admin?action=changePassword" method="POST" onsubmit="changePassword(event)">
+                <form action="/admin?action=changePassword&id=${user.id}" method="POST" onsubmit="changePassword(event)">
                     <div class="mb-3">
                         <label for="passwordOld">Mật khẩu Cũ</label>
                         <input type="password" class="form-control" id="passwordOld" name="passwordOld" required="">
@@ -126,8 +126,9 @@
     }
 
     function checkPassword() {
-        var passwordOld = document.getElementById('passwordOld').value;
-        var passwordNew = document.getElementById('passwordNew').value;
+
+        var passwordOld = document.getElementById('passwordOld').value;//123123
+        var passwordNew = document.getElementById('passwordNew').value;//123123
         var passwordNewConfirm = document.getElementById('passwordNewConfirm').value;
         if (passwordNew !== passwordNewConfirm) {
             alert("passwordNew !== passwordNewConfirm");

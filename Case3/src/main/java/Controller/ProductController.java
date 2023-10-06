@@ -103,7 +103,7 @@ public class ProductController extends HttpServlet {
         Category category = new Category(Integer.parseInt(idCategory));
         Product product = new Product(name, category, description, price,img);
         String pathServerImage = getServletContext().getRealPath("/") + "img";
-        String pathProjectImage  = "D:\\CodeGym\\CaseModule3\\Case3\\src\\main\\webapp\\img";
+        String pathProjectImage  = "D:\\case-study\\CaseM3\\Case3\\src\\main\\webapp\\img";
 
         String dbImageUrl = null;
 

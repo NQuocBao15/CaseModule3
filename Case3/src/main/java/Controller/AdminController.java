@@ -29,7 +29,7 @@ public class AdminController extends HttpServlet {
     }
 
     private void showChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("user", userService.findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("user", userService.findPasswordById(Integer.parseInt(req.getParameter("id"))));
         req.setAttribute("message",req.getParameter("messsage"));
         req.getRequestDispatcher("/admin/changePassword.jsp").forward(req, resp);
 
@@ -46,8 +46,8 @@ public class AdminController extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        switch (action) {
-            case "changePassword" -> changePassword(req, resp);
+        if (action.equals("changePassword")) {
+            changePassword(req, resp);
         }
     }
 
@@ -59,9 +59,9 @@ public class AdminController extends HttpServlet {
     private void changePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (userService.checkChangePassword(req, resp)) {
             userService.changePassword(req,resp);
-            resp.sendRedirect("/admin?message=Change Password Success&action=changePassword&id=" + req.getParameter("id"));
+            resp.sendRedirect("/admin?message=Change Password Success");
         } else {
-            resp.sendRedirect("/admin?message=mật khẩu cũ sai&action=changePassword&id=" + req.getParameter("id"));
+            resp.sendRedirect("/admin?message=Password  fail&action=changePassword&id=" + req.getParameter("id"));
         }
     }
 
