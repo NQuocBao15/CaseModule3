@@ -1,12 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en"><head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta charset="utf-8">
     <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -29,10 +34,18 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <style>
+        .error-message {
+            color: red;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body>
@@ -80,15 +93,16 @@
         <div class="container">
             <div class="card container px-6" style="height: 100vh">
                 <h3 class="text-center">Edit Product Import</h3>
-                <form action="/product-import?action=edit&id=${productImport.id}" method="post">
+                <form action="/product-import?action=edit&id=${productImport.id}" method="post" id="editForm" onsubmit="return validateForm()">
                     <div class="mb-3">
                         <label for="code" class="form-label">Import Code</label>
                         <input type="text" class="form-control" id="code" name="code" required value="${productImport.code}">
+                        <div class="error-message" id="code-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="importDate" class="form-label">Import Date</label>
                         <input type="date" class="form-control" id="importDate" name="importDate" required value="${productImport.dateImport}">
-                        <div id="importDate-error" class="text-danger"></div>
+                        <div class="error-message" id="importDate-error"></div>
                     </div>
                     <%--        <div class="mb-3">--%>
                     <%--            <label for="totalAmount" class="form-label">Tổng giá trị</label>--%>
@@ -110,8 +124,6 @@
                     </div>
                     <div id="product-import-detail">
                         <c:forEach var="piDetail" varStatus="status" items="${productImport.productImportDetails}">
-
-
                             <div class="row mb-3" id="product-import-${status.index + 1}">
                                 <div class="col-4">
                                     <select class="form-control" onchange="onChangeSelect(this)" name="productIds" id="product" required>
@@ -124,10 +136,12 @@
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control" name="quantities" value="${piDetail.quantity}" required>
+                                    <input type="number" class="form-control" id="quantities-1" name="quantities" value="${piDetail.quantity}" required>
+                                    <div class="error-message" id="quantities-1-error"></div>
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control" name="amounts" value="${piDetail.price}" required>
+                                    <input type="number" class="form-control" id="amounts-1" name="amounts" value="${piDetail.price}" required>
+                                    <div class="error-message" id="amounts-1-error"></div>
                                 </div>
                                 <div class="col-2 d-flex justify-content-end">
                                     <button type="button" class="btn btn-danger" onclick="deleteRow(${status.index + 1})">Delete</button>
@@ -150,7 +164,6 @@
 </div>
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../lib/chart/chart.min.js"></script>
 <script src="../lib/easing/easing.min.js"></script>
@@ -199,57 +212,10 @@
     //   console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
     // }
 
-    var codeInput = document.getElementById('code');
-    var codeError = document.getElementById('code-error');
-
-    codeInput.addEventListener('blur', function (){
-        var codeValue = codeInput.value;
-        if (codeValue .length < 6) {
-            codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-            codeError.textContent = 'Code phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
-        } else {
-            codeInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
-            codeError.textContent = ''; // Xóa thông báo lỗi
-        }
-    })
-
-    var importDateInput = document.getElementById('importDate');
-    var importDateError = document.getElementById('importDate-error');
-
-    importDateInput .addEventListener("blur", function() {
-        var importDateValue = new Date(importDateInput.value).getTime();
-        var currentDate = new Date().getTime();
-
-        if (importDateValue > currentDate) {
-            importDateInput.classList.add("is-invalid");
-            importDateError.textContent = "Ngày không hợp lệ, không phải là ngày tương lai";
-        } else {
-            importDateInput.classList.remove("is-invalid");
-            importDateError.textContent = "";
-        }
-
-    });
-    document.querySelector('form').addEventListener('submit', function(event) {
-
-        if (importDateValue > currentDate) {
-            importDateInput.classList.add("is-invalid");
-            importDateError.textContent = "Ngày không hợp lệ, không phải là ngày tương lai";
-            importDateInput.focus();
-        }
-
-
-        var codeValue = codeInput.value;
-        if (codeValue .length < 6) {
-            event.preventDefault(); // Ngăn chặn gửi form đi
-
-            codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
-            codeError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
-
-            codeInput.focus(); // Tập trung vào trường password không hợp lệ
-        }
-
-
-    });
+    const message = document.getElementById('message');
+    if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
 
 
     const productId = document.getElementById('product');
@@ -273,16 +239,90 @@
                 \${selectStr}
             </div>
             <div class="col-3">
-                <input type="number" class="form-control"  name="quantities" required>
+                <input type="number" class="form-control" id="quantities-\${rowProductImport}"  name="quantities" required="true">
+                                 <div class="error-message" id="quantities-\${rowProductImport}-error"></div>
             </div>
             <div class="col-3">
-                <input type="number" class="form-control"  name="amounts" required>
+                <input type="number" class="form-control" id="amounts"  name="amounts" value="\${product.price}" required="true">
+                               <div class="error-message" id="amounts-\${rowProductImport}-error"></div>
             </div>
             <div class="col-2 d-flex justify-content-end">
                 <button class="btn btn-danger" onclick="deleteRow(\${rowProductImport})">Delete</button>
             </div>
         </div>`
         document.querySelector('#product-import-detail').innerHTML += strRow;
+
+        $('#editForm').validate({
+            rules: {
+                code: {
+                    required: true,
+                    minlength: 6
+                },
+                importDate: {
+                    required: true,
+                    date: true,
+                    customMaxDate: true
+                },
+                quantities: {
+                    required: true,
+                    number: true,
+                    min: 1,
+                },
+                amounts: {
+                    required: true,
+                    number: true,
+                    min: 1000,
+                }
+            },
+            messages: {
+                code: {
+                    required: "Nhập code",
+                    minlength: "Code tối thiểu 6 kí tự"
+                },
+                importDate: {
+                    required: "Nhập ngày",
+                    date: "Ngày không hợp lệ",
+                    maxDate: "Ngày nhập không được lớn hơn ngày hiện tại"
+                },
+                quantities: {
+                    required: "Nhập số lượng",
+                    number: "Số lượng không hợp lệ",
+                    min: "Số lượng tối thiểu là 1",
+                },
+                amounts: {
+                    required: "Nhập giá",
+                    number: "Giá không hợp lệ",
+                    min: "Giá tối thiểu là 1000",
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Hiển thị thông báo lỗi màu đỏ
+                error.addClass('error-message');
+                error.insertAfter(element);
+            },
+            highlight: function(element) {
+                // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element) {
+                // Xóa hiệu ứng giao diện khi lỗi được giải quyết
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function(form) {
+                // Xử lý gửi form khi dữ liệu hợp lệ
+                form.submit();
+            }
+        });
+        $.validator.addMethod(
+            "customMaxDate",
+            function(value) {
+                var currentDate = new Date();
+                var inputDate = new Date(value);
+
+                return inputDate <= currentDate;
+            },
+            "Ngày không được lớn hơn ngày hiện tại"
+        );
     }
 
     function deleteRow(number) {
@@ -303,6 +343,80 @@
         productsSelected = Array.from(eSelect).map(e => e.value);
     }
     // ]]>
+    $(document).ready(function (){
+        $('#editForm').validate({
+            rules: {
+                code: {
+                    required: true,
+                    minlength: 6
+                },
+                importDate: {
+                    required: true,
+                    date: true,
+                    customMaxDate: true
+                },
+                quantities: {
+                    required: true,
+                    number: true,
+                    min: 1,
+                },
+                amounts: {
+                    required: true,
+                    number: true,
+                    min: 1000,
+                }
+            },
+            messages: {
+                code: {
+                    required: "Nhập code",
+                    minlength: "Code tối thiểu 6 kí tự"
+                },
+                importDate: {
+                    required: "Nhập ngày",
+                    date: "Ngày không hợp lệ",
+                    maxDate: "Ngày nhập không được lớn hơn ngày hiện tại"
+                },
+                quantities: {
+                    required: "Nhập số lượng",
+                    number: "Số lượng không hợp lệ",
+                    min: "Số lượng tối thiểu là 1",
+                },
+                amounts: {
+                    required: "Nhập giá",
+                    number: "Giá không hợp lệ",
+                    min: "Giá tối thiểu là 1000",
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Hiển thị thông báo lỗi màu đỏ
+                error.addClass('error-message');
+                error.insertAfter(element);
+            },
+            highlight: function(element) {
+                // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element) {
+                // Xóa hiệu ứng giao diện khi lỗi được giải quyết
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function(form) {
+                // Xử lý gửi form khi dữ liệu hợp lệ
+                form.submit();
+            }
+        });
+        $.validator.addMethod(
+            "customMaxDate",
+            function(value, element) {
+                var currentDate = new Date();
+                var inputDate = new Date(value);
+
+                return inputDate <= currentDate;
+            },
+            "Ngày không được lớn hơn ngày hiện tại"
+        );
+    })
+
 </script>
 
 

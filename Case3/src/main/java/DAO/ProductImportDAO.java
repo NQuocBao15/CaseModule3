@@ -151,28 +151,19 @@ public class ProductImportDAO extends DatabaseConnection {
             preparedStatementDeleteImportDetail.setInt(1, productImportId);
             preparedStatementDeleteImportDetail.executeUpdate();
 
-<<<<<<< Updated upstream
-            var preparedStatementDeleteImport = connection.prepareStatement(DELETE_IMPORT);
-            preparedStatementDeleteImport.setInt(1, productImportId);
-            preparedStatementDeleteImport.executeUpdate();
-=======
 //            var preparedStatementDeleteImport = connection.prepareStatement(DELETE_IMPORT);
 //            preparedStatementDeleteImport.setInt(1,productImportId);
 //            preparedStatementDeleteImport.executeUpdate();
->>>>>>> Stashed changes
+
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-<<<<<<< Updated upstream
-    public void updateProductImport(ProductImport productImport) {
-        String CREATE = "UPDATE `c0623g1`.`product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
-=======
+
     public void updateProductImport(ProductImport productImport){
         String CREATE = "UPDATE `candycake`.`product_imports` SET `code` = ?, `date_import` = ?, `total` = ? WHERE (`id` = ?);";
->>>>>>> Stashed changes
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
