@@ -3,10 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Product - Bootstrap Admin Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Product</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -29,6 +35,19 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <style>
+        .error-message {
+            color: red;
+            font-style: italic;
+        }
+    </style>
     <style>
         div {
             position: relative;
@@ -52,201 +71,247 @@
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <c:choose>
-        <c:when test="${user.role.id eq '1'}">
-            <!-- Spinner Start -->
-            <div id="spinner"
-                 class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="sr-only">Loading...</span>
+    <c:when test="${user.role.id eq '1'}">
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Sidebar Start -->
+    <div class="sidebar pe-4 pb-3">
+        <nav class="navbar bg-light navbar-light">
+            <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product</h3>
+            </a>
+            <div class="d-flex align-items-center ms-4 mb-4">
+                <div class="position-relative">
+                    <a href="/admin"></a>
+                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                </div>
+                <div class="ms-3">
+                    <h6 class="mb-0">${user.name}</h6>
+                    <span>${user.role.name}</span>
                 </div>
             </div>
-            <!-- Spinner End -->
-
-
-            <!-- Sidebar Start -->
-            <div class="sidebar pe-4 pb-3">
-                <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product</h3>
-                    </a>
-                    <div class="d-flex align-items-center ms-4 mb-4">
-                        <div class="position-relative">
-                            <a href="/admin"></a>
-                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0">${user.name}</h6>
-                            <span>${user.role.name}</span>
-                        </div>
-                    </div>
-                    <div class="navbar-nav w-100">
-                        <a href="/admin" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
-                        <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product
-                            Import</a>
-                        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                        <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-                    </div>
-                </nav>
+            <div class="navbar-nav w-100">
+                <a href="/admin" class="nav-item nav-link"><i
+                        class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="/product" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
+                <a href="/product-import" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Product
+                    Import</a>
+                <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
+                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
             </div>
-            <!-- Sidebar End -->
+        </nav>
+    </div>
+    <!-- Sidebar End -->
 
-            <div class="content">
-                <!-- Navbar Start -->
-                <div class="container">
-                    <div class="card container px-6" style="height: 100%">
-                        <c:if test="${product.id == 0}">
-                        <h3 class="text-center">Create Product</h3>
-                        <form action="/product?action=create" method="post" enctype="multipart/form-data">
-                            </c:if>
-                            <c:if test="${product.id != 0}">
-                            <h3 class="text-center">Edit Product</h3>
-                            <form action="/product?action=edit&id=${product.id}" method="post"
-                                  enctype="multipart/form-data">
-                                </c:if>
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name"
-                                           value="${product.name}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="category" class="form-label">Category</label>
-                                    <select class="form-control" name="category" id="category">
-                                        <c:forEach var="category" items="${categories}">
-                                            <option value="${category.id}"
-                                                    <c:if test="${category.id == product.category.id}">
-                                                        selected
-                                                    </c:if>
-                                            >${category.name}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="price" class="form-label">Price</label>
-                                    <input type="number" class="form-control" name="price" id="price"
-                                           value="${product.price}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
-                                    <input type="text" class="form-control" name="description" id="description"
-                                           value="${product.description}">
-                                </div>
+    <div class="content">
+        <!-- Navbar Start -->
+        <div class="container">
+            <div class="card container px-6" style="height: 100%">
+                <c:if test="${product.id == 0}">
+                <h3 class="text-center">Create Product</h3>
+                <form action="/product?action=create" method="post" id="createForm" enctype="multipart/form-data">
+                    </c:if>
+                    <c:if test="${product.id != 0}">
+                    <h3 class="text-center">Edit Product</h3>
+                    <form action="/product?action=edit&id=${product.id}" id="editForm" method="post"
+                          enctype="multipart/form-data">
+                        </c:if>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                   value="${product.name}">
+                            <div class="error-message" id="name-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select class="form-control" name="category" id="category">
+                                <c:forEach var="category" items="${categories}">
+                                    <option value="${category.id}"
+                                            <c:if test="${category.id == product.category.id}">
+                                                selected
+                                            </c:if>
+                                    >${category.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" name="price" id="price"
+                                   value="${product.price}">
+                            <div class="error-message" id="price-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <input type="text" class="form-control" name="description" id="description"
+                                   value="${product.description}">
+                            <div class="error-message" id="description-error"></div>
+                        </div>
 
-                                <div class="mb-3">
-                                        <%--                            <label for="file" class="form-label">Image</label>--%>
-                                        <%--                            <input accept="image/*" value="img/${product.img}" type="file"--%>
-                                        <%--                                   onchange="loadFile(event)" name="img" id="file">--%>
-                                        <%--                            <p><img id="output" width="300"/></p>--%>
-                                    <p><img id="output" width="300"
-                                            <c:if test="${product.img != null}">src="../img/${product.img}"</c:if>
-                                            <c:if test="${product.img == null}">src="../img/default-image.jpg"</c:if>
-                                    /></p>
-                                    <div class="file btn btn-primary first justify-content-center "
-                                         style="width: 80px;">
-                                        Upload
-                                        <input type="file" accept="image/*" name="img" id="file"
-                                               onchange="loadFile(event)">
-                                    </div>
-                                        <%--                            <div id="imageContainer"></div>--%>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="/product" class="btn btn-primary ">Back</a>
-                            </form>
-                        </form>
-                    </div>
-
-                </div>
-                <!-- Navbar End -->
+                        <div class="mb-3">
+                                <%--                            <label for="file" class="form-label">Image</label>--%>
+                                <%--                            <input accept="image/*" value="img/${product.img}" type="file"--%>
+                                <%--                                   onchange="loadFile(event)" name="img" id="file">--%>
+                                <%--                            <p><img id="output" width="300"/></p>--%>
+                            <p><img id="output" width="300"
+                                    <c:if test="${product.img != null}">src="../img/${product.img}"</c:if>
+                                    <c:if test="${product.img == null}">src="../img/default-image.jpg"</c:if>
+                            /></p>
+                            <div class="file btn btn-primary first justify-content-center "
+                                 style="width: 80px;">
+                                Upload
+                                <input type="file" accept="image/*" name="img" id="file"
+                                       onchange="loadFile(event)">
+                            </div>
+                                <%--                            <div id="imageContainer"></div>--%>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="/product" class="btn btn-primary ">Back</a>
+                    </form>
+                </form>
             </div>
-            <!-- Content Start -->
+
+        </div>
+        <!-- Navbar End -->
+    </div>
+    <!-- Content Start -->
 
 
-            <!-- Back to Top --
+    <!-- Back to Top --
         </c:when>
     </c:choose>
 </div>
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../lib/chart/chart.min.js"></script>
-<script src="../lib/easing/easing.min.js"></script>
-<script src="../lib/waypoints/waypoints.min.js"></script>
-<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="../lib/tempusdominus/js/moment.min.js"></script>
-<script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<!- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-<!-- Template Javascript -->
-<script src="../js/main.js"></script>
-<!-- Code injected by live-server -->
-<script>
-    // <![CDATA[  <-- For SVG support
-    if ('WebSocket' in window) {
-        (function () {
-            function refreshCSS() {
-                var sheets = [].slice.call(document.getElementsByTagName("link"));
-                var head = document.getElementsByTagName("head")[0];
-                for (var i = 0; i < sheets.length; ++i) {
-                    var elem = sheets[i];
-                    var parent = elem.parentElement || head;
-                    parent.removeChild(elem);
-                    var rel = elem.rel;
-                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                    }
-                    parent.appendChild(elem);
-                }
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+
+        function changeImage() {
+            var inputImage = document.getElementById('image-input');
+            var imgPreview = document.getElementById('img-preview');
+
+            if (inputImage.value === "") {
+                imgPreview.src = "default-image.jpg";
+            } else {
+                imgPreview.src = inputImage.value;
             }
-
-            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-            var address = protocol + window.location.host + window.location.pathname + '/ws';
-            var socket = new WebSocket(address);
-            socket.onmessage = function (msg) {
-                if (msg.data == 'reload') window.location.reload();
-                else if (msg.data == 'refreshcss') refreshCSS();
-            };
-            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                console.log('Live reload enabled.');
-                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-            }
-        })();
-    } else {
-        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-    }
-
-    // ]]>
-
-    function changeImage() {
-        var inputImage = document.getElementById('image-input');
-        var imgPreview = document.getElementById('img-preview');
-
-        if (inputImage.value === "") {
-            imgPreview.src = "default-image.jpg";
-        } else {
-            imgPreview.src = inputImage.value;
         }
-    }
 
-    var loadFile = function (event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
-</script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 
 
-<script>
-    // function searchFunction() {
-    //     var searchQuery = document.getElementById("search").value;
-    //     var currentUrl = window.location.href;
-    //     var searchUrl = currentUrl + "?search=" + encodeURIComponent(searchQuery);
-    //     window.location.href = searchUrl;
-    // }
-</script>
+    <script>
+        // <![CDATA[  <-- For SVG support
+
+        $(document).ready(function () {
+            $('#createForm').validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    price: {
+                        required: true,
+                        digits: true,
+                        min: 1000
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Nhập tên sản phẩm"
+                    },
+                    price: {
+                        required: "Nhập giá sản phẩm",
+                        digits: "Không được nhập chữ",
+                        min: "Giá tối thiểu 1000"
+                    },
+
+                },
+                errorPlacement: function (error, element) {
+                    // Hiển thị thông báo lỗi màu đỏ
+                    error.addClass('error-message');
+                    error.insertAfter(element);
+                },
+                highlight: function (element) {
+                    // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element) {
+                    // Xóa hiệu ứng giao diện khi lỗi được giải quyết
+                    $(element).removeClass('is-invalid');
+                },
+                submitHandler: function (form) {
+                    // Xử lý gửi form khi dữ liệu hợp lệ
+                    form.submit();
+                }
+            });
+            $('#editForm').validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    price: {
+                        required: true,
+                        digits: true,
+                        min: 1000
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Nhập tên sản phẩm"
+                    },
+                    price: {
+                        required: "Nhập giá sản phẩm",
+                        digits: "Không được nhập chữ",
+                        min: "Giá tối thiểu 1000"
+                    },
+
+                },
+                errorPlacement: function (error, element) {
+                    // Hiển thị thông báo lỗi màu đỏ
+                    error.addClass('error-message');
+                    error.insertAfter(element);
+                },
+                highlight: function (element) {
+                    // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element) {
+                    // Xóa hiệu ứng giao diện khi lỗi được giải quyết
+                    $(element).removeClass('is-invalid');
+                },
+                submitHandler: function (form) {
+                    // Xử lý gửi form khi dữ liệu hợp lệ
+                    form.submit();
+                }
+            });
+        });
+
+    </script>
 
 </body>
 </html>

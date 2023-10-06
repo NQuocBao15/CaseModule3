@@ -8,6 +8,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -30,11 +35,19 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <style>
+        .error-message {
+            color: red;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,35 +57,42 @@
         <div class="container">
             <div class="card container px-6" style="height: 100vh">
                 <h3 class="text-center">Create User</h3>
-                <form action="/auth?action=register" method="post" onsubmit="return validateForm()">
+                <form action="/auth?action=register" method="post" id="registerForm" onsubmit="return validateForm()">
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required="">
+                        <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="error-message" id="name-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required="">
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                        <div class="error-message" id="phone-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required="">
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        <div class="error-message" id="username-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required="">
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="error-message" id="password-error"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="retype_password" class="form-label">Retype Password</label>
-                        <input type="password" class="form-control" id="retype_password" name="retype_password"
-                               required="">
+                        <label for="reEnterPassword" class="form-label">Re-enter Password</label>
+                        <input type="password" class="form-control" id="reEnterPassword" name="reEnterPassword"
+                               required>
+                        <div class="error-message" id="reEnterPassword-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required="">
+                        <input type="text" class="form-control" id="address" name="address">
+                        <div class="error-message" id="address-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="dob" class="form-label">Date of birth</label>
-                        <input type="date" class="form-control" id="dob" name="dob" required="">
+                        <input type="date" class="form-control" id="dob" name="dob" required>
+                        <div class="error-message" id="dob-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
@@ -94,7 +114,6 @@
 </div>
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../lib/chart/chart.min.js"></script>
 <script src="../lib/easing/easing.min.js"></script>
@@ -104,55 +123,114 @@
 <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
+
 <!-- Template Javascript -->
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
 <script>
     // <![CDATA[  <-- For SVG support
-    if ('WebSocket' in window) {
-        (function () {
-            function refreshCSS() {
-                var sheets = [].slice.call(document.getElementsByTagName("link"));
-                var head = document.getElementsByTagName("head")[0];
-                for (var i = 0; i < sheets.length; ++i) {
-                    var elem = sheets[i];
-                    var parent = elem.parentElement || head;
-                    parent.removeChild(elem);
-                    var rel = elem.rel;
-                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                    }
-                    parent.appendChild(elem);
+
+    $(document).ready(function () {
+        $('#registerForm').validate({
+            rules: {
+                name: {
+                    required: true,
+                    nameValidation: true,
+                    minlength: 6
+                },
+                phone: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10,
+                    regex: /^0\d{9}$/
+                },
+                username: {
+                    required: true,
+                    minlength: 6,
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                reEnterPassword: {
+                    required: true,
+                    equalTo: "#password"
+                },
+                dob: {
+                    required: true,
+                    dobValidation: true
                 }
+            },
+            messages: {
+                name: {
+                    required: "Nhập tên",
+                    pattern: "Tên không được nhập số",
+                    minlength: "Tối thiểu 6 kí tự"
+                },
+                phone: {
+                    required: "Nhập số điện thoại",
+                    digits: "Số điện thoại không chứa chữ",
+                    minlength: "Số điện thoại phải đủ 10 số",
+                    maxlength: "Số điện thoại phải đủ 10 số",
+                    regex: "Số điện thoại phải bắt đầu bằng số 0"
+                },
+                username: {
+                    required: "Nhập username",
+                    minlength: "Username tối thiểu 6 kí tự",
+                },
+                password: {
+                    required: "Nhập password",
+                    minlength: "Password tối thiểu 6 kí tự"
+                },
+                reEnterPassword: {
+                    required: "Nhập lại password",
+                    equalTo: "Password nhập lại không khớp với password"
+                },
+                dob: {
+                    required: "Nhập ngày sinh",
+                }
+            },
+            errorPlacement: function (error, element) {
+                // Hiển thị thông báo lỗi màu đỏ
+                error.addClass('error-message');
+                error.insertAfter(element);
+            },
+            highlight: function (element) {
+                // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                // Xóa hiệu ứng giao diện khi lỗi được giải quyết
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function (form) {
+                // Xử lý gửi form khi dữ liệu hợp lệ
+                form.submit();
             }
+        });
 
-            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-            var address = protocol + window.location.host + window.location.pathname + '/ws';
-            var socket = new WebSocket(address);
-            socket.onmessage = function (msg) {
-                if (msg.data == 'reload') window.location.reload();
-                else if (msg.data == 'refreshcss') refreshCSS();
-            };
-            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                console.log('Live reload enabled.');
-                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-            }
-        })();
-    } else {
-        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-    }
-
-    function validateForm() {
-        var password = document.getElementById("password").value;
-        var retypePassword = document.getElementById("retype_password").value;
-
-        if (password !== retypePassword) {
-            alert("Mật khẩu không khớp. Vui lòng kiểm tra lại.");
-            return false;
-        }
-        return true;
-    }
+        $.validator.addMethod(
+            "dobValidation",
+            function (value) {
+                var birthDate = new Date(value);
+                var currentDate = new Date();
+                var age = currentDate.getFullYear() - birthDate.getFullYear();
+                if (age < 10 || age > 100) {
+                    return false;
+                }
+                return true;
+            },
+            "Tuổi không được nhỏ hơn 10 và lớn hơn 100",
+        );
+        $.validator.addMethod(
+            "nameValidation",
+            function (value, element) {
+                return this.optional(element) || /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]+$/.test(value);
+            },
+            "Tên không được nhập số"
+        );
+    });
 
 </script>
 
