@@ -38,7 +38,21 @@ public class HomeController extends HttpServlet {
             productDetail(req, resp);
             return;
         }
+        if (Objects.equals(action, "addToCart")) {
+            addToCart(req, resp);
+            return;
+        }
         showList(req, resp);
+    }
+
+    private void addToCart(HttpServletRequest req, HttpServletResponse resp) {
+        int idProduct = Integer.parseInt(req.getParameter("id"));
+        int quantity = Integer.parseInt(req.getParameter("quantity"));
+        req.setAttribute("idProduct",idProduct);
+        req.setAttribute("quantity", quantity);
+        req.setAttribute("idUser", Integer.parseInt(req.getParameter("idUser")));
+
+        req.getRequestDispatcher(PAGE + "/cart.jsp");
     }
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

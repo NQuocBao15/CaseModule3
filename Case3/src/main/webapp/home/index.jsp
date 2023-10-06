@@ -198,7 +198,7 @@
                                     </span>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="/homes?action=detail&id=${product.id}" class="add-to-cart-btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    <a href="/homes?action=detail&id=${product.id}" class="cart-btn" style="border: 1px solid #1a7a1a">
                                         <i class="bx bx-cart-alt"></i>
                                     </a>
                                 </div>

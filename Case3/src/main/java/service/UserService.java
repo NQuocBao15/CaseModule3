@@ -57,7 +57,7 @@ public User findPasswordById(int id) {
             if (user.getRole().getName().equals("admin")) {
                 resp.sendRedirect("/admin?&message=Login Success");
             } else {
-                resp.sendRedirect("/client?message=Login Success");
+                resp.sendRedirect("/homes?message=Login Success");
             }
             return true;
         }

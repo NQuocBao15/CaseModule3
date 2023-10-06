@@ -235,7 +235,7 @@ let foodMenuList = document.querySelector('.food-item-wrap')
 
 let foodCategory = document.querySelector('.food-category')
 
-let categories = foodCategory.querySelectorAll('button')
+// let categories = foodCategory.querySelectorAll('button')
 
 Array.from(categories).forEach((item, index) => {
     item.onclick = (e) => {
