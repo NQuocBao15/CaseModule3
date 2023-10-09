@@ -149,13 +149,8 @@
                                     </div>
 
                                     <label>
-<<<<<<< Updated upstream
-                                        <input min="1" max="${productImportDetail.quantity}" name="quantity"
-                                               type="number" value="1" style="text-align: center">
-=======
                                         <input min="1" max="${productImportDetail.quantity}" name="quantity" id="productQuantity" type="number" value="1" style="text-align: center">
                                         <p id="totalCheckOut">-</p>
->>>>>>> Stashed changes
                                     </label>
 
                                     <div class="btn-num-product-up cl8 hov-b tn3 trans-04 flex-c-m"
@@ -164,15 +159,6 @@
                                     </div>
                                 </div>
                                 <c:if test="${not empty loggedIn}">
-<<<<<<< Updated upstream
-                                <a href="/homes?action=addToCart&id=${product.id}&quantity="
-                                   class="add-to-cart-btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                    Add to cart
-                                </a>
-                                </c:if>
-                                <c:if test="${empty loggedIn}">
-                                    <a href="/auth" class="login-btn">Login to Add to cart</a>
-=======
                                     <a href="#" class="add-to-cart-btn btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
                                        data-product-id="${product.id}">
                                         Add to cart
@@ -180,7 +166,6 @@
                                 </c:if>
                                 <c:if test="${empty loggedIn}">
                                     <a href="/auth" class="login-btn">Add to cart</a>
->>>>>>> Stashed changes
                                 </c:if>
                             </div>
                         </div>
@@ -286,4 +271,4 @@
 </body>
 
 </html>
-</jsp:root>
+<%--</jsp:root>--%>
