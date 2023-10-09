@@ -210,7 +210,7 @@
             }
         });
 
-        $.validator.addMethod(
+        $$.validator.addMethod(
             "dobValidation",
             function (value) {
                 var birthDate = new Date(value);
@@ -221,7 +221,7 @@
                 }
                 return true;
             },
-            "Tuổi không được nhỏ hơn 10 và lớn hơn 100",
+            "Tuổi không được nhỏ hơn 10 và lớn hơn 100"
         );
         $.validator.addMethod(
             "nameValidation",

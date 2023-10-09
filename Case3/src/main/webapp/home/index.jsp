@@ -74,28 +74,28 @@
 <!-- TOP NAVIGATION -->
 <div class="nav">
     <div class="menu-wrap">
-        <a href="#home">
+        <a href="/homes">
             <div class="logo">
                 FoodyCom
             </div>
         </a>
         <div class="menu h-xs">
-            <a href="#home">
+            <a href="/homes">
                 <div class="menu-item active">
                     Home
                 </div>
             </a>
-            <a href="#about">
+            <a href="/homes#about">
                 <div class="menu-item">
                     About
                 </div>
             </a>
-            <a href="#food-menu-section">
+            <a href="/homes#food-menu-section">
                 <div class="menu-item">
                     Menu
                 </div>
             </a>
-            <a href="#testimonial">
+            <a href="/homes#testimonial">
                 <div class="menu-item">
                     Testimonials
                 </div>
