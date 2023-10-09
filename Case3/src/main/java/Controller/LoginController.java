@@ -31,9 +31,18 @@ public class LoginController extends HttpServlet {
         switch (action) {
             case "register" -> showRegister(req, resp);
             case "logout" -> logout(req, resp);
+            case "changePassword" -> showChangePassword(req, resp);
+
             default -> showLogin(req, resp);
 
         }
+    }
+
+    private void showChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", userService.findPasswordById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("message", req.getParameter("messsage"));
+        req.getRequestDispatcher("/auth/changePassword.jsp").forward(req, resp);
+
     }
 
     private void showLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,8 +66,18 @@ public class LoginController extends HttpServlet {
         switch (action) {
             case "register" -> register(req, resp);
             case "logout" -> logout(req, resp);
+            case "changePassword" -> changePassword(req, resp);
             default -> login(req, resp);
 
+        }
+    }
+
+    private void changePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if (userService.checkChangePassword(req, resp)) {
+            userService.changePassword(req, resp);
+            resp.sendRedirect("/auth?message=Change Password Success");
+        } else {
+            resp.sendRedirect("/auth?message=Password  fail&action=changePassword&id=" + req.getParameter("id"));
         }
     }
 

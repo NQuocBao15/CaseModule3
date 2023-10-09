@@ -99,7 +99,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                     <a href="/admin" class="dropdown-item">My Profile</a>
-                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
+                                    <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
                                     <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
                                 </div>
                             </div>

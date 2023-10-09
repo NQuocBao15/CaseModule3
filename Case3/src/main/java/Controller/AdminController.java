@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.User;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -9,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Objects;
 
 @WebServlet(name = "adminController", urlPatterns = "/admin")
 public class AdminController extends HttpServlet {
@@ -23,16 +20,8 @@ public class AdminController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "changePassword" -> showChangePassword(req, resp);
             default -> showAdmin(req, resp);
         }
-    }
-
-    private void showChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("user", userService.findPasswordById(Integer.parseInt(req.getParameter("id"))));
-        req.setAttribute("message",req.getParameter("messsage"));
-        req.getRequestDispatcher("/admin/changePassword.jsp").forward(req, resp);
-
     }
 
     private void showAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,13 +31,6 @@ public class AdminController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        if (action.equals("changePassword")) {
-            changePassword(req, resp);
-        }
     }
 
     @Override
@@ -56,21 +38,4 @@ public class AdminController extends HttpServlet {
         userService = new UserService();
     }
 
-    private void changePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (userService.checkChangePassword(req, resp)) {
-            userService.changePassword(req,resp);
-            resp.sendRedirect("/admin?message=Change Password Success");
-        } else {
-            resp.sendRedirect("/admin?message=Password  fail&action=changePassword&id=" + req.getParameter("id"));
-        }
-    }
-
-    public User getUserByRequest(HttpServletRequest req) throws UnsupportedEncodingException {
-        if (req.getCharacterEncoding() == null) {
-            req.setCharacterEncoding("UTF-8");
-        }
-        String password = req.getParameter("password");
-
-        return new User(password);
-    }
 }

@@ -48,7 +48,7 @@
                 <c:if test="${message != null}">
                     <h6 class="d-none" id="message">${message}</h6>
                 </c:if>
-                <form action="/admin?action=changePassword&id=${user.id}" method="POST" onsubmit="changePassword(event)">
+                <form action="/auth?action=changePassword&id=${user.id}" method="POST" onsubmit="changePassword(event)">
                     <div class="mb-3">
                         <label for="passwordOld">Mật khẩu Cũ</label>
                         <input type="password" class="form-control" id="passwordOld" name="passwordOld" required="">
@@ -64,7 +64,8 @@
                                required="">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                    <a href="/admin" class="btn btn-dark mb-2">Cancel</a>
+                    <button onclick="goBack()">Cancel</button>
+
                 </form>
             </div>
         </div>
@@ -147,6 +148,11 @@
 
     }
 
+</script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
 </script>
 </body>
 </html>
