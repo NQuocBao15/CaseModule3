@@ -198,7 +198,7 @@ public class ProductImportDAO extends DatabaseConnection {
         String GET_PRODUCT_QUANTITY = "SELECT p.*, (select sum(pid.quantity-pid.quantity_sold) from product_import_details pid " +
                 "join products p on pid.product_id = p.id " +
                 "where p.id = ? " +
-                "group by p.id) as quantity FROM candycake2.products p  " +
+                "group by p.id) as quantity FROM candycake.products p  " +
                 "where p.id = ?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_QUANTITY)) {

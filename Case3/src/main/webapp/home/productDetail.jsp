@@ -8,15 +8,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> FOODY.COM </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <style>
+        .error-message {
+            color: red;
+            font-style: italic;
+        }
+    </style>
     <link rel="stylesheet" href="../home/css/style.css">
     <style>
         .card {
@@ -280,6 +313,14 @@
 <!-- END FOOTER SECTION -->
 
 <script src="../home/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../lib/chart/chart.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/waypoints/waypoints.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../lib/tempusdominus/js/moment.min.js"></script>
+<script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 <script>
     document.getElementById('productQuantity').addEventListener('input', function() {
         var quantity = parseInt(this.value);
@@ -298,12 +339,32 @@
             // Get the product ID and quantity
             var productId = $(this).data('product-id');
             var quantity = $("#productQuantity").val();
+            var maxQuantity = parseInt($("#productQuantity").attr('max'));
 
-            // Construct the URL with the quantity value
-            var addToCartURL = `/homes?action=addToCart&id=` + productId + `&quantity=` + quantity;
+            if (parseInt(quantity) > maxQuantity) {
+                $("#productQuantity").focus();
+                // Có thể thêm thông báo lỗi ở đây nếu cần thiết
+            } else {
+                // Construct the URL with the quantity value
+                var addToCartURL = `/homes?action=addToCart&id=` + productId + `&quantity=` + quantity;
 
-            // Perform the redirection
-            window.location.href = addToCartURL;
+                // Perform the redirection
+                window.location.href = addToCartURL;
+            }
+        });
+
+        $('#productQuantity').on('input', function() {
+            var quantity = parseInt($(this).val());
+            var maxQuantity = parseInt($(this).attr('max'));
+            var minQuantity = parseInt($(this).attr('min'));
+
+            if (isNaN(quantity)) {
+                $('#totalCheckOut').text('Invalid input');
+            } else if (quantity < minQuantity || quantity > maxQuantity) {
+                $('#totalCheckOut').text('Quantity out of range');
+            } else {
+                $('#totalCheckOut').text('Valid quantity');
+            }
         });
     });
 
