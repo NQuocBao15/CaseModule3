@@ -39,7 +39,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
     <style>
         .error-message {
@@ -51,136 +52,145 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!-- Spinner Start -->
-    <div id="spinner"
-         class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-
-
-    <!-- Sidebar Start -->
-    <div class="sidebar pe-4 pb-3">
-        <nav class="navbar bg-light navbar-light">
-            <a href="/admin" class="navbar-brand mx-4 mb-3">
-                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product Import</h3>
-            </a>
-            <div class="d-flex align-items-center ms-4 mb-4">
-                <div class="position-relative">
-                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">${user.name}</h6>
-                    <span>${user.role.name}</span>
+    <c:choose>
+        <c:when test="${user.role.id eq '1'}">
+            <!-- Spinner Start -->
+            <div id="spinner"
+                 class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-            <div class="navbar-nav w-100">
-                <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                <a href="/product-import" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Product
-                    Import</a>
-                <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                <a href="/express" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>Express</a>
+            <!-- Spinner End -->
+
+
+            <!-- Sidebar Start -->
+            <div class="sidebar pe-4 pb-3">
+                <nav class="navbar bg-light navbar-light">
+                    <a href="/admin" class="navbar-brand mx-4 mb-3">
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Product Import</h3>
+                    </a>
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            <a href="/admin"></a>
+                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">${user.name}</h6>
+                            <span>${user.role.name}</span>
+                        </div>
+                    </div>
+                    <div class="navbar-nav w-100">
+                        <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link"><i
+                                class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                        <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
+                        <a href="/product-import" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Product
+                            Import</a>
+                        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
+                        <a href="/express" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>Express</a>
+                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                    </div>
+                </nav>
             </div>
-        </nav>
-    </div>
-    <!-- Sidebar End -->
+            <!-- Sidebar End -->
 
 
-    <!-- Content Start -->
-    <div class="content">
-        <div>
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">${user.name}</span>
+            <!-- Content Start -->
+            <div class="content">
+                <div>
+                    <!-- Navbar Start -->
+                    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                            <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="/admin" class="dropdown-item">My Profile</a>
-                            <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
-                            <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+                        <a href="#" class="sidebar-toggler flex-shrink-0">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="navbar-nav align-items-center ms-auto">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                         style="width: 40px; height: 40px;">
+                                    <span class="d-none d-lg-inline-flex">${user.name}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
+                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change
+                                        Password</a>
+                                    <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </nav>
                 </div>
-            </nav>
-        </div>
-        <div class="container">
-            <div class="card container px-6" style="height: 100vh">
-                <h3 class="text-center">Create Product Import</h3>
-                <form action="/product-import?action=create" method="post" id="createForm"
-                      onsubmit="return validateForm()">
-                    <div class="mb-3">
-                        <label for="code" class="form-label">Import Code</label>
-                        <input type="text" class="form-control" id="code" name="code" required>
-                        <div class="error-message" id="code-error"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="importDate" class="form-label">Import Date</label>
-                        <input type="date" class="form-control" id="importDate" name="importDate" required>
-                        <div class="error-message" id="importDate-error"></div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-4">
-                            Product
-                        </div>
-                        <div class="col-3">
-                            Quantity
-                        </div>
-                        <div class="col-3">
-                            Amount
-                        </div>
-                        <div class="col-2 d-flex justify-content-end">
-                            <button type="button" class="btn btn-info" onclick="addMore()">Add More</button>
-                        </div>
-                    </div>
-                    <div id="product-import-detail">
-                        <div class="row mb-3" id="product-import-1">
-                            <div class="col-4">
-                                <select class="form-control" onchange="onChangeSelect(this)" name="productIds"
-                                        id="product" required>
-                                    <option value="">---Please Choose---</option>
-                                    <c:forEach var="product" items="${products}">
-                                        <option value="${product.id}">${product.name}</option>
-                                    </c:forEach>
-                                </select>
+                <div class="container">
+                    <div class="card container px-6" style="height: 100vh">
+                        <h3 class="text-center">Create Product Import</h3>
+                        <form action="/product-import?action=create" method="post" id="createForm"
+                              onsubmit="return validateForm()">
+                            <div class="mb-3">
+                                <label for="code" class="form-label">Import Code</label>
+                                <input type="text" class="form-control" id="code" name="code" required>
+                                <div class="error-message" id="code-error"></div>
                             </div>
-                            <div class="col-3">
-                                <input type="number" class="form-control" id="quantities-1" name="quantities" required>
-                                <div class="error-message" id="quantities-1-error"></div>
+                            <div class="mb-3">
+                                <label for="importDate" class="form-label">Import Date</label>
+                                <input type="date" class="form-control" id="importDate" name="importDate" required>
+                                <div class="error-message" id="importDate-error"></div>
                             </div>
-                            <div class="col-3">
-                                <input type="number" class="form-control" id="amounts-1" name="amounts" required>
-                                <div class="error-message" id="amounts-1-error"></div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    Product
+                                </div>
+                                <div class="col-3">
+                                    Quantity
+                                </div>
+                                <div class="col-3">
+                                    Amount
+                                </div>
+                                <div class="col-2 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-info" onclick="addMore()">Add More</button>
+                                </div>
                             </div>
-                            <div class="col-2 d-flex justify-content-end">
-                                <button type="button" class="btn btn-danger" onclick="deleteRow(1)">Delete</button>
+                            <div id="product-import-detail">
+                                <div class="row mb-3" id="product-import-1">
+                                    <div class="col-4">
+                                        <select class="form-control" onchange="onChangeSelect(this)" name="productIds"
+                                                id="product" required>
+                                            <option value="">---Please Choose---</option>
+                                            <c:forEach var="product" items="${products}">
+                                                <option value="${product.id}">${product.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control" id="quantities-1" name="quantities"
+                                               required>
+                                        <div class="error-message" id="quantities-1-error"></div>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control" id="amounts-1" name="amounts"
+                                               required>
+                                        <div class="error-message" id="amounts-1-error"></div>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger" onclick="deleteRow(1)">Delete
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <a href="/product-import" class="btn btn-dark">Cancel</a>
+                            <button type="submit" class="btn btn-primary" id="btnCreate">Create Import</button>
+                        </form>
                     </div>
-                    <a href="/product-import" class="btn btn-dark">Cancel</a>
-                    <button type="submit" class="btn btn-primary" id="btnCreate">Create Import</button>
-                </form>
+
+                </div>
             </div>
+            <!-- Content End -->
 
-        </div>
-    </div>
-    <!-- Content End -->
-
-
+        </c:when>
+    </c:choose>
     <!-- Back to Top -->
     <%--  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>--%>
 </div>
@@ -283,27 +293,27 @@
                     min: "Giá tối thiểu là 1000",
                 }
             },
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 // Hiển thị thông báo lỗi màu đỏ
                 error.addClass('error-message');
                 error.insertAfter(element);
             },
-            highlight: function(element) {
+            highlight: function (element) {
                 // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
                 $(element).addClass('is-invalid');
             },
-            unhighlight: function(element) {
+            unhighlight: function (element) {
                 // Xóa hiệu ứng giao diện khi lỗi được giải quyết
                 $(element).removeClass('is-invalid');
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 // Xử lý gửi form khi dữ liệu hợp lệ
                 form.submit();
             }
         });
         $.validator.addMethod(
             "customMaxDate",
-            function(value) {
+            function (value) {
                 var currentDate = new Date();
                 var inputDate = new Date(value);
 
@@ -335,82 +345,80 @@
 
     // ]]>
 
-$(document).ready(function (){
+    $(document).ready(function () {
 
-    $('#createForm').validate({
-        rules: {
-            code: {
-                required: true,
-                minlength: 6
+        $('#createForm').validate({
+            rules: {
+                code: {
+                    required: true,
+                    minlength: 6
+                },
+                importDate: {
+                    required: true,
+                    date: true,
+                    customMaxDate: true
+                },
+                quantities: {
+                    required: true,
+                    number: true,
+                    min: 1,
+                },
+                amounts: {
+                    required: true,
+                    number: true,
+                    min: 1000,
+                }
             },
-            importDate: {
-                required: true,
-                date: true,
-                customMaxDate: true
+            messages: {
+                code: {
+                    required: "Nhập code",
+                    minlength: "Code tối thiểu 6 kí tự"
+                },
+                importDate: {
+                    required: "Nhập ngày",
+                    date: "Ngày không hợp lệ",
+                    maxDate: "Ngày nhập không được lớn hơn ngày hiện tại"
+                },
+                quantities: {
+                    required: "Nhập số lượng",
+                    number: "Số lượng không hợp lệ",
+                    min: "Số lượng tối thiểu là 1",
+                },
+                amounts: {
+                    required: "Nhập giá",
+                    number: "Giá không hợp lệ",
+                    min: "Giá tối thiểu là 1000",
+                }
             },
-            quantities: {
-                required: true,
-                number: true,
-                min: 1,
+            errorPlacement: function (error, element) {
+                // Hiển thị thông báo lỗi màu đỏ
+                error.addClass('error-message');
+                error.insertAfter(element);
             },
-            amounts: {
-                required: true,
-                number: true,
-                min: 1000,
+            highlight: function (element) {
+                // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                // Xóa hiệu ứng giao diện khi lỗi được giải quyết
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function (form) {
+                // Xử lý gửi form khi dữ liệu hợp lệ
+                form.submit();
             }
-        },
-        messages: {
-            code: {
-                required: "Nhập code",
-                minlength: "Code tối thiểu 6 kí tự"
-            },
-            importDate: {
-                required: "Nhập ngày",
-                date: "Ngày không hợp lệ",
-                maxDate: "Ngày nhập không được lớn hơn ngày hiện tại"
-            },
-            quantities: {
-                required: "Nhập số lượng",
-                number: "Số lượng không hợp lệ",
-                min: "Số lượng tối thiểu là 1",
-            },
-            amounts: {
-                required: "Nhập giá",
-                number: "Giá không hợp lệ",
-                min: "Giá tối thiểu là 1000",
-            }
-        },
-        errorPlacement: function(error, element) {
-            // Hiển thị thông báo lỗi màu đỏ
-            error.addClass('error-message');
-            error.insertAfter(element);
-        },
-        highlight: function(element) {
-            // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function(element) {
-            // Xóa hiệu ứng giao diện khi lỗi được giải quyết
-            $(element).removeClass('is-invalid');
-        },
-        submitHandler: function(form) {
-            // Xử lý gửi form khi dữ liệu hợp lệ
-            form.submit();
-        }
-    });
-    $.validator.addMethod(
-        "customMaxDate",
-        function(value, element) {
-            var currentDate = new Date();
-            var inputDate = new Date(value);
+        });
+        $.validator.addMethod(
+            "customMaxDate",
+            function (value, element) {
+                var currentDate = new Date();
+                var inputDate = new Date(value);
 
-            return inputDate <= currentDate;
-        },
-        "Ngày không được lớn hơn ngày hiện tại"
-    );
-})
-
-
+                return inputDate <= currentDate;
+            },
+            "Ngày không được lớn hơn ngày hiện tại"
+        );
+    })
 
 
     // var codeInput = document.getElementById("code");

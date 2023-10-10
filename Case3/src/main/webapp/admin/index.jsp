@@ -65,13 +65,15 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="/admin" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
+                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
+
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>
                         <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>User</a>
-                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                         <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
 
                     </div>
                 </nav>
@@ -84,12 +86,21 @@
                 <div>
                     <!-- Navbar Start -->
                     <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                        <a href="/admin" class="navbar-brand d-flex d-lg-none me-4">
                             <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                         </a>
                         <a href="#" class="sidebar-toggler flex-shrink-0">
                             <i class="fa fa-bars"></i>
                         </a>
+                        <c:choose>
+                            <c:when test="${user.role.id eq '2'}">
+                                <a href="/home">
+                                    <div class="menu-item active">
+                                        Home
+                                    </div>
+                                </a>
+                            </c:when>
+                        </c:choose>
                         <div class="navbar-nav align-items-center ms-auto">
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -98,8 +109,9 @@
                                     <span class="d-none d-lg-inline-flex">${user.name}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                    <a href="/admin" class="dropdown-item">My Profile</a>
-                                    <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
+                                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
+                                    <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change
+                                        Password</a>
                                     <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
                                 </div>
                             </div>
@@ -107,8 +119,64 @@
                     </nav>
                 </div>
                 <!-- Navbar End -->
+                <div class="container">
+                    <div class="card container px-6" style="height: 100vh">
+                        <h3 class="text-center">Profile</h3>
+                        <form action="/user?action=profile&id=${user.id}" method="post">
+                            <input type="hidden" name="id" value="${user.id}">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="${user.name}"
+                                       required="true" onblur="validateName()" readonly>
+                                <div id="name-error" class="text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"
+                                       required="true" onblur="validatePhone()" readonly>
+                                <div id="phone-error" class="text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       value="${user.username}"
+                                       readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" name="address"
+                                       value="${user.address}"
+                                       required="true" onblur="validateAddress()" readonly>
+                                <div id="address-error" class="text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Date of birth</label>
+                                <input type="date" class="form-control" id="dob" name="dob" value="${user.dob}"
+                                       required="true"
+                                       onblur="validateDob()" readonly>
+                                <div id="dob-error" class="text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <input type="text" class="form-control" id="gender" name="gender" value="${user.gender}"
+                                       required="true"
+                                       onblur="validateDob()" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <input type="text" class="form-control" id="role" name="role" value="${user.role.name}"
+                                       required="true"
+                                       onblur="validateDob()" readonly>
+                            </div>
+                            <a type="submit" href="/user?action=edit&id=${user.id}" class="btn btn-info mb-2">Edit</a>
+                        </form>
+                    </div>
+
+                </div>
             </div>
+
             <!-- Content End -->
+
 
         </c:when>
     </c:choose>
@@ -117,16 +185,15 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/chart/chart.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/tempusdominus/js/moment.min.js"></script>
-<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="../lib/chart/chart.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/waypoints/waypoints.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../lib/tempusdominus/js/moment.min.js"></script>
+<script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 </body>
-
 </html>

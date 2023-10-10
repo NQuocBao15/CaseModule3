@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns ={"/homes?action=addToCart"})
+@WebFilter(urlPatterns ={"/homes?action=addToCart","/clientProfile"})
 public class ClientFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest)servletRequest).getSession();
@@ -18,11 +18,11 @@ public class ClientFilter implements Filter {
             ((HttpServletResponse)servletResponse).sendRedirect("/auth");
             return;
         }
-        if(!user.getRole().getName().equals("client")){
-            ((HttpServletResponse)servletResponse).sendRedirect("/auth");
+        if(user.getRole().getName().equals("client")) {
+            filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+        ((HttpServletResponse)servletResponse).sendRedirect("/auth");
 
     }
 }

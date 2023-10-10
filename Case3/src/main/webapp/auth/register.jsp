@@ -60,28 +60,28 @@
                 <form action="/auth?action=register" method="post" id="registerForm" onsubmit="return validateForm()">
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control" id="name" name="name" required="true">
                         <div class="error-message" id="name-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
+                        <input type="text" class="form-control" id="phone" name="phone" required="true">
                         <div class="error-message" id="phone-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <input type="text" class="form-control" id="username" name="username" required="true">
                         <div class="error-message" id="username-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password" class="form-control" id="password" name="password" required="true">
                         <div class="error-message" id="password-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="reEnterPassword" class="form-label">Re-enter Password</label>
                         <input type="password" class="form-control" id="reEnterPassword" name="reEnterPassword"
-                               required>
+                               required="true">
                         <div class="error-message" id="reEnterPassword-error"></div>
                     </div>
                     <div class="mb-3">
@@ -91,12 +91,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="dob" class="form-label">Date of birth</label>
-                        <input type="date" class="form-control" id="dob" name="dob" required>
+                        <input type="date" class="form-control" id="dob" name="dob" required="true">
                         <div class="error-message" id="dob-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
-                        <select class="form-control" name="gender" id="gender" required="">
+                        <select class="form-control" name="gender" id="gender" required="true">
                             <c:forEach var="gender" items="${genders}">
                                 <option value="${gender}">${gender}</option>
                             </c:forEach>
@@ -130,106 +130,204 @@
 <script>
     // <![CDATA[  <-- For SVG support
 
-    $(document).ready(function () {
-        $('#registerForm').validate({
-            rules: {
-                name: {
-                    required: true,
-                    nameValidation: true,
-                    minlength: 6
-                },
-                phone: {
-                    required: true,
-                    digits: true,
-                    minlength: 10,
-                    maxlength: 10,
-                    regex: /^0\d{9}$/
-                },
-                username: {
-                    required: true,
-                    minlength: 6,
-                },
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                reEnterPassword: {
-                    required: true,
-                    equalTo: "#password"
-                },
-                dob: {
-                    required: true,
-                    dobValidation: true
-                }
-            },
-            messages: {
-                name: {
-                    required: "Nhập tên",
-                    pattern: "Tên không được nhập số",
-                    minlength: "Tối thiểu 6 kí tự"
-                },
-                phone: {
-                    required: "Nhập số điện thoại",
-                    digits: "Số điện thoại không chứa chữ",
-                    minlength: "Số điện thoại phải đủ 10 số",
-                    maxlength: "Số điện thoại phải đủ 10 số",
-                    regex: "Số điện thoại phải bắt đầu bằng số 0"
-                },
-                username: {
-                    required: "Nhập username",
-                    minlength: "Username tối thiểu 6 kí tự",
-                },
-                password: {
-                    required: "Nhập password",
-                    minlength: "Password tối thiểu 6 kí tự"
-                },
-                reEnterPassword: {
-                    required: "Nhập lại password",
-                    equalTo: "Password nhập lại không khớp với password"
-                },
-                dob: {
-                    required: "Nhập ngày sinh",
-                }
-            },
-            errorPlacement: function (error, element) {
-                // Hiển thị thông báo lỗi màu đỏ
-                error.addClass('error-message');
-                error.insertAfter(element);
-            },
-            highlight: function (element) {
-                // Áp dụng hiệu ứng giao diện khi lỗi xảy ra
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element) {
-                // Xóa hiệu ứng giao diện khi lỗi được giải quyết
-                $(element).removeClass('is-invalid');
-            },
-            submitHandler: function (form) {
-                // Xử lý gửi form khi dữ liệu hợp lệ
-                form.submit();
-            }
-        });
+    var nameInput = document.getElementById('name');
+    var nameError = document.getElementById('name-error');
+    var phoneInput = document.getElementById('phone');
+    var phoneError = document.getElementById('phone-error');
+    var usernameInput = document.getElementById('username');
+    var usernameError = document.getElementById('username-error');
+    var passwordInput = document.getElementById('password');
+    var passwordError = document.getElementById('password-error');
+    var reEnterPasswordInput = document.getElementById('reEnterPassword');
+    var reEnterPasswordError = document.getElementById('reEnterPassword-error');
+    var addressInput = document.getElementById('address');
+    var addressError = document.getElementById('address-error');
+    var dobInput = document.getElementById('dob');
+    var dobError = document.getElementById('dob-error');
 
-        $$.validator.addMethod(
-            "dobValidation",
-            function (value) {
-                var birthDate = new Date(value);
-                var currentDate = new Date();
-                var age = currentDate.getFullYear() - birthDate.getFullYear();
-                if (age < 10 || age > 100) {
-                    return false;
-                }
-                return true;
-            },
-            "Tuổi không được nhỏ hơn 10 và lớn hơn 100"
-        );
-        $.validator.addMethod(
-            "nameValidation",
-            function (value, element) {
-                return this.optional(element) || /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]+$/.test(value);
-            },
-            "Tên không được nhập số"
-        );
+    nameInput.addEventListener('blur', function () {
+        var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            nameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            nameError.textContent = ''; // Xóa thông báo lỗi
+        }
+    });
+
+    phoneInput.addEventListener('blur', function () {
+        var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
+
+        if (!phoneRegex.test(phoneInput.value)) {
+            phoneInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            phoneError.textContent = 'Số điện thoại phải bắt đầu bằng số 0, phải đủ 10 chữ số'; // Hiển thị thông báo lỗi
+        } else {
+            phoneInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            phoneError.textContent = ''; // Xóa thông báo lỗi
+        }
+    });
+
+    usernameInput.addEventListener('blur', function () {
+        var usernameValue = usernameInput.value;
+        if (usernameValue.length < 6) {
+            usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            usernameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            usernameError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    passwordInput.addEventListener('blur', function () {
+        var passwordValue = passwordInput.value;
+        var reEnterPasswordValue = reEnterPasswordInput.value;
+        if (passwordValue.length < 6) {
+            passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            passwordError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else if (reEnterPasswordValue.length < 6) {
+            reEnterPasswordInput.classList.add('is-invalid');
+            reEnterPasswordError.textContent = 'reEnter Password phải có ít nhất 6 kí tự'
+        } else if (passwordValue !== reEnterPasswordValue) {
+            passwordInput.classList.add('is-invalid');
+            reEnterPasswordInput.classList.add('is-invalid');
+            passwordError.textContent = 'Password và reEnter Password phải trùng nhau'; // Hiển thị thông báo lỗi
+            reEnterPasswordError.textContent = 'Password và reEnter Password phải trùng nhau'; // Hiển thị thông báo lỗi
+        } else {
+            passwordInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            passwordError.textContent = ''; // Xóa thông báo lỗi
+            reEnterPasswordInput.classList.remove('is-invalid');
+            reEnterPasswordError.textContent = '';
+        }
+    })
+    reEnterPasswordInput.addEventListener('blur', function () {
+        var passwordValue = passwordInput.value;
+        var reEnterPasswordValue = reEnterPasswordInput.value;
+        if (passwordValue.length < 6) {
+            passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            passwordError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else if (reEnterPasswordValue.length < 6) {
+            reEnterPasswordInput.classList.add('is-invalid');
+            reEnterPasswordError.textContent = 'reEnter Password phải có ít nhất 6 kí tự'
+        } else if (passwordValue !== reEnterPasswordValue) {
+            passwordInput.classList.add('is-invalid');
+            reEnterPasswordInput.classList.add('is-invalid');
+            passwordError.textContent = 'Password và reEnter Password phải trùng nhau'; // Hiển thị thông báo lỗi
+            reEnterPasswordError.textContent = 'Password và reEnter Password phải trùng nhau'; // Hiển thị thông báo lỗi
+        } else {
+            passwordInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            passwordError.textContent = ''; // Xóa thông báo lỗi
+            reEnterPasswordInput.classList.remove('is-invalid');
+            reEnterPasswordError.textContent = '';
+        }
+    })
+
+    addressInput.addEventListener('blur', function () {
+        var addressRegex = /^[a-zA-Z0-9\s,\.\-']+.{6,}$/;
+        if (!addressRegex.test(addressInput.value)) {
+            addressInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            addressError.textContent = 'Địa chỉ không hợp lệ, tối thiểu 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            addressInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            addressError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    dobInput.addEventListener("blur", function () {
+        var dobValue = new Date(dobInput.value);
+        var currentDate = new Date();
+
+        var age = currentDate.getFullYear() - dobValue.getFullYear();
+        var monthDiff = currentDate.getMonth() - dobValue.getMonth();
+        var dayDiff = currentDate.getDate() - dobValue.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--; // Chưa đến sinh nhật năm nay, giảm tuổi đi 1
+        }
+
+        if (age < 10 || age > 100) {
+            dobInput.classList.add("is-invalid");
+            dobError.textContent = "Tuổi không hợp lệ, tuổi từ 10 đến 100";
+        } else {
+            dobInput.classList.remove("is-invalid");
+            dobError.textContent = "";
+        }
+    });
+
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+
+        var dobValue = new Date(dobInput.value);
+        var currentDate = new Date();
+
+        var age = currentDate.getFullYear() - dobValue.getFullYear();
+        var monthDiff = currentDate.getMonth() - dobValue.getMonth();
+        var dayDiff = currentDate.getDate() - dobValue.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--; // Chưa đến sinh nhật năm nay, giảm tuổi đi 1
+        }
+
+
+        if (age < 10 || age > 100) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            dobInput.classList.add("is-invalid");
+            dobError.textContent = "Tuổi không hợp lệ, tuổi từ 10 đến 100";
+
+            dobInput.focus(); // Tập trung vào trường dob không hợp lệ
+        }
+
+        var addressRegex = /^[a-zA-Z0-9\s,\.\-']+.{6,}$/;
+        if (!addressRegex.test(addressInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            addressInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            addressError.textContent = 'Địa chỉ không hợp lệ, tối thiểu 6 kí tự'; // Hiển thị thông báo lỗi
+
+            addressInput.focus(); // Tập trung vào trường address không hợp lệ
+        }
+
+        var passwordValue = passwordInput.value;
+        if (passwordValue.length < 6) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            passwordInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            passwordError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            passwordInput.focus(); // Tập trung vào trường password không hợp lệ
+        }
+        if (passwordValue)
+            var usernameValue = usernameInput.value;
+        if (usernameValue.length < 6) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            usernameInput.focus(); // Tập trung vào trường username không hợp lệ
+        }
+
+        var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
+        if (!phoneRegex.test(phoneInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            phoneInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            phoneError.textContent = 'Số điện thoại phải bắt đầu bằng số 0, phải đủ 10 chữ số'; // Hiển thị thông báo lỗi
+
+            phoneInput.focus(); // Tập trung vào trường phone không hợp lệ
+        }
+
+        var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            nameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            nameError.textContent = 'Tên không được chứa kí tự số hoặc kí tự đặc biệt và có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            nameInput.focus(); // Tập trung vào trường name không hợp lệ
+        }
+
     });
 
 </script>

@@ -54,7 +54,7 @@
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <a href="/admin" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Order</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
@@ -69,14 +69,14 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="/admin" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="user?action=profile&id=${user.id}" class="nav-item nav-link"><i
+                                class="fa fa-tachometer-alt me-2"></i>Profile</a>
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>
                         <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                        <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
                         <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                        <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
                     </div>
                 </nav>
             </div>
@@ -94,6 +94,15 @@
                         <a href="#" class="sidebar-toggler flex-shrink-0">
                             <i class="fa fa-bars"></i>
                         </a>
+                        <c:choose>
+                            <c:when test="${user.role.id eq '2'}">
+                                <a href="/home">
+                                    <div class="menu-item active">
+                                        Home
+                                    </div>
+                                </a>
+                            </c:when>
+                        </c:choose>
                         <div class="navbar-nav align-items-center ms-auto">
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -102,7 +111,7 @@
                                     <span class="d-none d-lg-inline-flex">${user.name}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                    <a href="/admin" class="dropdown-item">My Profile</a>
+                                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
                                     <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
                                     <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
                                 </div>
@@ -231,9 +240,7 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+
 <script>
     const message = document.getElementById('message');
     if (message !== null && message.innerHTML) {
