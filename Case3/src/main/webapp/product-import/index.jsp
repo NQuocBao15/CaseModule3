@@ -117,7 +117,7 @@
                 <!-- Navbar End -->
                 <div class="container">
                     <div class="card container px-6" style="height: 100vh">
-                        <h3 class="text-center">Management Product</h3>
+                        <h3 class="text-center">Management Product Import</h3>
                         <c:if test="${message != null}">
                             <h6 class="d-none" id="message">${message}</h6>
                         </c:if>

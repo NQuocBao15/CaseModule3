@@ -55,7 +55,7 @@
                 <a href="/user?action=profile&id=${user.id}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Profile</h3>
                 </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
+                <div class="d-flex align-items-center ms-4 mb-4" onclick="redirectToProfile(${user.id})" onmouseover="changeCursor()">
                     <div class="position-relative">
                         <a href="/admin"></a>
                         <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -194,5 +194,14 @@
 <!-- Template Javascript -->
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
+<script>
+    function redirectToProfile(userId) {
+        window.location.href = `/user?action=profile&id=${user.id}`;
+    }
+
+    function changeCursor() {
+        event.target.style.cursor = "pointer";
+    }
+</script>
 </body>
 </html>

@@ -40,7 +40,7 @@
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <c:choose>
-        <c:when test="${user.role.id eq '1'}">
+        <c:when test="${not empty loggedIn}">
             <!-- Spinner Start -->
             <div id="spinner"
                  class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -155,11 +155,19 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Role</label>
-                                <select class="form-control" name="role" id="role" required="">
-                                    <c:forEach var="role" items="${roles}">
-                                        <option value="${role.id}" ${role.id == userUpdate.role.id ? "selectd":""}>${role.name}</option>
-                                    </c:forEach>
-                                </select>
+                                <c:if test="${user.role.id=='1'}">
+                                    <select class="form-control" name="role" id="role" required="">
+                                        <c:forEach var="role" items="${roles}">
+                                            <option value="${role.id}" ${role.id == userUpdate.role.id ? "selectd":""}>${role.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </c:if>
+                                <c:if test="${user.role.id=='2'}">
+                                    <input type="text" class="form-control" id="role" name="role" value="${user.role.name}"
+                                           required="true"
+                                           onblur="validateDob()" readonly>
+                                </c:if>
+
                             </div>
 
                             <a href="/user" class="btn btn-dark mb-2">Cancel</a>
