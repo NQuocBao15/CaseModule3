@@ -179,8 +179,11 @@
                                             <div class="error-message" id="quantities-1-error"></div>
                                         </div>
                                         <div class="col-4">
-                                            <input type="number" class="form-control" id="amounts-1" name="amounts"
-                                                   value="${piDetail.price}" pattern="#,###.###" required readonly>
+<%--                                            <input type="number" class="form-control" id="amounts-1" name="amounts"--%>
+<%--                                                   value="${piDetail.price}" required readonly>--%>
+                                            <p type="number" class="form-control" id="amounts-1" name="amounts">
+                                                <fmt:formatNumber value="${piDetail.price}" pattern="#,###.###" /> VND
+                                            </p>
                                             <div class="error-message" id="amounts-1-error"></div>
                                         </div>
 <%--                                        <div class="col-2 d-flex justify-content-end">--%>

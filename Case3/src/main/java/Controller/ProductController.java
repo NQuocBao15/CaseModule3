@@ -45,9 +45,14 @@ public class ProductController extends HttpServlet {
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
         productService.delete(Integer.parseInt(req.getParameter("id")));
-        resp.sendRedirect("/product?message=Deleted successfully");
+        Product product = productService.findById(Integer.parseInt(req.getParameter("id")));
+        if(product != null){
+            resp.sendRedirect("/product?message=Deleted Unsuccessfully");
+        }else {
+            resp.sendRedirect("/product?message=Deleted Successfully");
+        }
+
     }
 
     private void showListProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

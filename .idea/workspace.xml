@@ -10,36 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_Cream_o_vanilla.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_afc.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_bo_trung.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_bong_lan_cuon_kem_com_la_dua.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_choco_pn.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_kem_xop_pho_mai.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_oreo_socola_pie_cadbury.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_quy_cosy_marie.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_quy_richy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_quy_richy_kem_deo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/banh_quy_tipo_trung_nuong.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_cung_migita_bac_ha.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_kopiko_cappuchino.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_mem_alpenliebe.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_socola_nestle_milo_chocobar.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_socola_snickers.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_socola_sua_mm.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_thom_mieng_play_Candy_vi_dua_hau.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_thom_mieng_play_candy_vi_dao.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_thom_mieng_play_candy_vi_dua_gang.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/img/keo_vien_the_golia.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product-import/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/create.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,27 +49,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Java/democase github/democase",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Java/democase github/democase&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Model" />
@@ -293,7 +266,7 @@
       <workItem from="1696221648612" duration="295000" />
       <workItem from="1696221950748" duration="16978000" />
       <workItem from="1696470403586" duration="22886000" />
-      <workItem from="1696814335178" duration="26884000" />
+      <workItem from="1696814335178" duration="29170000" />
     </task>
     <servers />
   </component>
@@ -324,13 +297,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
-          <line>73</line>
+          <line>123</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductImportController.java</url>
@@ -339,8 +307,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java</url>
-          <line>103</line>
+          <line>108</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
