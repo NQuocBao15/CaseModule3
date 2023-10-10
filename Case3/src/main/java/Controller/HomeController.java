@@ -36,22 +36,22 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if (Objects.equals(action, "checkCart")) {
-            try {
-                shoppingCart(req, resp);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            return;
-        }
+//        if (Objects.equals(action, "checkCart")) {
+//            try {
+//                shoppingCart(req, resp);
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//            return;
+//        }
         if (Objects.equals(action, "detail")) {
             productDetail(req, resp);
             return;
         }
-        if (Objects.equals(action, "delete")) {
-            delete(req, resp);
-            return;
-        }
+//        if (Objects.equals(action, "delete")) {
+//            delete(req, resp);
+//            return;
+//        }
         if (Objects.equals(action, "update")) {
             update(req, resp);
             return;
@@ -72,13 +72,13 @@ public class HomeController extends HttpServlet {
         resp.sendRedirect("/homes?action=checkCart&idProduct=" + idProduct + "&idUser=" + idUser + "&quantity=" + quantity + "&message=Update Quantity Successfully");
     }
 
-    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int idProduct = Integer.parseInt(req.getParameter("idProduct"));
-        int idUser = Integer.parseInt(req.getParameter("idUser"));
-        cartService.delete(idProduct, idUser);
-
-        resp.sendRedirect("/homes?action=checkCart&message=Deleted Successfully");
-    }
+//    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//        int idProduct = Integer.parseInt(req.getParameter("idProduct"));
+//        int idUser = Integer.parseInt(req.getParameter("idUser"));
+//        cartService.delete(idProduct, idUser);
+//
+//        resp.sendRedirect("/homes?action=checkCart&idUser=" + idUser + "&message=Deleted Successfully");
+//    }
 
     private void addToCart(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         int idProduct = Integer.parseInt(req.getParameter("idProduct"));
@@ -111,14 +111,14 @@ public class HomeController extends HttpServlet {
         req.getRequestDispatcher(PAGE + "/index.jsp").forward(req, resp);
     }
 
-    private void shoppingCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
-//        int id = Integer.parseInt(req.getParameter("idProduct"));
-        int idUser = Integer.parseInt(req.getParameter("idUser"));
-        List<Cart> carts = cartService.findCartByIdUser(idUser);
-        req.setAttribute("carts", carts);
-        req.setAttribute("productImportDetails",productImportService.findAllProductImportDetail());
-        req.getRequestDispatcher(PAGE + "/cart.jsp").forward(req, resp);
-    }
+//    private void shoppingCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+////        int id = Integer.parseInt(req.getParameter("idProduct"));
+//        int idUser = Integer.parseInt(req.getParameter("idUser"));
+//        List<Cart> carts = cartService.findCartByIdUser(idUser);
+//        req.setAttribute("carts", carts);
+//        req.setAttribute("productImportDetails",productImportService.getQuantityForCartByIdUser(idUser));
+//        req.getRequestDispatcher(PAGE + "/cart.jsp").forward(req, resp);
+//    }
 
     private void productDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));

@@ -18,7 +18,7 @@ public class CartDAO extends DatabaseConnection {
             "join products p on c.product_id = p.id " +
             "where c.customer_id = ?";
     private final String CREATE_CART = "INSERT INTO `carts` (`product_id`, `customer_id`, `quantity`, `price`) VALUES (?, ?, ?, ?);";
-    private final String DELETE_CART = "DELETE FROM `carts` WHERE (`customer_id` = ? and `product_id` = ?);";
+    private final String DELETE_CART = "DELETE FROM `carts` WHERE (`product_id` = ? and `customer_id` = ?);";
     private final String UPDATE_CART = "UPDATE carts " +
             "SET quantity = (SELECT total_quantity FROM (" +
             "    SELECT SUM(c.quantity + ?) AS total_quantity " +

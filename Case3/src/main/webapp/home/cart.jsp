@@ -18,6 +18,7 @@
           rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../home/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .card {
             max-width: 1000px;
@@ -87,28 +88,28 @@
 <!-- TOP NAVIGATION -->
 <div class="nav">
     <div class="menu-wrap">
-        <a href="#home">
+        <a href="/homes">
             <div class="logo">
                 FoodyCom
             </div>
         </a>
         <div class="menu h-xs">
-            <a href="#home">
+            <a href="/homes">
                 <div class="menu-item active">
                     Home
                 </div>
             </a>
-            <a href="#about">
+            <a href="/homes#about">
                 <div class="menu-item">
                     About
                 </div>
             </a>
-            <a href="#food-menu-section">
+            <a href="/homes#food-menu-section">
                 <div class="menu-item">
                     Menu
                 </div>
             </a>
-            <a href="#testimonial">
+            <a href="/homes#testimonial">
                 <div class="menu-item">
                     Testimonials
                 </div>
@@ -152,38 +153,37 @@
                     </tr>
                     </thead>
                     <tbody class="card-body">
-                    <c:set var="totalPrice" value="0" />
+                    <c:set var="totalPrice" value="0"/>
                     <c:forEach items="${carts}" var="cart">
-                        <c:set var="max" value="1"/>
-                        <c:forEach items="${productImportDetails}" var="pid">
-                            <c:if test="${cart.product.id == pid.product.id}">
-                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>
-                            </c:if>
-                        </c:forEach>
+                        <%--                        <c:set var="max" value="1"/>--%>
+                        <%--                        <c:forEach items="${productImportDetails}" var="pid">--%>
+                        <%--                            <c:if test="${cart.product.id == pid.product.id}">--%>
+                        <%--                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>--%>
+                        <%--                            </c:if>--%>
+                        <%--                        </c:forEach>--%>
                         <tr>
                             <td class="col-4">
                                 <img src="../img${cart.product.img}" alt="">
                                 <h5>${cart.product.name}</h5>
                             </td>
                             <td class="col-1">
-                                    ${cart.price}
+                                <fmt:formatNumber value="${cart.price}" pattern="#,###.### VNĐ"/>
                             </td>
                             <td class="col-1">
-                                <div class="quantity">
-
-                                    <input min="1" max="${max}" name="quantity"
-                                           id="productQuantity" type="number" value="${cart.quantity}"
-                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">
-                                </div>
+                                    <%--                                    <input min="1" max="${productImportDetails}" name="quantity"--%>
+                                    <%--                                           id="productQuantity" type="number" value="${cart.quantity}"--%>
+                                    <%--                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">--%>
+                                    ${cart.quantity}
                             </td>
                             <td class="col-1">
-                                    ${cart.price * cart.quantity}
+                                <fmt:formatNumber value="${cart.price * cart.quantity}" pattern="#,###.### VNĐ"/>
                             </td>
                             <td class="col-1">
-                                <span class="icon_close" onclick="handleDeleteCartItem(${cart.product.id},${cart.user.id})"></span>
+                                <a class="btn btn-danger" href="/cart?action=delete&idProduct=${cart.product.id}&idUser=${cart.user.id}"
+                                      onclick="return confirm('Do you want to remove' + ${cart.product.name} + '?')"><i class="fa-solid fa-xmark"></i></a>
                             </td>
                         </tr>
-                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}" />
+                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -192,7 +192,9 @@
                 <div class="card">
                     <h5 style="text-align: center">Cart Total</h5>
                     <ul>
-                        <p style="text-align: center">Total <span>${totalPrice} đ</span></p>
+                        <p style="text-align: center">Total <span><fmt:formatNumber value="${totalPrice}"
+                                                                                    pattern="#,###.### VNĐ"/> đ</span>
+                        </p>
                     </ul>
                     <form method="get" action="/checkout" style="text-align: center">
                         <button class="primary-btn">PROCEED TO CHECKOUT</button>
@@ -213,10 +215,12 @@
 <script src="lib/tempusdominus/js/moment.min.js"></script>
 <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script src="../home/js/main.js"></script>
 <script>
+    const productID = ${productImportDetails};
     document.getElementById('productQuantity').addEventListener('input', function () {
         var quantity = parseInt(this.value);
         var price = parseFloat('${product.price}'); // Assuming product.price is in float format
@@ -232,7 +236,7 @@
         window.location.assign(url);
     }
 
-    function handleDeleteCartItem(idProduct,idUser) {
+    function handleDeleteCartItem(idProduct, idUser) {
         let url = `/homes?action=delete&idProduct=\${idProduct}&idUser=\${idUser}`;
         window.location.assign(url);
     }

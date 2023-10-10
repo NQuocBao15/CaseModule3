@@ -66,16 +66,16 @@ public class ProductImportDAO extends DatabaseConnection {
                 "product_imports pi " +
                 "LEFT JOIN product_import_details pid on pi.id = pid.product_import_id " +
                 "LEFT JOIN products p on p.id = pid.product_id " +
-                "WHERE lower(pi.code) like ? or lower(p.name) like ? " +
                 "GROUP BY pi.id  " +
+                "HAVING lower(pi.code) like ? or GROUP_CONCAT(p.name) like ? " +
                 "ORDER BY pi.id " +
                 "LIMIT ? OFFSET ?";
         String SELECT_COUNT = "select count(*) cnt from (SELECT pi.id, pi.code, pi.date_import, GROUP_CONCAT(p.name) products, pi.total FROM " +
                 "product_imports pi " +
                 "LEFT JOIN product_import_details pid on pi.id = pid.product_import_id " +
                 "LEFT JOIN products p on p.id = pid.product_id " +
-                "WHERE lower(pi.code) like ? or lower(p.name) like ? " +
-                "GROUP BY pi.id) t";
+                "GROUP BY pi.id " +
+                "HAVING lower(pi.code) like ? or GROUP_CONCAT(p.name) like ?) t";
 //        String SELECT_COUNT = "select count(1) cnt from product_imports pi " +
 //                "LEFT JOIN product_import_details pid on pi.id = pid.product_import_id " +
 //                "LEFT JOIN products p on p.id = pid.product_id " +
@@ -194,6 +194,27 @@ public class ProductImportDAO extends DatabaseConnection {
         }
     }
 
+    public List<ProductImportDetail> getQuantityForCartByIdUser(int id) {
+        List<ProductImportDetail> result = new ArrayList<>();
+        String GET_PRODUCT_QUANTITY_FOR_CART = "SELECT c.*, SUM(pid.quantity - pid.quantity_sold) AS quantity " +
+                "FROM carts c " +
+                "JOIN products p ON c.product_id = p.id " +
+                "JOIN product_import_details pid ON pid.product_id = p.id " +
+                "where c.customer_id = ? " +
+                "group by c.id";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_QUANTITY_FOR_CART)) {
+            preparedStatement.setInt(1,id);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                result.add(getProductImportDetailByResultSet2(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
     public ProductImportDetail getQuantityByIdProduct(int id) {
         var result = new ProductImportDetail();
         result.setId(id);
@@ -237,9 +258,16 @@ public class ProductImportDAO extends DatabaseConnection {
 
     private ProductImportDetail getProductImportDetailByResultSet(ResultSet rs) throws SQLException {
         ProductImportDetail productImportDetail = new ProductImportDetail();
-        productImportDetail.setProduct(new Product(rs.getInt("quantity"),rs.getString("product_name")));
+        productImportDetail.setProduct(new Product(rs.getInt("id"),rs.getString("product_name")));
         productImportDetail.setQuantity(rs.getInt("quantity"));
         productImportDetail.setQuantitySold(rs.getInt("quantity_sold"));
+        return  productImportDetail;
+    }
+
+    private ProductImportDetail getProductImportDetailByResultSet2(ResultSet rs) throws SQLException {
+        ProductImportDetail productImportDetail = new ProductImportDetail();
+        productImportDetail.setProduct(new Product(rs.getInt("product_id")));
+        productImportDetail.setQuantity(rs.getInt("quantity"));
         return  productImportDetail;
     }
 }

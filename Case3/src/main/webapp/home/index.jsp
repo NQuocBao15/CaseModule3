@@ -103,7 +103,7 @@
         </div>
         <div class="right-menu">
             <div class="cart-btn">
-                <a href="/homes?action=checkCart&idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
+                <a href="/cart?idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
             </div>
         </div>
 

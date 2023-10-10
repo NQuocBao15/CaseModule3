@@ -9,6 +9,7 @@ import service.dto.ProductImportListResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -79,6 +80,9 @@ public class ProductImportService {
         return productImportDAO.findAll(page,search);
     }
 
+    public List<ProductImportDetail> getQuantityForCartByIdUser(int id) {
+        return productImportDAO.getQuantityForCartByIdUser(id);
+    }
     public void delete(int id) {
         productImportDAO.deleteImportDetail(id);
         productImportDAO.deleteProductImport(id);
