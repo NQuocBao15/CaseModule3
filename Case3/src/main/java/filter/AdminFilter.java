@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns ={"/admin/*" ,"/product/*","/express/*","/order/*","/user/*"})
+@WebFilter(urlPatterns ={"/admin/*" ,"/product/*","/express/*","/adminProfile","/product-import/*"})
 public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -19,11 +19,11 @@ public class AdminFilter implements Filter {
             ((HttpServletResponse)servletResponse).sendRedirect("/auth");
             return;
         }
-        if(!user.getRole().getName().equals("admin")){
-            ((HttpServletResponse)servletResponse).sendRedirect("/auth");
+        if(user.getRole().getName().equals("admin")) {
+            filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+        ((HttpServletResponse)servletResponse).sendRedirect("/auth");
 
     }
 }

@@ -68,13 +68,14 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="/admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link"><i
+                                class="fa fa-tachometer-alt me-2"></i>Profile</a>
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                             Import</a>
                         <a href="/user" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>User</a>
-                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                         <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                     </div>
                 </nav>
             </div>
@@ -99,7 +100,7 @@
                                     <span class="d-none d-lg-inline-flex">${user.name}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                    <a href="/admin" class="dropdown-item">My Profile</a>
+                                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
                                     <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
                                     <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
                                 </div>

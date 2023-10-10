@@ -30,9 +30,15 @@ public class UserController extends HttpServlet {
             case "create" -> showCreate(req,resp);
             case "edit" -> showUpdate(req,resp);
             case "delete" -> delete(req,resp);
+            case "profile" -> showProfile(req, resp);
         }
     }
-
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", userService.findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("roles", roleService.findAll());
+        req.setAttribute("genders", EGender.values());
+        req.getRequestDispatcher("user/profile.jsp").forward(req, resp);
+    }
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         userService.delete(Integer.parseInt(req.getParameter("id")));
         resp.sendRedirect("/user?message=Deleted Successfully");
