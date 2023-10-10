@@ -12,9 +12,7 @@
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/auth/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/auth/register.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/home/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/home/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/home/productDetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/home/productDetail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductImportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductImportDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +266,7 @@
       <workItem from="1696221648612" duration="295000" />
       <workItem from="1696221950748" duration="16978000" />
       <workItem from="1696470403586" duration="22886000" />
-      <workItem from="1696814335178" duration="3453000" />
+      <workItem from="1696814335178" duration="16662000" />
     </task>
     <servers />
   </component>
@@ -311,11 +309,6 @@
           <url>file://$PROJECT_DIR$/Case3/src/main/java/service/ProductImportService.java</url>
           <line>27</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
