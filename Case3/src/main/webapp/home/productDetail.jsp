@@ -43,7 +43,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
     <style>
         .error-message {
@@ -151,7 +152,7 @@
         </div>
         <div class="right-menu">
             <div class="cart-btn">
-                <a href="/homes?action=checkCart"><i class='bx bx-cart-alt'></i></a>
+                <a href="/homes?action=checkCart&idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
             </div>
         </div>
     </div>
@@ -216,31 +217,39 @@
                     <div class="p-t-33">
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-204 flex-w flex-m respon6-next">
-                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                <form action="/homes?action=addToCart&id=${product.id}" method="post" id="formCreate">
+                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                            <input type="text" hidden="hidden" name="idProduct" value="${product.id}">
+                                            <input type="text" hidden="hidden" value="${user.id}" name="idUser">
+                                            <i class="fs-16 zmdi zmdi-minus"></i>
+                                        </div>
+                                        <label>
+                                            <input min="1" max="${productImportDetail.quantity}" name="quantity"
+                                                   id="productQuantity" type="number" value="1"
+                                                   style="text-align: center">
+                                            <p id="totalCheckOut">-</p>
+                                            <button class="btn-num-product-up cl8 hov-b tn3 trans-04 flex-c-m"><i
+                                                    class="fs-16 zmdi zmdi-plus"></i></button>
+                                        </label>
 
-                                        <i class="fs-16 zmdi zmdi-minus"></i>
+
+                                        <div class="btn-num-product-up cl8 hov-b tn3 trans-04 flex-c-m"
+                                             id="btn-num-product-up">
+                                            <i class="fs-16 zmdi zmdi-plus"></i>
+                                        </div>
                                     </div>
-
-                                    <label>
-                                        <input min="1" max="${productImportDetail.quantity}" name="quantity" id="productQuantity" type="number" value="1" style="text-align: center">
-                                        <p id="totalCheckOut">-</p>
-                                    </label>
-
-                                    <div class="btn-num-product-up cl8 hov-b tn3 trans-04 flex-c-m"
-                                         id="btn-num-product-up">
-                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                    </div>
-                                </div>
-                                <c:if test="${not empty loggedIn}">
-                                    <a href="#" class="add-to-cart-btn btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                                       data-product-id="${product.id}">
-                                        Add to cart
-                                    </a>
-                                </c:if>
-                                <c:if test="${empty loggedIn}">
-                                    <a href="/auth" class="login-btn">Add to cart</a>
-                                </c:if>
+                                    <c:if test="${not empty loggedIn}">
+                                        <button type="submit"
+                                           class="btn btn-outline-success"
+                                           data-product-id="${product.id}">
+                                            Add to cart
+                                        </button>
+                                    </c:if>
+                                    <c:if test="${empty loggedIn}">
+                                        <a href="/auth" class="login-btn">Add to cart</a>
+                                    </c:if>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -314,7 +323,7 @@
 <!-- END FOOTER SECTION -->
 
 <script>
-    document.getElementById('productQuantity').addEventListener('input', function() {
+    document.getElementById('productQuantity').addEventListener('input', function () {
         var quantity = parseInt(this.value);
         var price = parseFloat('${product.price}'); // Assuming product.price is in float format
 
@@ -345,19 +354,19 @@
             }
         });
 
-        $('#productQuantity').on('input', function() {
-            var quantity = parseInt($(this).val());
-            var maxQuantity = parseInt($(this).attr('max'));
-            var minQuantity = parseInt($(this).attr('min'));
-
-            if (isNaN(quantity)) {
-                $('#totalCheckOut').text('Invalid input');
-            } else if (quantity < minQuantity || quantity > maxQuantity) {
-                $('#totalCheckOut').text('Quantity out of range');
-            } else {
-                $('#totalCheckOut').text('Valid quantity');
-            }
-        });
+        // $('#productQuantity').on('input', function () {
+        //     var quantity = parseInt($(this).val());
+        //     var maxQuantity = parseInt($(this).attr('max'));
+        //     var minQuantity = parseInt($(this).attr('min'));
+        //
+        //     if (isNaN(quantity)) {
+        //         $('#totalCheckOut').text('Invalid input');
+        //     } else if (quantity < minQuantity || quantity > maxQuantity) {
+        //         $('#totalCheckOut').text('Quantity out of range');
+        //     } else {
+        //         $('#totalCheckOut').text('Valid quantity');
+        //     }
+        // });
     });
 
 </script>
@@ -372,6 +381,40 @@
 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script src="../home/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%--<script>--%>
+<%--    $(document).ready(function() {--%>
+<%--        $('form').submit(function(e) {--%>
+<%--            e.preventDefault(); // Ngăn việc gửi biểu mẫu mặc định--%>
+
+<%--            // Lấy giá trị số lượng--%>
+<%--            var quantity = $('#productQuantity').val();--%>
+
+<%--            // Cập nhật thuộc tính action--%>
+<%--            var action = $(this).attr('action');--%>
+<%--            action = action + '&quantity=' + quantity;--%>
+<%--            $(this).attr('action', action);--%>
+
+<%--            // Gửi biểu mẫu bằng AJAX--%>
+<%--            $.ajax({--%>
+<%--                type: 'post',--%>
+<%--                url: action,--%>
+<%--                data: $(this).serialize(),--%>
+<%--                success: function(response) {--%>
+<%--                    // Xử lý phản hồi nếu cần--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
+<%--<script>--%>
+<%--    document.getElementById('formCreate').addEventListener('submit', function() {--%>
+<%--        var quantity = document.getElementById('productQuantity').value;--%>
+<%--        var formAction = "/homes?action=addToCart&id=${product.id}&quantity=" + quantity;--%>
+<%--        this.action = formAction;--%>
+<%--    });--%>
+<%--</script>--%>
+
 </body>
 
 </html>

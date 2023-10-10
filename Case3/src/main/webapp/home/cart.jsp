@@ -21,12 +21,12 @@
     <style>
         .card {
             max-width: 1000px;
-            max-height: 500px/* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
+            max-height: 500px /* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
         }
 
         .card img {
             max-width: 70%;
-            max-height: 90%;/* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
+            max-height: 90%; /* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
             height: auto; /* Đảm bảo tỷ lệ hình ảnh được duy trì */
             width: auto;
         }
@@ -114,11 +114,6 @@
                 </div>
             </a>
         </div>
-        <div class="right-menu">
-            <div class="cart-btn">
-                <a href="/homes?action=checkCart"><i class='bx bx-cart-alt'></i></a>
-            </div>
-        </div>
     </div>
     <div class="navbar-nav align-items-center ms-auto">
         <c:if test="${not empty loggedIn}">
@@ -142,60 +137,64 @@
 </div>
 <!-- END TOP NAVIGATION -->
 <!-- FOOD MENU SECTION -->
-<section class="shoping-cart spad">
+<section class="">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="shoping__cart__table">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th class="shoping__product">Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${requestScope.cart.getCartItems()}" var="cartItem">
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img  src="${cartItem.product.avatar}" alt="">
-                                    <h5>${cartItem.product.name}</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                        ${cartItem.price}
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <input onchange="handleQuantityChange(this,${cartItem.product.id})" min="1"
-                                               max="100" type="number" name="" class="form-control" id="test"
-                                               value="${cartItem.quantity}">
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                        ${cartItem.price * cartItem.quantity}
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close" onclick="handleDeleteCartItem(${cartItem.getId()})"></span>
-                                </td>
-                            </tr>
+            <div class="card col-8">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="">Products</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody class="card-body">
+                    <c:set var="totalPrice" value="0" />
+                    <c:forEach items="${carts}" var="cart">
+                        <c:set var="max" value="1"/>
+                        <c:forEach items="${productImportDetails}" var="pid">
+                            <c:if test="${cart.product.id == pid.product.id}">
+                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>
+                            </c:if>
                         </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                        <tr>
+                            <td class="col-4">
+                                <img src="../img${cart.product.img}" alt="">
+                                <h5>${cart.product.name}</h5>
+                            </td>
+                            <td class="col-1">
+                                    ${cart.price}
+                            </td>
+                            <td class="col-1">
+                                <div class="quantity">
+
+                                    <input min="1" max="${max}" name="quantity"
+                                           id="productQuantity" type="number" value="${cart.quantity}"
+                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">
+                                </div>
+                            </td>
+                            <td class="col-1">
+                                    ${cart.price * cart.quantity}
+                            </td>
+                            <td class="col-1">
+                                <span class="icon_close" onclick="handleDeleteCartItem(${cart.product.id},${cart.user.id})"></span>
+                            </td>
+                        </tr>
+                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}" />
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6">
-                <div class="shoping__checkout">
-                    <h5>Cart Total</h5>
+            <div class="col-4">
+                <div class="card">
+                    <h5 style="text-align: center">Cart Total</h5>
                     <ul>
-                        <li>Total <span>$${cart.total}</span></li>
+                        <p style="text-align: center">Total <span>${totalPrice} đ</span></p>
                     </ul>
-                    <form method="get" action="/checkout" >
+                    <form method="get" action="/checkout" style="text-align: center">
                         <button class="primary-btn">PROCEED TO CHECKOUT</button>
                     </form>
                 </div>
@@ -217,6 +216,27 @@
 
 
 <script src="../home/js/main.js"></script>
+<script>
+    document.getElementById('productQuantity').addEventListener('input', function () {
+        var quantity = parseInt(this.value);
+        var price = parseFloat('${product.price}'); // Assuming product.price is in float format
+
+        if (!isNaN(quantity) && !isNaN(price)) {
+            var total = quantity * price;
+            document.getElementById('totalCheckOut').textContent = 'Total: ' + total.toFixed(0) + ' đ'; // Assuming you want to display total in Vietnamese currency format
+        }
+    });
+
+    function handleQuantityChange(eQuantity, idProduct, idUser) {
+        let url = `/homes?action=update&idProduct=\${idProduct}&idUser=\${idUser}&quantity=\${eQuantity}`;
+        window.location.assign(url);
+    }
+
+    function handleDeleteCartItem(idProduct,idUser) {
+        let url = `/homes?action=delete&idProduct=\${idProduct}&idUser=\${idUser}`;
+        window.location.assign(url);
+    }
+</script>
 </body>
 
 </html>

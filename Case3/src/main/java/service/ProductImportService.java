@@ -90,4 +90,8 @@ public class ProductImportService {
     public ProductImportDetail getQuantityByIdProduct(int id) {
         return productImportDAO.getQuantityByIdProduct(id);
     }
+
+    public List<ProductImportDetail> findAllProductImportDetail() {
+        return productImportDAO.findAllProductImportDetail();
+    }
 }

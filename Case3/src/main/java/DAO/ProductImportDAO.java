@@ -9,8 +9,10 @@ import service.dto.ProductImportListResponse;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductImportDAO extends DatabaseConnection {
     public int create(ProductImport productImport) {
@@ -198,8 +200,8 @@ public class ProductImportDAO extends DatabaseConnection {
         String GET_PRODUCT_QUANTITY = "SELECT p.*, (select sum(pid.quantity-pid.quantity_sold) from product_import_details pid " +
                 "join products p on pid.product_id = p.id " +
                 "where p.id = ? " +
-                "group by p.id) as quantity FROM candycake.products p  " +
-                "where p.id = ?";
+                "group by p.id) as quantity FROM products p  " +
+                "where p.id = ? ";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_QUANTITY)) {
             preparedStatement.setInt(1, id);
@@ -212,6 +214,33 @@ public class ProductImportDAO extends DatabaseConnection {
             System.out.println(e.getMessage());
         }
         return result;
+    }
+
+    public List<ProductImportDetail> findAllProductImportDetail() {
+        String FIND_ALL_PRODUCT_IMPORT_DETAIL = "SELECT product_id, sum(quantity) as quantity, sum(quantity_sold) as quantity_sold, p.name as product_name FROM product_import_details pid " +
+                "join products p on pid.product_id = p.id " +
+                "group by product_id";
+        List<ProductImportDetail> productImportDetails = new ArrayList<>();
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_PRODUCT_IMPORT_DETAIL);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()){
+               productImportDetails.add(getProductImportDetailByResultSet(rs));
+            }
+            return productImportDetails;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private ProductImportDetail getProductImportDetailByResultSet(ResultSet rs) throws SQLException {
+        ProductImportDetail productImportDetail = new ProductImportDetail();
+        productImportDetail.setProduct(new Product(rs.getInt("quantity"),rs.getString("product_name")));
+        productImportDetail.setQuantity(rs.getInt("quantity"));
+        productImportDetail.setQuantitySold(rs.getInt("quantity_sold"));
+        return  productImportDetail;
     }
 }
 
