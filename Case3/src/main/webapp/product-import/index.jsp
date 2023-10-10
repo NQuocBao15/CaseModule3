@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -127,7 +129,7 @@
                             <form action="/product-import?page=${page.currentPage}"
                                   style="display: flex; align-items: center; margin-right: 10px;">
                                 <div>
-                                    <input type="text" id="search" value="${search}" name="search" class="form-control"
+                                    <input type="text" id="searchProductImport" value="${search}" name="search" class="form-control"
                                            style="width: 85%" placeholder="Search Product Import">
                                 </div>
                                 <div style="margin-left: 10px;">
@@ -150,19 +152,19 @@
                                 <td>${productImport.code}</td>
                                 <td>${productImport.importDate}</td>
                                 <td>${productImport.products}</td>
-                                <td>${productImport.totalAmount}</td>
+                                <td><fmt:formatNumber value="${productImport.totalAmount}" pattern="#,###.###" /> VND</td>
                                 <td>
-                                    <a class="btn btn-info" href="/product-import?action=edit&id=${productImport.id}">Edit</a>
-                                    <a class="btn btn-danger"
-                                       onclick="return confirm('Do you want remove ${productImport.code} ?')"
-                                       href="/product-import?action=delete&id=${productImport.id}">Delete</a>
+                                    <a class="btn btn-info" href="/product-import?action=edit&id=${productImport.id}">Detail</a>
+<%--                                    <a class="btn btn-danger"--%>
+<%--                                       onclick="return confirm('Do you want remove ${productImport.code} ?')"--%>
+<%--                                       href="/product-import?action=delete&id=${productImport.id}">Delete</a>--%>
                                 </td>
                             </tr>
                             </c:forEach>
                         </table>
                         <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
                             <nav aria-label="...">
-                                <c:set var="url" value="/product-import?page="/>
+                                <c:set var="url" value="/product-import?search=${search}&page="/>
                                 <ul class="pagination">
                                     <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
                                         <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
@@ -213,43 +215,6 @@
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
 <script>
-    // <![CDATA[  <-- For SVG support
-    if ('WebSocket' in window) {
-        (function () {
-            function refreshCSS() {
-                var sheets = [].slice.call(document.getElementsByTagName("link"));
-                var head = document.getElementsByTagName("head")[0];
-                for (var i = 0; i < sheets.length; ++i) {
-                    var elem = sheets[i];
-                    var parent = elem.parentElement || head;
-                    parent.removeChild(elem);
-                    var rel = elem.rel;
-                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                    }
-                    parent.appendChild(elem);
-                }
-            }
-
-            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-            var address = protocol + window.location.host + window.location.pathname + '/ws';
-            var socket = new WebSocket(address);
-            socket.onmessage = function (msg) {
-                if (msg.data == 'reload') window.location.reload();
-                else if (msg.data == 'refreshcss') refreshCSS();
-            };
-            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                console.log('Live reload enabled.');
-                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-            }
-        })();
-    } else {
-        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-    }
-    // ]]>
-
-
     const message = document.getElementById('message');
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
@@ -258,12 +223,12 @@
 </form>
 
 <script>
-    // function searchFunction() {
-    //     var searchQuery = document.getElementById("search").value;
-    //     var currentUrl = window.location.href;
-    //     var searchUrl = currentUrl + "?search=" + encodeURIComponent(searchQuery);
-    //     window.location.href = searchUrl;
-    // }
+
+    document.getElementById("searchButton").addEventListener("click", function () {
+        var searchInput = document.getElementById("searchProductImport").value;
+        var searchUrl = "/product-import?action=search&result=" + encodeURIComponent(searchInput);
+        window.location.href = searchUrl;
+    });
 </script>
 
 </body>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -124,19 +125,19 @@
                 </div>
                 <div class="container">
                     <div class="card container px-6" style="height: 100vh">
-                        <h3 class="text-center">Edit Product Import</h3>
+                        <h3 class="text-center">Product Import Detail</h3>
                         <form action="/product-import?action=edit&id=${productImport.id}" method="post" id="editForm"
                               onsubmit="return validateForm()">
                             <div class="mb-3">
                                 <label for="code" class="form-label">Import Code</label>
                                 <input type="text" class="form-control" id="code" name="code" required
-                                       value="${productImport.code}">
+                                       value="${productImport.code}" readonly>
                                 <div class="error-message" id="code-error"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="importDate" class="form-label">Import Date</label>
                                 <input type="date" class="form-control" id="importDate" name="importDate" required
-                                       value="${productImport.dateImport}">
+                                       value="${productImport.dateImport}" readonly>
                                 <div class="error-message" id="importDate-error"></div>
                             </div>
                                 <%--        <div class="mb-3">--%>
@@ -144,26 +145,26 @@
                                 <%--            <input type="number" class="form-control" id="totalAmount" name="totalAmount" required>--%>
                                 <%--        </div>--%>
                             <div class="row mb-3">
-                                <div class="col-4">
+                                <div class="col-5">
                                     Product
                                 </div>
                                 <div class="col-3">
                                     Quantity
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     Amount
                                 </div>
-                                <div class="col-2 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-info" onclick="addMore()">Add More</button>
-                                </div>
+<%--                                <div class="col-2 d-flex justify-content-end">--%>
+<%--                                    <button type="button" class="btn btn-info" onclick="addMore()">Add More</button>--%>
+<%--                                </div>--%>
                             </div>
                             <div id="product-import-detail">
                                 <c:forEach var="piDetail" varStatus="status"
                                            items="${productImport.productImportDetails}">
                                     <div class="row mb-3" id="product-import-${status.index + 1}">
-                                        <div class="col-4">
+                                        <div class="col-5">
                                             <select class="form-control" onchange="onChangeSelect(this)"
-                                                    name="productIds" id="product" required>
+                                                    name="productIds" id="product" required readonly="">
                                                 <option value="">---Please Choose---</option>
                                                 <c:forEach var="product" items="${products}">
                                                     <option value="${product.id}" ${product.id == piDetail.product.id ? 'selected' : ''}>
@@ -174,24 +175,24 @@
                                         </div>
                                         <div class="col-3">
                                             <input type="number" class="form-control" id="quantities-1"
-                                                   name="quantities" value="${piDetail.quantity}" required>
+                                                   name="quantities" value="${piDetail.quantity}" required readonly>
                                             <div class="error-message" id="quantities-1-error"></div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <input type="number" class="form-control" id="amounts-1" name="amounts"
-                                                   value="${piDetail.price}" required>
+                                                   value="${piDetail.price}" pattern="#,###.###" required readonly>
                                             <div class="error-message" id="amounts-1-error"></div>
                                         </div>
-                                        <div class="col-2 d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger"
-                                                    onclick="deleteRow(${status.index + 1})">Delete
-                                            </button>
-                                        </div>
+<%--                                        <div class="col-2 d-flex justify-content-end">--%>
+<%--                                            <button type="button" class="btn btn-danger"--%>
+<%--                                                    onclick="deleteRow(${status.index + 1})">Delete--%>
+<%--                                            </button>--%>
+<%--                                        </div>--%>
                                     </div>
                                 </c:forEach>
                             </div>
-                            <a href="/product-import" class="btn btn-dark">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Edit import</button>
+                            <a href="/product-import" class="btn btn-dark">Back</a>
+<%--                            <button type="submit" class="btn btn-primary">Edit import</button>--%>
                         </form>
                     </div>
 

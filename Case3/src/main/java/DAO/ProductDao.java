@@ -14,13 +14,13 @@ import java.util.List;
 public class ProductDao extends DatabaseConnection {
     public Page<Product> findAll(int page, String search) {
         var result = new Page<Product>();
-        final int TOTAL_ELEMENT = 8;
+        final int TOTAL_ELEMENT = 5;
         result.setCurrentPage(page);
         var content = new ArrayList<Product>();
         if (search == null) {
             search = "";
         }
-        search = "%" + search.toLowerCase() + "%";
+        search = "%" + search.toLowerCase().trim() + "%";
         var SELECT_ALL = " SELECT p.*, c.`name` category_name " +
                 "FROM `products` p LEFT JOIN  `categories` c on c.`id` = p.`category_id` " +
                 " WHERE  (LOWER(p.`name`) LIKE ? OR LOWER(c.`name`) LIKE ?  ) " +

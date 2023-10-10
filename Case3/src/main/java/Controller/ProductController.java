@@ -1,8 +1,10 @@
 package Controller;
 
 import Model.Category;
+import Model.OrderItem;
 import Model.Product;
 import service.CategoryService;
+import service.ProductImportService;
 import service.ProductService;
 
 import javax.servlet.ServletException;
@@ -22,6 +24,8 @@ import java.math.BigDecimal;
 public class ProductController extends HttpServlet {
     private ProductService productService;
     private CategoryService categoryService;
+    private ProductImportService productImportService;
+//    private
 
 
     @Override
@@ -41,6 +45,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         productService.delete(Integer.parseInt(req.getParameter("id")));
         resp.sendRedirect("/product?message=Deleted successfully");
     }
@@ -57,6 +62,7 @@ public class ProductController extends HttpServlet {
 
     private void showProductCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("product", new Product());
+        req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("categories", categoryService.getCategories());
         req.getRequestDispatcher("product/create.jsp").forward(req, resp);
     }
@@ -103,7 +109,7 @@ public class ProductController extends HttpServlet {
         Category category = new Category(Integer.parseInt(idCategory));
         Product product = new Product(name, category, description, price,img);
         String pathServerImage = getServletContext().getRealPath("/") + "img";
-        String pathProjectImage  = "D:\\case-study\\CaseM3\\Case3\\src\\main\\webapp\\img";
+        String pathProjectImage  = "D:\\Java\\CaseMD3\\Case3\\src\\main\\webapp\\img";
 
         String dbImageUrl = null;
 
@@ -127,7 +133,7 @@ public class ProductController extends HttpServlet {
             product.setImg(dbImageUrl);
         }
         productService.create(product);
-        resp.sendRedirect("/product?message=Created");
+        resp.sendRedirect("/product?message=Created Successfully");
     }
 
     @Override
