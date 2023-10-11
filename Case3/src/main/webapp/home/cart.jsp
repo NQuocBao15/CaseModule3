@@ -206,11 +206,11 @@
                                 </p>
                             </ul>
                             <c:if test="${user.role.id eq '2'}">
-                            <form method="post" action="/cart?action=checkOut&idUser=${user.id}"
-                                  style="text-align: center">
-                                    <%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
-                                <button class="primary-btn">PROCEED TO CHECKOUT</button>
-                            </form>
+                                <form method="post" action="/cart?action=checkOut&idUser=${user.id}"
+                                      style="text-align: center">
+                                        <%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
+                                    <button class="primary-btn">PROCEED TO CHECKOUT</button>
+                                </form>
                             </c:if>
                             <c:if test="${empty loggedIn}">
                                 <a href="/auth" class="login-btn">Login </a>
