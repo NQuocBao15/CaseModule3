@@ -103,25 +103,30 @@
         </div>
         <div class="right-menu">
             <div class="cart-btn">
-                <a href="/cart?idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
+                <c:if test="${user.role.id eq '2'}">
+                    <a href="/cart?idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
+                </c:if>
+                <c:if test="${empty loggedIn}">
+                    <a href="/auth" class="login-btn">Login </a>
+                </c:if>
             </div>
         </div>
 
     </div>
     <div class="navbar-nav align-items-center ms-auto">
         <c:if test="${not empty loggedIn}">
-        <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                     style="width: 40px; height: 40px;">
-                <span class="d-none d-lg-inline-flex">${user.name}</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
-                <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
-                <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                         style="width: 40px; height: 40px;">
+                    <span class="d-none d-lg-inline-flex">${user.name}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
+                    <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
+                    <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+                </div>
             </div>
-        </div>
         </c:if>
         <c:if test="${empty loggedIn}">
             <a href="/auth" class="login-btn">Login </a>
@@ -239,7 +244,8 @@
                                     </span>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="/homes?action=detail&id=${product.id}" class="cart-btn" style="border: 1px solid #1a7a1a">
+                                    <a href="/homes?action=detail&id=${product.id}" class="cart-btn"
+                                       style="border: 1px solid #1a7a1a">
                                         <i class="bx bx-cart-alt"></i>
                                     </a>
                                 </div>

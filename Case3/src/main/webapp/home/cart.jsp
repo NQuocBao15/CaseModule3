@@ -18,7 +18,9 @@
           rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../home/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
         .card {
             max-width: 1000px;
@@ -56,155 +58,175 @@
 
 <body>
 <!-- MOBILE NAV -->
-<div class="mb-nav">
-    <div class="mb-move-item"></div>
-    <div class="mb-nav-item active">
-        <a href="/homes">
-            <i class="bx bxs-home"></i>
-        </a>
-    </div>
-    <div class="mb-nav-item">
-        <a href="#about">
-            <i class='bx bxs-wink-smile'></i>
-        </a>
-    </div>
-    <div class="mb-nav-item">
-        <a href="#food-menu-section">
-            <i class='bx bxs-food-menu'></i>
-        </a>
-    </div>
-    <div class="mb-nav-item">
-        <a href="#testimonial">
-            <i class='bx bxs-comment-detail'></i>
-        </a>
-    </div>
-</div>
-<!-- END MOBILE NAV -->
-<!-- BACK TO TOP BTN -->
-<a href="#home" class="back-to-top">
-    <i class="bx bxs-to-top"></i>
-</a>
-<!-- END BACK TO TOP BTN -->
-<!-- TOP NAVIGATION -->
-<div class="nav">
-    <div class="menu-wrap">
-        <a href="/homes">
-            <div class="logo">
-                FoodyCom
-            </div>
-        </a>
-        <div class="menu h-xs">
-            <a href="/homes">
-                <div class="menu-item active">
-                    Home
-                </div>
-            </a>
-            <a href="/homes#about">
-                <div class="menu-item">
-                    About
-                </div>
-            </a>
-            <a href="/homes#food-menu-section">
-                <div class="menu-item">
-                    Menu
-                </div>
-            </a>
-            <a href="/homes#testimonial">
-                <div class="menu-item">
-                    Testimonials
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="navbar-nav align-items-center ms-auto">
-        <c:if test="${not empty loggedIn}">
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                         style="width: 40px; height: 40px;">
-                    <span class="d-none d-lg-inline-flex">${user.name}</span>
+<c:choose>
+    <c:when test="${not empty loggedIn && user.role.id eq '2'}">
+        <div class="mb-nav">
+
+            <div class="mb-move-item"></div>
+            <div class="mb-nav-item active">
+                <a href="/homes">
+                    <i class="bx bxs-home"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
-                    <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
-                    <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
-                </div>
             </div>
-        </c:if>
-        <c:if test="${empty loggedIn}">
-            <a href="/auth" class="login-btn">Login </a>
-        </c:if>
-    </div>
-</div>
-<!-- END TOP NAVIGATION -->
-<!-- FOOD MENU SECTION -->
-<section class="">
-    <div class="container">
-        <div class="row">
-            <div class="card col-8">
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="">Products</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody class="card-body">
-                    <c:set var="totalPrice" value="0"/>
-                    <c:forEach items="${carts}" var="cart">
-                        <%--                        <c:set var="max" value="1"/>--%>
-                        <%--                        <c:forEach items="${productImportDetails}" var="pid">--%>
-                        <%--                            <c:if test="${cart.product.id == pid.product.id}">--%>
-                        <%--                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>--%>
-                        <%--                            </c:if>--%>
-                        <%--                        </c:forEach>--%>
-                        <tr>
-                            <td class="col-4">
-                                <img src="../img${cart.product.img}" alt="">
-                                <h5>${cart.product.name}</h5>
-                            </td>
-                            <td class="col-1">
-                                <fmt:formatNumber value="${cart.price}" pattern="#,###.### VNĐ"/>
-                            </td>
-                            <td class="col-1">
-                                    <%--                                    <input min="1" max="${productImportDetails}" name="quantity"--%>
-                                    <%--                                           id="productQuantity" type="number" value="${cart.quantity}"--%>
-                                    <%--                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">--%>
-                                    ${cart.quantity}
-                            </td>
-                            <td class="col-1">
-                                <fmt:formatNumber value="${cart.price * cart.quantity}" pattern="#,###.### VNĐ"/>
-                            </td>
-                            <td class="col-1">
-                                <a class="btn btn-danger" href="/cart?action=delete&idProduct=${cart.product.id}&idUser=${cart.user.id}"
-                                   onclick="return confirm('Do you want to remove' + ${cart.product.name} + '?')"><i class="fa-solid fa-xmark"></i></a>
-                            </td>
-                        </tr>
-                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
-                    </c:forEach>
-                    </tbody>
-                </table>
+            <div class="mb-nav-item">
+                <a href="#about">
+                    <i class='bx bxs-wink-smile'></i>
+                </a>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <h5 style="text-align: center">Cart Total</h5>
-                    <ul>
-                        <p style="text-align: center">Total <span><fmt:formatNumber value="${totalPrice}"
-                                                                                    pattern="#,###.### VNĐ"/> đ</span>
-                        </p>
-                    </ul>
-                    <form method="post" action="/cart?action=checkOut&idUser=${user.id}" style="text-align: center">
-<%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
-                        <button class="primary-btn">PROCEED TO CHECKOUT</button>
-                    </form>
-                </div>
+            <div class="mb-nav-item">
+                <a href="#food-menu-section">
+                    <i class='bx bxs-food-menu'></i>
+                </a>
+            </div>
+            <div class="mb-nav-item">
+                <a href="#testimonial">
+                    <i class='bx bxs-comment-detail'></i>
+                </a>
             </div>
         </div>
-    </div>
-</section>
+        <!-- END MOBILE NAV -->
+        <!-- BACK TO TOP BTN -->
+        <a href="#home" class="back-to-top">
+            <i class="bx bxs-to-top"></i>
+        </a>
+        <!-- END BACK TO TOP BTN -->
+        <!-- TOP NAVIGATION -->
+        <div class="nav">
+            <div class="menu-wrap">
+                <a href="/homes">
+                    <div class="logo">
+                        FoodyCom
+                    </div>
+                </a>
+                <div class="menu h-xs">
+                    <a href="/homes">
+                        <div class="menu-item active">
+                            Home
+                        </div>
+                    </a>
+                    <a href="/homes#about">
+                        <div class="menu-item">
+                            About
+                        </div>
+                    </a>
+                    <a href="/homes#food-menu-section">
+                        <div class="menu-item">
+                            Menu
+                        </div>
+                    </a>
+                    <a href="/homes#testimonial">
+                        <div class="menu-item">
+                            Testimonials
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-nav align-items-center ms-auto">
+                <c:if test="${not empty loggedIn}">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                 style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${user.name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
+                            <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change
+                                Password</a>
+                            <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty loggedIn}">
+                    <a href="/auth" class="login-btn">Login </a>
+                </c:if>
+            </div>
+        </div>
+        <!-- END TOP NAVIGATION -->
+        <!-- FOOD MENU SECTION -->
+        <section class="">
+            <div class="container">
+                <div class="row">
+                    <div class="card col-8">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="">Products</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody class="card-body">
+                            <c:set var="totalPrice" value="0"/>
+                            <c:forEach items="${carts}" var="cart">
+                                <%--                        <c:set var="max" value="1"/>--%>
+                                <%--                        <c:forEach items="${productImportDetails}" var="pid">--%>
+                                <%--                            <c:if test="${cart.product.id == pid.product.id}">--%>
+                                <%--                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>--%>
+                                <%--                            </c:if>--%>
+                                <%--                        </c:forEach>--%>
+                                <tr>
+                                    <td class="col-4">
+                                        <img src="../img${cart.product.img}" alt="">
+                                        <h5>${cart.product.name}</h5>
+                                    </td>
+                                    <td class="col-1">
+                                        <fmt:formatNumber value="${cart.price}" pattern="#,###.### VNĐ"/>
+                                    </td>
+                                    <td class="col-1">
+                                            <%--                                    <input min="1" max="${productImportDetails}" name="quantity"--%>
+                                            <%--                                           id="productQuantity" type="number" value="${cart.quantity}"--%>
+                                            <%--                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">--%>
+                                            ${cart.quantity}
+                                    </td>
+                                    <td class="col-1">
+                                        <fmt:formatNumber value="${cart.price * cart.quantity}"
+                                                          pattern="#,###.### VNĐ"/>
+                                    </td>
+                                    <td class="col-1">
+                                        <a class="btn btn-danger"
+                                           href="/cart?action=delete&idProduct=${cart.product.id}&idUser=${cart.user.id}"
+                                           onclick="return confirm('Do you want to remove' + ${cart.product.name} + '?')"><i
+                                                class="fa-solid fa-xmark"></i></a>
+                                    </td>
+                                </tr>
+                                <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <h5 style="text-align: center">Cart Total</h5>
+                            <ul>
+                                <p style="text-align: center">Total <span><fmt:formatNumber value="${totalPrice}"
+                                                                                            pattern="#,###.### VNĐ"/> đ</span>
+                                </p>
+                            </ul>
+                            <c:if test="${user.role.id eq '2'}">
+                            <form method="post" action="/cart?action=checkOut&idUser=${user.id}"
+                                  style="text-align: center">
+                                    <%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
+                                <button class="primary-btn">PROCEED TO CHECKOUT</button>
+                            </form>
+                            </c:if>
+                            <c:if test="${empty loggedIn}">
+                                <a href="/auth" class="login-btn">Login </a>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    </c:when>
+    <c:otherwise>
+        <c:redirect url="/auth"/>
+    </c:otherwise>
+</c:choose>
 <!-- END FOOD MENU SECTION -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -216,7 +238,9 @@
 <script src="lib/tempusdominus/js/moment.min.js"></script>
 <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+        integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script src="../home/js/main.js"></script>

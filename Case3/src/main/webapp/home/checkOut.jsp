@@ -58,186 +58,202 @@
 
 <body>
 <!-- MOBILE NAV -->
-<div class="mb-nav">
-    <div class="mb-move-item"></div>
-    <div class="mb-nav-item active">
-        <a href="/homes">
-            <i class="bx bxs-home"></i>
-        </a>
-    </div>
-    <div class="mb-nav-item">
-        <a href="#about">
-            <i class='bx bxs-wink-smile'></i>
-        </a>
-    </div>
-    <div class="mb-nav-item">
-        <a href="#food-menu-section">
-            <i class='bx bxs-food-menu'></i>
-        </a>
-    </div>
-    <div class="mb-nav-item">
-        <a href="#testimonial">
-            <i class='bx bxs-comment-detail'></i>
-        </a>
-    </div>
-</div>
-<!-- END MOBILE NAV -->
-<!-- BACK TO TOP BTN -->
-<a href="#home" class="back-to-top">
-    <i class="bx bxs-to-top"></i>
-</a>
-<!-- END BACK TO TOP BTN -->
-<!-- TOP NAVIGATION -->
-<div class="nav">
-    <div class="menu-wrap">
-        <a href="/homes">
-            <div class="logo">
-                FoodyCom
-            </div>
-        </a>
-        <div class="menu h-xs">
-            <a href="/homes">
-                <div class="menu-item active">
-                    Home
-                </div>
-            </a>
-            <a href="/homes#about">
-                <div class="menu-item">
-                    About
-                </div>
-            </a>
-            <a href="/homes#food-menu-section">
-                <div class="menu-item">
-                    Menu
-                </div>
-            </a>
-            <a href="/homes#testimonial">
-                <div class="menu-item">
-                    Testimonials
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="navbar-nav align-items-center ms-auto">
-        <c:if test="${not empty loggedIn}">
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                         style="width: 40px; height: 40px;">
-                    <span class="d-none d-lg-inline-flex">${user.name}</span>
+<c:choose>
+    <c:when test="${not empty loggedIn && user.role.id eq '2'}">
+        <div class="mb-nav">
+            <div class="mb-move-item"></div>
+            <div class="mb-nav-item active">
+                <a href="/homes">
+                    <i class="bx bxs-home"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                    <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
-                    <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
-                    <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+            </div>
+            <div class="mb-nav-item">
+                <a href="#about">
+                    <i class='bx bxs-wink-smile'></i>
+                </a>
+            </div>
+            <div class="mb-nav-item">
+                <a href="#food-menu-section">
+                    <i class='bx bxs-food-menu'></i>
+                </a>
+            </div>
+            <div class="mb-nav-item">
+                <a href="#testimonial">
+                    <i class='bx bxs-comment-detail'></i>
+                </a>
+            </div>
+        </div>
+        <!-- END MOBILE NAV -->
+        <!-- BACK TO TOP BTN -->
+        <a href="#home" class="back-to-top">
+            <i class="bx bxs-to-top"></i>
+        </a>
+        <!-- END BACK TO TOP BTN -->
+        <!-- TOP NAVIGATION -->
+        <div class="nav">
+            <div class="menu-wrap">
+                <a href="/homes">
+                    <div class="logo">
+                        FoodyCom
+                    </div>
+                </a>
+                <div class="menu h-xs">
+                    <a href="/homes">
+                        <div class="menu-item active">
+                            Home
+                        </div>
+                    </a>
+                    <a href="/homes#about">
+                        <div class="menu-item">
+                            About
+                        </div>
+                    </a>
+                    <a href="/homes#food-menu-section">
+                        <div class="menu-item">
+                            Menu
+                        </div>
+                    </a>
+                    <a href="/homes#testimonial">
+                        <div class="menu-item">
+                            Testimonials
+                        </div>
+                    </a>
                 </div>
             </div>
-        </c:if>
-        <c:if test="${empty loggedIn}">
-            <a href="/auth" class="login-btn">Login </a>
-        </c:if>
-    </div>
-</div>
-<!-- END TOP NAVIGATION -->
-<!-- FOOD MENU SECTION -->
-<section class="">
-    <div class="container">
-        <div class="card container px-6" style="height: 100vh">
-            <h3 class="text-center">Product Import Detail</h3>
-            <form action="/cart?action=order&idUser=${user.id}" method="post" id="orderForm">
-                <div class="mb-3">
-                    <input type="text" hidden="hidden" name="customerId" value="${user.id}">
-                    <label for="customerName" class="form-label">Customer Name</label>
-                    <input type="text" class="form-control" id="customerName" name="customerName" required
-                           value="${user.name}" readonly>
-                    <div class="error-message" id="customerName-error"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="nameReceiver" class="form-label">Name Receiver</label>
-                    <input type="text" class="form-control" id="nameReceiver" name="nameReceiver" required>
-                    <div class="error-message" id="nameReceiver-error"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="addressReceiver" class="form-label">Address Receiver</label>
-                    <input type="text" class="form-control" id="addressReceiver" name="addressReceiver" required>
-                    <div class="error-message" id="addressReceiver-error"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="phoneReceiver" class="form-label">Phone Receiver</label>
-                    <input type="text" class="form-control" id="phoneReceiver" name="phoneReceiver" required>
-                    <div class="error-message" id="phoneReceiver-error"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="express" class="form-label">Express</label>
-                    <select class="form-control" name="express" id="express" required>
-                        <c:forEach var="e" items="${express}">
-                            <option value="${e.id}">${e.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-5">
-                        Product
+            <div class="navbar-nav align-items-center ms-auto">
+                <c:if test="${not empty loggedIn}">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                 style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${user.name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
+                            <a href="/auth?action=changePassword&id=${user.id}" class="dropdown-item">Change
+                                Password</a>
+                            <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        Quantity
-                    </div>
-                    <div class="col-2">
-                        Price
-                    </div>
-                    <div class="col-3">
-                        Total Price
-                    </div>
-                </div>
-                <c:set var="totalPrice" value="0"/>
-                <c:forEach items="${carts}" var="cart">
-                <div class="row mb-3">
-                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
-
-                    <div class="col-5">
-                        <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
-                        <input type="number" hidden="hidden" name="productName" value="${cart.product.name}">
-                        <img src="../img${cart.product.img}" style="width: 50%; height: 70%" alt="">
-                        <h5>${cart.product.name}</h5>
-                    </div>
-                    <div class="col-2">
-                        <input type="text" value="${cart.quantity}" name="quantity" readonly class="form-control">
-                    </div>
-                    <div class="col-2">
-                        <fmt:formatNumber var="formattedPrice" value="${cart.price}" pattern="#,###.### VNĐ"/>
-                        <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">
-                        <input type="text" id="formattedPrice" value="${formattedPrice}" readonly class="form-control"/>
-                    </div>
-                    <div class="col-3">
-                        <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}" pattern="#,###.### VNĐ"/>
-                        <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly hidden="hidden">
-                        <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}" class="form-control" readonly>
-                    </div>
-                </div>
-                </c:forEach>
-                <div class="row mb-3">
-                    <div class="col-5">
-
-                    </div>
-                    <div class="col-4">
-
-                    </div>
-                    <div class="col-1">
-                        Total:
-                    </div>
-                    <div class="col-2">
-                        <span><fmt:formatNumber value="${totalPrice}" pattern="#,###.### VNĐ"/></span>
-                        <input type="text" name="total" value="${totalPrice}" hidden="hidden" readonly>
-                    </div>
-                </div>
-                <a href="/homes" class="btn btn-dark">Back</a>
-                <button type="submit" class="btn btn-success"
-                        onclick="return confirm('Would you like to make the payment for the bill?')">Order
-                </button>
-            </form>
+                </c:if>
+                <c:if test="${empty loggedIn}">
+                    <a href="/auth" class="login-btn">Login </a>
+                </c:if>
+            </div>
         </div>
-    </div>
-</section>
+        <!-- END TOP NAVIGATION -->
+        <!-- FOOD MENU SECTION -->
+        <section class="">
+            <div class="container">
+                <div class="card container px-6" style="height: 100vh">
+                    <h3 class="text-center">Product Import Detail</h3>
+                    <form action="/cart?action=order&idUser=${user.id}" method="post" id="orderForm">
+                        <div class="mb-3">
+                            <input type="text" hidden="hidden" name="customerId" value="${user.id}">
+                            <label for="customerName" class="form-label">Customer Name</label>
+                            <input type="text" class="form-control" id="customerName" name="customerName" required
+                                   value="${user.name}" readonly>
+                            <div class="error-message" id="customerName-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nameReceiver" class="form-label">Name Receiver</label>
+                            <input type="text" class="form-control" id="nameReceiver" name="nameReceiver" required>
+                            <div class="error-message" id="nameReceiver-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressReceiver" class="form-label">Address Receiver</label>
+                            <input type="text" class="form-control" id="addressReceiver" name="addressReceiver"
+                                   required>
+                            <div class="error-message" id="addressReceiver-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneReceiver" class="form-label">Phone Receiver</label>
+                            <input type="text" class="form-control" id="phoneReceiver" name="phoneReceiver" required>
+                            <div class="error-message" id="phoneReceiver-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="express" class="form-label">Express</label>
+                            <select class="form-control" name="express" id="express" required>
+                                <c:forEach var="e" items="${express}">
+                                    <option value="${e.id}">${e.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-5">
+                                Product
+                            </div>
+                            <div class="col-2">
+                                Quantity
+                            </div>
+                            <div class="col-2">
+                                Price
+                            </div>
+                            <div class="col-3">
+                                Total Price
+                            </div>
+                        </div>
+                        <c:set var="totalPrice" value="0"/>
+                        <c:forEach items="${carts}" var="cart">
+                            <div class="row mb-3">
+                                <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
+
+                                <div class="col-5">
+                                    <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
+                                    <input type="number" hidden="hidden" name="productName"
+                                           value="${cart.product.name}">
+                                    <img src="../img${cart.product.img}" style="width: 50%; height: 70%" alt="">
+                                    <h5>${cart.product.name}</h5>
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" value="${cart.quantity}" name="quantity" readonly
+                                           class="form-control">
+                                </div>
+                                <div class="col-2">
+                                    <fmt:formatNumber var="formattedPrice" value="${cart.price}"
+                                                      pattern="#,###.### VNĐ"/>
+                                    <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">
+                                    <input type="text" id="formattedPrice" value="${formattedPrice}" readonly
+                                           class="form-control"/>
+                                </div>
+                                <div class="col-3">
+                                    <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}"
+                                                      pattern="#,###.### VNĐ"/>
+                                    <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly
+                                           hidden="hidden">
+                                    <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}"
+                                           class="form-control" readonly>
+                                </div>
+                            </div>
+                        </c:forEach>
+                        <div class="row mb-3">
+                            <div class="col-5">
+
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-1">
+                                Total:
+                            </div>
+                            <div class="col-2">
+                                <span><fmt:formatNumber value="${totalPrice}" pattern="#,###.### VNĐ"/></span>
+                                <input type="text" name="total" value="${totalPrice}" hidden="hidden" readonly>
+                            </div>
+                        </div>
+                        <a href="/homes" class="btn btn-dark">Back</a>
+                        <button type="submit" class="btn btn-success"
+                                onclick="return confirm('Would you like to make the payment for the bill?')">Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </c:when>
+    <c:otherwise>
+        <c:redirect url="/auth"/>
+    </c:otherwise>
+</c:choose>
 <!-- END FOOD MENU SECTION -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
