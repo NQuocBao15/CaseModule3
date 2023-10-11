@@ -111,7 +111,7 @@
                     <a href="/cart?idUser=${user.id}" class="cart-btn"><i class='bx bx-cart-alt'></i></a>
                 </c:if>
                 <c:if test="${empty loggedIn}">
-                    <a href="/auth" class="login-btn">Login </a>
+                    <a href="/auth" class="cart-btn"><i class='bx bx-cart-alt'></i> </a>
                 </c:if>
             </div>
         </div>

@@ -10,21 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/BillController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/java/Model/Bill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/java/Model/BillDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/java/service/BillService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/java/service/dto/BillListResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/BillDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/BillDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/CartDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/service/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/home/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/home/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +264,7 @@
       <workItem from="1696221648612" duration="295000" />
       <workItem from="1696221950748" duration="16978000" />
       <workItem from="1696470403586" duration="22886000" />
-      <workItem from="1696814335178" duration="50749000" />
+      <workItem from="1696814335178" duration="51145000" />
     </task>
     <servers />
   </component>
@@ -308,11 +294,6 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductImportController.java</url>
           <line>20</line>
           <option name="timeStamp" value="13" />
@@ -328,14 +309,9 @@
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="21" />
+          <line>93</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
