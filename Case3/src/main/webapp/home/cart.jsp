@@ -54,6 +54,26 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .card {
+            max-width: 100%;
+            max-height: 100% /* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
+        }
+
+        .card img {
+            max-width: 30%;
+            max-height: 50%; /* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
+            height: auto; /* Đảm bảo tỷ lệ hình ảnh được duy trì */
+            width: auto;
+        }
+
+        #fixedHeader {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff; /* Chỉ định màu nền của thẻ */
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -104,11 +124,6 @@
                             Home
                         </div>
                     </a>
-                    <a href="/homes#about">
-                        <div class="menu-item">
-                            About
-                        </div>
-                    </a>
                     <a href="/homes#food-menu-section">
                         <div class="menu-item">
                             Menu
@@ -145,40 +160,31 @@
         <!-- END TOP NAVIGATION -->
         <!-- FOOD MENU SECTION -->
         <section class="">
-            <div class="container">
+            <div class="container card">
                 <div class="row">
-                    <div class="card col-8">
-                        <table>
-                            <thead>
+                    <div class="col-8" style="overflow-y: scroll; max-height: 500px;">
+                        <table class="table" >
+                            <thead class="bg-dark text-white">
                             <tr>
-                                <th class="">Products</th>
+                                <th>Products</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
                                 <th></th>
                             </tr>
                             </thead>
-                            <tbody class="card-body">
+                            <tbody class="">
                             <c:set var="totalPrice" value="0"/>
                             <c:forEach items="${carts}" var="cart">
-                                <%--                        <c:set var="max" value="1"/>--%>
-                                <%--                        <c:forEach items="${productImportDetails}" var="pid">--%>
-                                <%--                            <c:if test="${cart.product.id == pid.product.id}">--%>
-                                <%--                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>--%>
-                                <%--                            </c:if>--%>
-                                <%--                        </c:forEach>--%>
-                                <tr>
+                                <tr class="card-body">
                                     <td class="col-4">
+                                        <h6>${cart.product.name}</h6>
                                         <img src="../img${cart.product.img}" alt="">
-                                        <h5>${cart.product.name}</h5>
                                     </td>
                                     <td class="col-1">
                                         <fmt:formatNumber value="${cart.price}" pattern="#,###.### VNĐ"/>
                                     </td>
                                     <td class="col-1">
-                                            <%--                                    <input min="1" max="${productImportDetails}" name="quantity"--%>
-                                            <%--                                           id="productQuantity" type="number" value="${cart.quantity}"--%>
-                                            <%--                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">--%>
                                             ${cart.quantity}
                                     </td>
                                     <td class="col-1">
@@ -198,7 +204,7 @@
                         </table>
                     </div>
                     <div class="col-4">
-                        <div class="card">
+                        <div class="">
                             <h5 style="text-align: center">Cart Total</h5>
                             <ul>
                                 <p style="text-align: center">Total <span><fmt:formatNumber value="${totalPrice}"
@@ -209,7 +215,11 @@
                                 <form method="post" action="/cart?action=checkOut&idUser=${user.id}"
                                       style="text-align: center">
                                         <%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
+<<<<<<< Updated upstream
                                     <button class="primary-btn">PROCEED TO CHECKOUT</button>
+=======
+                                    <button class="btn btn-outline-dark">PROCEED TO CHECKOUT</button>
+>>>>>>> Stashed changes
                                 </form>
                             </c:if>
                             <c:if test="${empty loggedIn}">

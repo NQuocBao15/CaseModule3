@@ -140,7 +140,7 @@
 <!-- END TOP NAVIGATION -->
 <!-- SECTION HOME -->
 <section id="home" class="fullheight align-items-center bg-img bg-img-fixed"
-         style="background-image: url(../home/img/ff2.jpg);">
+         style="background-image: url(../img/banh_keo.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-6 col-xs-12">
@@ -166,7 +166,7 @@
 <!-- END SECTION HOME -->
 <!-- FOOD MENU SECTION -->
 <section class="align-items-center bg-img bg-img-fixed" id="food-menu-section"
-         style="background-image: url(../home/assets/katherine-chase-4MMK78S7eyk-unsplash.jpg);">
+         style="background-image: url(../img/banh_keo.jpg);">
     <div class="container">
         <div class="food-menu">
             <h1>
@@ -249,7 +249,7 @@
                             dolores ratione voluptatibus quidem explicabo.
                         </p>
                         <div class="review-img bg-img"
-                             style="background-image: url(../home/assets/close-up-portrait-cute-young-woman-holding-textbook-colored-pencils-posing-studio-isolated-pink_176532-9674.jpg);">
+                             style="background-image: url(../img/banh_bong_lan_cuon_kem_com_la_dua.jpg);">
                         </div>
                     </div>
                     <div class="review-info">
@@ -277,7 +277,7 @@
                                 dolores ratione voluptatibus quidem explicabo.
                             </p>
                             <div class="review-img bg-img"
-                                 style="background-image: url(../home/assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg);">
+                                 style="background-image: url(../img/banh_keo.jpg);">
                             </div>
                         </div>
                         <div class="review-info">
@@ -326,7 +326,7 @@
 </section>
 <!-- END TESTIMONIAL SECTION -->
 <!-- FOOTER SECTION -->
-<section class="footer bg-img" style="background-image: url(../home/assets/nordwood-themes-pYWrdKO5ksI-unsplash.jpg);">
+<section class="footer bg-img" style="background: #0c0e12;">
     <div class="container">
         <div class="row">
             <div class="col-6 col-xs-12">

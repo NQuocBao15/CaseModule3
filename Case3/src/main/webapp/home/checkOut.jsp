@@ -21,19 +21,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <style>
-        .card {
-            max-width: 1000px;
-            max-height: 500px /* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
-        }
-
-        .card img {
-            max-width: 70%;
-            max-height: 90%; /* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
-            height: auto; /* Đảm bảo tỷ lệ hình ảnh được duy trì */
-            width: auto;
-        }
-    </style>
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
@@ -54,6 +41,19 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .card {
+            max-width: 100%;
+            max-height: 100% /* Đảm bảo thẻ card không vượt quá kích thước của nội dung bên trong */
+        }
+
+        .card img {
+            max-width: 30%;
+            max-height: 50%; /* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
+            height: auto; /* Đảm bảo tỷ lệ hình ảnh được duy trì */
+            width: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -101,11 +101,6 @@
                     <a href="/homes">
                         <div class="menu-item active">
                             Home
-                        </div>
-                    </a>
-                    <a href="/homes#about">
-                        <div class="menu-item">
-                            About
                         </div>
                     </a>
                     <a href="/homes#food-menu-section">
@@ -179,53 +174,87 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-5">
-                                Product
-                            </div>
-                            <div class="col-2">
-                                Quantity
-                            </div>
-                            <div class="col-2">
-                                Price
-                            </div>
-                            <div class="col-3">
-                                Total Price
+                        <div class="row">
+                            <div class="col-12" style="overflow-y: scroll; max-height: 500px;">
+                                <table class="table" >
+                                    <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th>Products</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <c:set var="totalPrice" value="0"/>
+                                    <c:forEach items="${carts}" var="cart">
+                                        <tr class="card-body">
+                                            <td class="col-6">
+                                                <h6>${cart.product.name}</h6>
+                                                <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
+                                                <input type="number" hidden="hidden" name="productName"
+                                                       value="${cart.product.name}">
+                                                <img src="../img${cart.product.img}" alt="">
+                                            </td>
+                                            <td class="col-2">
+                                                <input type="text" value="${cart.quantity}" name="quantity" readonly
+                                                       class="form-control">
+                                            </td>
+                                            <td class="col-2">
+                                                <fmt:formatNumber var="formattedPrice" value="${cart.price}"
+                                                                  pattern="#,###.### VNĐ"/>
+                                                <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">
+                                                <input type="text" id="formattedPrice" value="${formattedPrice}" readonly
+                                                       class="form-control"/>
+                                            </td>
+                                            <td class="col-2">
+                                                <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}"
+                                                                  pattern="#,###.### VNĐ"/>
+                                                <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly
+                                                       hidden="hidden">
+                                                <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}"
+                                                       class="form-control" readonly>
+                                            </td>
+                                        </tr>
+                                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <c:set var="totalPrice" value="0"/>
-                        <c:forEach items="${carts}" var="cart">
-                            <div class="row mb-3">
-                                <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
+<%--                        <c:set var="totalPrice" value="0"/>--%>
+<%--                        <c:forEach items="${carts}" var="cart">--%>
+<%--                            <div class="row">--%>
+<%--                                <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>--%>
 
-                                <div class="col-5">
-                                    <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
-                                    <input type="number" hidden="hidden" name="productName"
-                                           value="${cart.product.name}">
-                                    <img src="../img${cart.product.img}" style="width: 50%; height: 70%" alt="">
-                                    <h5>${cart.product.name}</h5>
-                                </div>
-                                <div class="col-2">
-                                    <input type="text" value="${cart.quantity}" name="quantity" readonly
-                                           class="form-control">
-                                </div>
-                                <div class="col-2">
-                                    <fmt:formatNumber var="formattedPrice" value="${cart.price}"
-                                                      pattern="#,###.### VNĐ"/>
-                                    <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">
-                                    <input type="text" id="formattedPrice" value="${formattedPrice}" readonly
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-3">
-                                    <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}"
-                                                      pattern="#,###.### VNĐ"/>
-                                    <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly
-                                           hidden="hidden">
-                                    <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}"
-                                           class="form-control" readonly>
-                                </div>
-                            </div>
-                        </c:forEach>
+<%--                                <div class="col-5">--%>
+<%--                                    <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">--%>
+<%--                                    <input type="number" hidden="hidden" name="productName"--%>
+<%--                                           value="${cart.product.name}">--%>
+<%--                                    <img src="../img${cart.product.img}" alt="">--%>
+<%--                                    <h5>${cart.product.name}</h5>--%>
+<%--                                </div>--%>
+<%--                                <div class="col-2">--%>
+<%--                                    <input type="text" value="${cart.quantity}" name="quantity" readonly--%>
+<%--                                           class="form-control">--%>
+<%--                                </div>--%>
+<%--                                <div class="col-2">--%>
+<%--                                    <fmt:formatNumber var="formattedPrice" value="${cart.price}"--%>
+<%--                                                      pattern="#,###.### VNĐ"/>--%>
+<%--                                    <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">--%>
+<%--                                    <input type="text" id="formattedPrice" value="${formattedPrice}" readonly--%>
+<%--                                           class="form-control"/>--%>
+<%--                                </div>--%>
+<%--                                <div class="col-3">--%>
+<%--                                    <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}"--%>
+<%--                                                      pattern="#,###.### VNĐ"/>--%>
+<%--                                    <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly--%>
+<%--                                           hidden="hidden">--%>
+<%--                                    <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}"--%>
+<%--                                           class="form-control" readonly>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </c:forEach>--%>
                         <div class="row mb-3">
                             <div class="col-5">
 

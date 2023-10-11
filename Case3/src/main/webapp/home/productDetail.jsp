@@ -134,11 +134,6 @@
                     Home
                 </div>
             </a>
-            <a href="/homes#about">
-                <div class="menu-item">
-                    About
-                </div>
-            </a>
             <a href="/homes#food-menu-section">
                 <div class="menu-item">
                     Menu
@@ -152,7 +147,7 @@
         </div>
         <div class="right-menu">
             <div class="cart-btn">
-                <a href="/cart?idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
+                <a href="/cart?idUser=${user.id}" class="cart-btn"><i class='bx bx-cart-alt'></i></a>
             </div>
         </div>
     </div>
@@ -205,7 +200,7 @@
                             ${product.name}
                         </h4>
                         <p class="stext-106 cl2 product-price" id="priceProduct">Price: <fmt:formatNumber
-                                value="${product.price}" pattern="###,###,### đ"/></p>
+                                value="${product.price}" pattern="###,###,### VNĐ"/></p>
                         <%--                        <p class="stext-102 cl3 p-t-23" id="quantityProduct">--%>
                         <%--                            Quantity: ${product.quantity}--%>
                         <%--                        </p>--%>
@@ -228,9 +223,8 @@
                                             <input min="1" max="${productImportDetail.quantity}" name="quantity"
                                                    id="productQuantity" type="number" value="1"
                                                    style="text-align: center">
-                                            <p id="totalCheckOut">-</p>
-                                            <button class="btn-num-product-up cl8 hov-b tn3 trans-04 flex-c-m"><i
-                                                    class="fs-16 zmdi zmdi-plus"></i></button>
+                                            <p id="totalCheckOut">Total: <fmt:formatNumber
+                                                    value="${product.price}" pattern="###,###,### VNĐ"/></p>
                                         </label>
 
 
