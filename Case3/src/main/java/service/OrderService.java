@@ -54,6 +54,10 @@ public class OrderService {
     public Order findById(int id) {
         return orderDAO.findById(id);
     }
+    public Order findById(int idOrder, int idUser) {
+        return orderDAO.findById(idOrder, idUser);
+    }
+
 
     public void update(HttpServletRequest req) {
         orderDAO.update(Integer.parseInt(req.getParameter("id")),req.getParameter("status"));

@@ -222,7 +222,7 @@
                   </div>
                 </c:forEach>
               </div>
-              <a href="/bill" class="btn btn-dark">Back</a>
+              <a href="/bill?idUser=${user.id}" class="btn btn-dark">Back</a>
                 <%--                            <button type="submit" class="btn btn-primary">Edit import</button>--%>
             </form>
           </div>

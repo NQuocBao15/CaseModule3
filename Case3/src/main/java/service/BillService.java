@@ -15,7 +15,7 @@ public class BillService {
         return billDAO.findAll(page,search);
     }
 
-    public Bill findById(int idBill, int idUser) {
-        return billDAO.findById(idBill,idUser);
+    public Bill findById(int idBill) {
+        return billDAO.findById(idBill);
     }
 }

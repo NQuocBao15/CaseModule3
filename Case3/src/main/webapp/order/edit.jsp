@@ -40,7 +40,7 @@
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <c:choose>
-        <c:when test="${user.role.id eq '1'}">
+        <c:when test="${not empty loggedIn}">
             <!-- Spinner Start -->
             <div id="spinner"
                  class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -69,14 +69,27 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="user?action=profile&id=${user.id}" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Profile</a>
-                        <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                        <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
-                            Import</a>
-                        <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
-                        <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-                        <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                        <c:choose>
+                            <c:when test="${user.role.id eq '1'}">
+                                <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
+                                        class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                                <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
+                                <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
+                                    Import</a>
+                                <a href="/user" class="nav-item nav-link  "><i
+                                        class="fa fa-table me-2"></i>User</a>
+                                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                                <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                            </c:when>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${user.role.id eq '2'}">
+                                <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
+                                        class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                                <a href="/order?idUser=${user.id}" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                                <a href="/bill?idUser=${user.id}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
+                            </c:when>
+                        </c:choose>
                     </div>
                 </nav>
             </div>
@@ -168,6 +181,7 @@
                                    readonly>
                         </div>
                         <div class="mb-3">
+                            <c:if test="${user.role.id eq '1' && order.status != 'DONE'}">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" id="status" name="status" required>
                                 <c:if test="${order.status == 'PAID'}">
@@ -180,6 +194,17 @@
                                     <option value="DONE">DONE</option>
                                 </c:if>
                             </select>
+                            </c:if>
+                            <c:if test="${user.role.id eq '1' && order.status == 'DONE'}">
+                                <label for="status" class="form-label">Status</label>
+                                <input type="text" class="form-control" id="status" name="status" value="${order.status}"
+                                       readonly>
+                            </c:if>
+                            <c:if test="${user.role.id eq '2'}">
+                                <label for="status" class="form-label">Status</label>
+                                <input type="text" class="form-control" id="status" name="status" value="${order.status}"
+                                       readonly>
+                            </c:if>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4">
@@ -215,8 +240,16 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <a href="/order" class="btn btn-dark ">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <c:if test="${user.role.id eq '1'}">
+                            <a href="/order" class="btn btn-dark ">Cancel</a>
+                            <c:if test="${order.status != 'DONE'}">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </c:if>
+
+                        </c:if>
+                        <c:if test="${user.role.id eq '2'}">
+                            <a href="/order?idUser=${user.id}" class="btn btn-dark ">Cancel</a>
+                        </c:if>
                     </form>
                 </div>
                 <!-- Navbar End -->
@@ -249,7 +282,6 @@
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
-
 
 </script>
 

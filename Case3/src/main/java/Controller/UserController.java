@@ -89,8 +89,20 @@ public class UserController extends HttpServlet {
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        userService.update(Integer.parseInt(req.getParameter("id")),getUserByRequest(req));
-        resp.sendRedirect("/user?message=Updated Successfully");
+        String idUserParameter = req.getParameter("idUser");
+        int idUser = 0;
+        if (idUserParameter != null && !idUserParameter.isEmpty()) {
+            try {
+                idUser = Integer.parseInt(idUserParameter);
+                userService.update(idUser, getUserByRequest(req));
+                resp.sendRedirect("/user?action=profile&id=" + idUser + "&message=Updated Successfully");
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            userService.update(Integer.parseInt(req.getParameter("id")), getUserByRequest(req));
+            resp.sendRedirect("/user?action=profile&id=" + req.getParameter("id") + "&message=Updated Successfully");
+        }
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {

@@ -26,7 +26,7 @@ public class BillController extends HttpServlet {
     }
 
     private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("bill", billService.findById(Integer.parseInt(req.getParameter("idBill")),Integer.parseInt(req.getParameter("idUser"))));
+        req.setAttribute("bill", billService.findById(Integer.parseInt(req.getParameter("idBill"))));
         req.getRequestDispatcher("bill/detail.jsp").forward(req,resp);
     }
 

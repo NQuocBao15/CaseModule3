@@ -112,18 +112,16 @@ public class BillDAO extends  DatabaseConnection{
         }
         return result;
     }
-    public Bill findById(int idBill, int idUser) {
-        String SELECT_BY_ID = "select b.id, b.create_at, b.name_receiver, b.phone_receiver, b.address_receiver, b.express_name, b.code, b.total, " +
-                "u.name as customer_name, u.id as customer_id, bd.id as bill_detail_id, bd.product_name, bd.price, bd.quantity " +
+    public Bill findById(int idBill) {
+        String SELECT_BY_ID = "SELECT b.*, u.name as customer_name, bd.id as bill_detail_id, bd.product_name, bd.quantity, bd.price " +
                 "FROM bills b " +
-                "JOIN bill_details bd " +
                 "JOIN users u ON b.customer_id = u.id " +
-                "WHERE b.id = ? AND b.customer_id = ?";
+                "JOIN bill_details bd ON b.id = bd.bill_id " +
+                "WHERE b.id = ?";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
             preparedStatement.setInt(1, idBill);
-            preparedStatement.setInt(2,idUser);
             System.out.println(preparedStatement);
 
             var rs = preparedStatement.executeQuery();

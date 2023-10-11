@@ -26,9 +26,11 @@ public class UserService {
     public List<User> findAll() {
         return userDAO.findAll();
     }
+
     public List<User> findUsernameAll() {
         return userDAO.findUserNameAll();
     }
+
     public void create(User user) {
         user.setPassword(PasswordEncryptionUtil.encryptPassword(user.getPassword()));
         userDAO.create(user);
@@ -37,9 +39,11 @@ public class UserService {
     public User findById(int id) {
         return userDAO.findById(id);
     }
-public User findPasswordById(int id) {
-    return userDAO.findPasswordById(id);
-}
+
+    public User findPasswordById(int id) {
+        return userDAO.findPasswordById(id);
+    }
+
     public void update(int id, User user) {
         userDAO.update(id, user);
     }
