@@ -38,6 +38,12 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        a {
+            text-decoration: none;
+            color: inherit; /* Giữ màu sắc của văn bản chung */
+        }
+    </style>
 </head>
 
 <body>
@@ -88,11 +94,6 @@
                     Home
                 </div>
             </a>
-            <a href="/homes#about">
-                <div class="menu-item">
-                    About
-                </div>
-            </a>
             <a href="/homes#food-menu-section">
                 <div class="menu-item">
                     Menu
@@ -107,7 +108,7 @@
         <div class="right-menu">
             <div class="cart-btn">
                 <c:if test="${user.role.id eq '2'}">
-                    <a href="/cart?idUser=${user.id}"><i class='bx bx-cart-alt'></i></a>
+                    <a href="/cart?idUser=${user.id}" class="cart-btn"><i class='bx bx-cart-alt'></i></a>
                 </c:if>
                 <c:if test="${empty loggedIn}">
                     <a href="/auth" class="login-btn">Login </a>
@@ -153,9 +154,9 @@
                         perspiciatis voluptate qui dolore soluta.
                     </p>
                     <div class="left-to-right play-on-scroll delay-4">
-                        <button>
-                            Order now
-                        </button>
+                        <a href="/homes#food-menu-section">
+                                <button>Order</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -163,31 +164,6 @@
     </div>
 </section>
 <!-- END SECTION HOME -->
-<!-- SECION ABOUT -->
-<section class="about fullheight align-items-center" id="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-7 h-xs">
-                <img src="assets/dan-gold-4_jhDO54BYg-unsplash.jpg" alt=""
-                     class="fullwidth left-to-right play-on-scroll">
-            </div>
-            <div class="col-5 col-xs-12 align-items-center">
-                <div class="about-slogan right-to-left play-on-scroll">
-                    <h3>
-                        <span class="primary-color">We</span> create <span class="primary-color">delicious</span>
-                        memories for <span class="primary-color">you</span>
-                    </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio natus placeat et eos,
-                        dignissimos voluptatem tempora necessitatibus doloribus! Eum qui doloribus odio dolor
-                        tenetur nihil impedit vero magni, distinctio soluta!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- END SECION ABOUT -->
 <!-- FOOD MENU SECTION -->
 <section class="align-items-center bg-img bg-img-fixed" id="food-menu-section"
          style="background-image: url(../home/assets/katherine-chase-4MMK78S7eyk-unsplash.jpg);">
@@ -247,8 +223,12 @@
                                     </span>
                                 </div>
                                 <div class="cart-btn">
+<<<<<<< Updated upstream
                                     <a href="/homes?action=detail&id=${product.id}" class="cart-btn"
                                        style="border: 1px solid #1a7a1a">
+=======
+                                    <a href="/homes?action=detail&id=${product.id}" class="cart-btn btn"<%-- style="border: 1px solid #1a7a1a"--%>>
+>>>>>>> Stashed changes
                                         <i class="bx bx-cart-alt"></i>
                                     </a>
                                 </div>
