@@ -118,6 +118,17 @@ public class CartDAO extends DatabaseConnection {
             System.out.println(e.getMessage());
         }
     }
+    public void delete(int idUser){
+        String DELETE_BY_IDUSER = "DELETE FROM `carts` WHERE (`customer_id` = ?);";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_IDUSER);
+            preparedStatement.setInt(1,idUser);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private Cart getCartByResultSet(ResultSet rs) throws SQLException {
         var cart = new Cart();

@@ -3,6 +3,7 @@ package service;
 import DAO.CartDAO;
 import Model.Cart;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,5 +32,9 @@ public class CartService {
 
     public void delete(int idProduct, int idUser) {
         cartDAO.delete(idProduct,idUser);
+    }
+    public void delete(HttpServletRequest req){
+        int idUser = Integer.parseInt(req.getParameter("idUser"));
+        cartDAO.delete(idUser);
     }
 }

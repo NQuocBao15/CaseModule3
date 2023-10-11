@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderDAO extends DatabaseConnection {
     public Page<OrderListResponse> findAll(int page, String search) {
         var result = new Page<OrderListResponse>();
-        final int TOTAL_ELEMENT = 2;
+        final int TOTAL_ELEMENT = 5;
         result.setCurrentPage(page);
         var content = new ArrayList<OrderListResponse>();
         if (search == null) {

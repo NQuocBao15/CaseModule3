@@ -69,6 +69,7 @@ public class CartController extends HttpServlet {
         req.setAttribute("carts", carts);
         req.setAttribute("productImportDetails",productImportService.getQuantityForCartByIdUser(idUser));
         req.setAttribute("user", req.getSession().getAttribute("user"));
+        req.setAttribute("message", req.getParameter("message"));
         req.getRequestDispatcher("home/cart.jsp").forward(req, resp);
     }
 
@@ -90,6 +91,7 @@ public class CartController extends HttpServlet {
 
     private void order(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         orderService.create(req);
+        cartService.delete(req);
         resp.sendRedirect("/homes?message=Order Successfully");
     }
 }

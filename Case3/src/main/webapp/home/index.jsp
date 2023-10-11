@@ -41,6 +41,9 @@
 </head>
 
 <body>
+<c:if test="${message != null}">
+    <h6 class="d-none" id="message">${message}</h6>
+</c:if>
 <!-- MOBILE NAV -->
 <div class="mb-nav">
     <div class="mb-move-item"></div>

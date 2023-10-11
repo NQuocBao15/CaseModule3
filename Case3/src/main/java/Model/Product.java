@@ -25,7 +25,11 @@ public class Product {
         this.id = id;
     }
 
-    public Product(String name, Category category, String description, BigDecimal price,String img) {
+    public Product(String name) {
+        this.name = name;
+    }
+
+    public Product(String name, Category category, String description, BigDecimal price, String img) {
         this.name = name;
         this.price = price;
         this.img = img;
