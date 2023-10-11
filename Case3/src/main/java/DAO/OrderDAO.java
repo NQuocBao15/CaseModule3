@@ -176,6 +176,50 @@ public class OrderDAO extends DatabaseConnection {
         }
         return null;
     }
+    public Order findById(int idOrder, int idUser) {
+        String SELECT_BY_ID = "SELECT o.*, ot.id ot_id, ot.product_id p_id, ot.price, ot.quantity, u.name as customer_name, e.name express_name, p.name product_name " +
+                "FROM orders o " +
+                "JOIN order_items ot ON o.id = ot.order_id " +
+                "JOIN users u ON o.customer_id = u.id " +
+                "JOIN express e ON o.express_id = e.id " +
+                "JOIN products p ON p.id = ot.product_id " +
+                "WHERE o.id = ? AND u.id = ?";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
+            preparedStatement.setInt(1, idOrder);
+            preparedStatement.setInt(2, idUser);
+            System.out.println(preparedStatement);
+
+            var rs = preparedStatement.executeQuery();
+            Order order = new Order();
+            List<OrderItem> orderItems = new ArrayList<>();
+
+            while (rs.next()) {
+                order.setId(rs.getInt("id"));
+                order.setUser(new User(rs.getInt("customer_id"), rs.getString("customer_name")));
+                order.setCreateAt(rs.getDate("create_at"));
+                order.setNameReceiver(rs.getString("name_receiver"));
+                order.setAddressReceiver(rs.getString("address_receiver"));
+                order.setPhoneReceiver(rs.getString("phone_receiver"));
+                order.setExpress(new Express(rs.getInt("express_id"), rs.getString("express_name")));
+                order.setCode(rs.getString("code"));
+                order.setTotal(rs.getBigDecimal("total"));
+                order.setStatus(EStatus.valueOf(rs.getString("status")));
+                var orderItem = new OrderItem();
+                orderItem.setId(rs.getInt("ot_id"));
+                orderItem.setProduct(new Product(rs.getInt("p_id"), rs.getString("product_name")));
+                orderItem.setPrice(rs.getBigDecimal("price"));
+                orderItem.setQuantity(rs.getInt("quantity"));
+                orderItems.add(orderItem);
+            }
+            order.setOrderItems(orderItems);
+            return order;
+        } catch (SQLException e) {
+            System.out.println("hello" + e.getMessage());
+        }
+        return null;
+    }
 
     public void update(int id, String status) {
         String UPDATE_BY_ID = "UPDATE `candycake`.`orders` " +

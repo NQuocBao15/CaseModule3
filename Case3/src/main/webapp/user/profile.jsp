@@ -70,12 +70,12 @@
                 <div class="navbar-nav w-100">
                     <c:choose>
                         <c:when test="${user.role.id eq '1'}">
-                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
+                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
                                     class="fa fa-tachometer-alt me-2"></i>Profile</a>
                             <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                             <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                                 Import</a>
-                            <a href="/user" class="nav-item nav-link active "><i
+                            <a href="/user" class="nav-item nav-link  "><i
                                     class="fa fa-table me-2"></i>User</a>
                             <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
                             <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
@@ -86,7 +86,7 @@
                             <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
                                     class="fa fa-tachometer-alt me-2"></i>Profile</a>
                             <a href="/order?idUser=${user.id}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                            <a href="/bill" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
+                            <a href="/bill?idUser=${user.id}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
                         </c:when>
                     </c:choose>
                 </div>

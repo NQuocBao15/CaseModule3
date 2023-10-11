@@ -125,7 +125,12 @@
                 <div class="container">
                     <div class="card container px-6" style="height: 100vh">
                         <h3 class="text-center">Edit User</h3>
+                        <c:if test="${user.role.id eq '1'}">
                         <form action="/user?action=edit" method="post">
+                        </c:if>
+                        <c:if test="${user.role.id eq '2'}">
+                            <form action="/user?action=edit&idUser=${user.id}" method="post">
+                        </c:if>
                             <input type="hidden" name="id" value="${userUpdate.id}">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
@@ -177,11 +182,17 @@
                                         </c:forEach>
                                     </select>
                                 </c:if>
+<%--                                <c:if test="${user.role.id=='2'}">--%>
+<%--                                    <input type="text" class="form-control" id="role" name="role"--%>
+<%--                                           value="${user.role.name}"--%>
+<%--                                           required="true"--%>
+<%--                                           onblur="validateDob()" readonly>--%>
+<%--                                </c:if>--%>
                                 <c:if test="${user.role.id=='2'}">
                                     <input type="text" class="form-control" id="role" name="role"
-                                           value="${user.role.name}"
-                                           required="true"
-                                           onblur="validateDob()" readonly>
+                                           value="${userUpdate.role.id}"
+                                           required="true" readonly hidden="">
+                                    <input type="text" class="form-control", value="${user.role.name}" readonly>
                                 </c:if>
 
                             </div>

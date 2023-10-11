@@ -29,6 +29,7 @@ public class OrderController extends HttpServlet {
         }
         switch (action){
             default -> showList(req,resp);
+            case "detail" -> showEdit(req, resp);
             case "edit" -> showEdit(req,resp);
             case "delete" -> delete(req,resp);
         }
@@ -41,7 +42,19 @@ public class OrderController extends HttpServlet {
     }
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("order", orderService.findById(Integer.parseInt(req.getParameter("id"))));
+        String idUserParameter = req.getParameter("idUser");
+        int idUser;
+        if(idUserParameter != null && !idUserParameter.isEmpty()){
+            try{
+                idUser = Integer.parseInt(idUserParameter);
+                req.setAttribute("order", orderService.findById(Integer.parseInt(req.getParameter("idOrder")),Integer.parseInt(req.getParameter("idUser"))));
+            }catch (NumberFormatException e){
+                System.out.println(e.getMessage());
+            }
+        }else {
+            req.setAttribute("order", orderService.findById(Integer.parseInt(req.getParameter("id"))));
+        }
+
         req.setAttribute("status", EStatus.values());
         req.getRequestDispatcher("order/edit.jsp").forward(req,resp);
 
@@ -61,8 +74,7 @@ public class OrderController extends HttpServlet {
                 idUser = Integer.parseInt(idUserParameter);
                 req.setAttribute("page", orderService.findAll(Integer.parseInt(pageString), req.getParameter("search"), idUser));
             } catch (NumberFormatException e) {
-                // Xử lý trường hợp khi không thể chuyển đổi thành số nguyên
-                // Ví dụ: Ghi log, thông báo lỗi, hoặc xử lý một giá trị mặc định
+                System.out.println(e.getMessage());
             }
         } else {
             req.setAttribute("page", orderService.findAll(Integer.parseInt(pageString), req.getParameter("search")));

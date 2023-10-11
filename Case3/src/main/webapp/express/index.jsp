@@ -146,9 +146,9 @@
                                 <td>${express.name}</td>
                                 <td>
                                     <a href="/express?action=edit&id=${express.id}" class="btn btn-info mb-2">Edit</a>
-                                    <button class="btn btn-danger mb-2"
-                                            onclick="showConfirmation('${express.id}', '${express.name}')">Delete
-                                    </button>
+<%--                                    <button class="btn btn-danger mb-2"--%>
+<%--                                            onclick="showConfirmation('${express.id}', '${express.name}')">Delete--%>
+<%--                                    </button>--%>
                                 </td>
                             </tr>
                             </c:forEach>

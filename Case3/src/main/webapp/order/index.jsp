@@ -77,18 +77,18 @@
                                 <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                                 <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                                     Import</a>
-                                <a href="/user" class="nav-item nav-link active "><i
+                                <a href="/user" class="nav-item nav-link  "><i
                                         class="fa fa-table me-2"></i>User</a>
                                 <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-                                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                                <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
                             </c:when>
                         </c:choose>
                         <c:choose>
                             <c:when test="${user.role.id eq '2'}">
                                 <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
                                         class="fa fa-tachometer-alt me-2"></i>Profile</a>
-                                <a href="/order" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                                <a href="/bill" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
+                                <a href="/order?idUser=${user.id}" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                                <a href="/bill?idUser=${user.id}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
                             </c:when>
                         </c:choose>
                     </div>
@@ -165,9 +165,7 @@
                                 <td>Products </td>
                                 <td>Total </td>
                                 <td>Status </td>
-                                <c:if test="${user.role.id eq '1'}">
-                                    <td>Action </td>
-                                </c:if>
+                                <td>Action </td>
 
                             </tr>
                             <c:forEach var="order" items="${page.content}">
@@ -184,12 +182,20 @@
                                         <a href="/order?action=edit&id=${order.idOrder}"
                                            class="btn btn-info mb-2">Edit</a>
                                     </c:if>
+                                    <c:if test="${order.status == 'DONE' && user.role.id eq '1'}">
+                                        <a href="/order?action=detail&id=${order.idOrder}"
+                                           class="btn btn-info mb-2">Detail</a>
+                                    </c:if>
                                     <c:if test="${order.status == 'PAID' && user.role.id eq '1'}">
                                         <button class="btn btn-danger mb-2"
                                                 onclick="showConfirmation('${order.idOrder}')">Delete
                                         </button>
                                     </c:if>
                                 </td>
+                                </c:if>
+                                <c:if test="${user.role.id eq '2'}">
+                                    <td><a href="/order?action=detail&idOrder=${order.idOrder}&idUser=${user.id}"
+                                           class="btn btn-info mb-2">Detail</a></td>
                                 </c:if>
                             </tr>
                             </c:forEach>
