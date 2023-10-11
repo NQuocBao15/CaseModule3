@@ -223,12 +223,7 @@
                                     </span>
                                 </div>
                                 <div class="cart-btn">
-<<<<<<< Updated upstream
-                                    <a href="/homes?action=detail&id=${product.id}" class="cart-btn"
-                                       style="border: 1px solid #1a7a1a">
-=======
                                     <a href="/homes?action=detail&id=${product.id}" class="cart-btn btn"<%-- style="border: 1px solid #1a7a1a"--%>>
->>>>>>> Stashed changes
                                         <i class="bx bx-cart-alt"></i>
                                     </a>
                                 </div>
