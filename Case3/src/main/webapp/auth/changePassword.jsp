@@ -39,38 +39,46 @@
 </head>
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!-- Spinner Start -->
+    <c:choose>
+        <c:when test="${not empty loggedIn}">
+            <!-- Spinner Start -->
 
-    <div class="content">
-        <div class="container">
-            <div class="card container px-6" style="height: 100vh">
-                <h3 class="text-center">Change Password</h3>
-                <c:if test="${message != null}">
-                    <h6 class="d-none" id="message">${message}</h6>
-                </c:if>
-                <form action="/auth?action=changePassword&id=${user.id}" method="POST" onsubmit="changePassword(event)">
-                    <div class="mb-3">
-                        <label for="passwordOld">Mật khẩu Cũ</label>
-                        <input type="password" class="form-control" id="passwordOld" name="passwordOld" required="">
-                        <small id="passwordOldError" class="text-danger"></small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="passwordNew">Mật khẩu Mới</label>
-                        <input type="password" class="form-control" id="passwordNew" name="passwordNew" required="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="passwordNewConfirm">Xác Minh Mật khẩu</label>
-                        <input type="password" class="form-control" id="passwordNewConfirm" name="passwordNewConfirm"
-                               required="">
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                    <button onclick="goBack()">Cancel</button>
+            <div class="content">
+                <div class="container">
+                    <div class="card container px-6" style="height: 100vh">
+                        <h3 class="text-center">Change Password</h3>
+                        <c:if test="${message != null}">
+                            <h6 class="d-none" id="message">${message}</h6>
+                        </c:if>
+                        <form action="/auth?action=changePassword&id=${user.id}" method="POST"
+                              onsubmit="changePassword(event)">
+                            <div class="mb-3">
+                                <label for="passwordOld">Mật khẩu Cũ</label>
+                                <input type="password" class="form-control" id="passwordOld" name="passwordOld"
+                                       required="">
+                                <small id="passwordOldError" class="text-danger"></small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwordNew">Mật khẩu Mới</label>
+                                <input type="password" class="form-control" id="passwordNew" name="passwordNew"
+                                       required="">
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwordNewConfirm">Xác Minh Mật khẩu</label>
+                                <input type="password" class="form-control" id="passwordNewConfirm"
+                                       name="passwordNewConfirm"
+                                       required="">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            <button onclick="goBack()">Cancel</button>
 
-                </form>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </c:when>
+    </c:choose>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -141,6 +149,7 @@
         }
         return true;
     }
+
     function changePassword(event) {
         if (!checkPassword()) {
             event.preventDefault();

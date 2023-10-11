@@ -78,7 +78,23 @@ public class UserDAO extends DatabaseConnection{
         }
         return result;
     }
-
+    public List<User> findUserNameAll() {
+        var usernames = new ArrayList<User>();
+        String SELECT_USERNAME_ALL="SELECT u.*, r.name as role_name " +
+                "FROM users u " +
+                "JOIN roles r ON u.role_id = r.id ";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERNAME_ALL);
+            var rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                usernames.add(getUserPasswordByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return usernames;
+    }
     public List<User> findAll(){
         List<User> users = new ArrayList<>();
         String SELECT_ALL = "SELECT u.*, r.name as role_name " +

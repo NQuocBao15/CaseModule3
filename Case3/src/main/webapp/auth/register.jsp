@@ -144,7 +144,7 @@
     var addressError = document.getElementById('address-error');
     var dobInput = document.getElementById('dob');
     var dobError = document.getElementById('dob-error');
-
+    var existingUsernames = ${usernameJSON};
     nameInput.addEventListener('blur', function () {
         var nameRegex = /^[A-Za-zÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư\s]{6,}$/;
         if (!nameRegex.test(nameInput.value)) {
@@ -173,6 +173,11 @@
         if (usernameValue.length < 6) {
             usernameInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
             usernameError.textContent = 'Username phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else if (existingUsernames.map((user) => {
+            return user.username
+        }).includes(usernameValue)) {
+            usernameInput.classList.add('is-invalid');
+            usernameError.textContent = 'Username đã tồn tại';
         } else {
             usernameInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
             usernameError.textContent = ''; // Xóa thông báo lỗi
@@ -307,7 +312,13 @@
 
             usernameInput.focus(); // Tập trung vào trường username không hợp lệ
         }
-
+        if (existingUsernames.map((user) => {
+            return user.username
+        }).includes(usernameValue)) {
+            event.preventDefault();
+            usernameInput.classList.add('is-invalid');
+            usernameError.textContent = 'Username đã tồn tại';
+        }
         var phoneRegex = /^0\d{9}$/; // Biểu thức chính quy kiểm tra số điện thoại bắt đầu từ số 0 và gồm 10 chữ số
         if (!phoneRegex.test(phoneInput.value)) {
             event.preventDefault(); // Ngăn chặn gửi form đi

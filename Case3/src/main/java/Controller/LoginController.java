@@ -2,6 +2,7 @@ package Controller;
 
 import Model.EGender;
 import Model.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import service.RoleService;
 import service.UserService;
 
@@ -32,10 +33,9 @@ public class LoginController extends HttpServlet {
             case "register" -> showRegister(req, resp);
             case "logout" -> logout(req, resp);
             case "changePassword" -> showChangePassword(req, resp);
-
             default -> showLogin(req, resp);
-
         }
+        req.setAttribute("usernameJSON",new ObjectMapper().writeValueAsString(userService.findUsernameAll()));
     }
 
     private void showChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

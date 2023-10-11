@@ -3,6 +3,7 @@ package Controller;
 import Model.EGender;
 import Model.Role;
 import Model.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import service.RoleService;
 import service.UserService;
 
@@ -32,6 +33,7 @@ public class UserController extends HttpServlet {
             case "delete" -> delete(req,resp);
             case "profile" -> showProfile(req, resp);
         }
+        req.setAttribute("usernameJSON",new ObjectMapper().writeValueAsString(userService.findUsernameAll()));
     }
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user", userService.findById(Integer.parseInt(req.getParameter("id"))));
@@ -41,7 +43,11 @@ public class UserController extends HttpServlet {
     }
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         userService.delete(Integer.parseInt(req.getParameter("id")));
-        resp.sendRedirect("/user?message=Deleted Successfully");
+        if (userService.findById(Integer.parseInt(req.getParameter("id"))) != null) {
+            resp.sendRedirect("/user?message=Deleted Unsuccessfully");
+        } else {
+            resp.sendRedirect("/user?message=Deleted Successfully");
+        }
     }
 
     private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

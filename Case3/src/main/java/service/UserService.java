@@ -26,7 +26,9 @@ public class UserService {
     public List<User> findAll() {
         return userDAO.findAll();
     }
-
+    public List<User> findUsernameAll() {
+        return userDAO.findUserNameAll();
+    }
     public void create(User user) {
         user.setPassword(PasswordEncryptionUtil.encryptPassword(user.getPassword()));
         userDAO.create(user);

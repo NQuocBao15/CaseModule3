@@ -67,16 +67,25 @@
                             <span>${user.role.name}</span>
                         </div>
                     </div>
-                    <div class="navbar-nav w-100">
-                        <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Profile</a>
-                        <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                        <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
-                            Import</a>
-                        <a href="/user" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>User</a>
-                        <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-                        <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                    </div>
+                    <c:choose>
+                        <c:when test="${user.role.id eq '1'}">
+                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
+                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                            <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
+                            <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
+                                Import</a>
+                            <a href="/user" class="nav-item nav-link active "><i class="fa fa-table me-2"></i>User</a>
+                            <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                        </c:when>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${user.role.id eq '2'}">
+                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
+                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                        </c:when>
+                    </c:choose>
                 </nav>
             </div>
             <!-- Sidebar End -->
@@ -169,8 +178,7 @@
                                 </c:if>
 
                             </div>
-
-                            <a href="/user" class="btn btn-dark mb-2">Cancel</a>
+                            <button onclick="goBack()"class="btn btn-dark mb-2 ">Cancel</button>
                             <button type="submit" class="btn btn-warning mb-2">Update</button>
                         </form>
                     </div>
@@ -355,6 +363,9 @@
     });
 </script>
 
-
+<script>
+    function goBack() {
+        window.history.back();
+    }
 </body>
 </html>
