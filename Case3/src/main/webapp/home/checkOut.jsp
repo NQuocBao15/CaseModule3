@@ -140,7 +140,7 @@
         <!-- FOOD MENU SECTION -->
         <section class="">
             <div class="container">
-                <div class="card container px-6" style="height: 100vh">
+                <div class="card container px-6"<%-- style="height: 100vh"--%>>
                     <h3 class="text-center">Product Import Detail</h3>
                     <form action="/cart?action=order&idUser=${user.id}" method="post" id="orderForm">
                         <div class="mb-3">
@@ -189,12 +189,12 @@
                                     <c:set var="totalPrice" value="0"/>
                                     <c:forEach items="${carts}" var="cart">
                                         <tr class="card-body">
-                                            <td class="col-6">
-                                                <h6>${cart.product.name}</h6>
+                                            <td class="col-6 d-flex">
+                                                <img src="../img${cart.product.img}" alt="">
+                                                <h4>${cart.product.name}</h4>
                                                 <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
                                                 <input type="number" hidden="hidden" name="productName"
                                                        value="${cart.product.name}">
-                                                <img src="../img${cart.product.img}" alt="">
                                             </td>
                                             <td class="col-2">
                                                 <input type="text" value="${cart.quantity}" name="quantity" readonly

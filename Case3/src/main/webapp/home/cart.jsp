@@ -5,7 +5,8 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> FOODY.COM </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -177,9 +178,9 @@
                             <c:set var="totalPrice" value="0"/>
                             <c:forEach items="${carts}" var="cart">
                                 <tr class="card-body">
-                                    <td class="col-4">
-                                        <h6>${cart.product.name}</h6>
+                                    <td class="col-8 d-flex">
                                         <img src="../img${cart.product.img}" alt="">
+                                        <h4>${cart.product.name}</h4>
                                     </td>
                                     <td class="col-1">
                                         <fmt:formatNumber value="${cart.price}" pattern="#,###.### VNĐ"/>

@@ -7,6 +7,7 @@ import service.CartService;
 import service.CategoryService;
 import service.ProductImportService;
 import service.ProductService;
+import service.dto.Page;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -80,7 +81,13 @@ public class HomeController extends HttpServlet {
         if (pageString == null) {
             pageString = "1";
         }
-        req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), req.getParameter("search")));
+        var products = productService.getProducts(Integer.parseInt(pageString), req.getParameter("search"));
+//        for (Product product : products.getContent()) {
+//            var pid = productImportService.getQuantityByIdProduct(product.getId());
+//            if (pid.getQuantity() == 0) {
+//            }
+//        }
+        req.setAttribute("page", products);
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("search", req.getParameter("search"));
         req.getRequestDispatcher(PAGE + "/index.jsp").forward(req, resp);

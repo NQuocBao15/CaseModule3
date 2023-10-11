@@ -207,6 +207,7 @@
 
             <div class="food-item-wrap all">
                 <c:forEach items="${page.content}" var="product">
+                    <c:if test=""></c:if>
                     <div class="food-item salad-type">
                         <div class="item-wrap bottom-up play-on-scroll">
                             <div class="item-img">
