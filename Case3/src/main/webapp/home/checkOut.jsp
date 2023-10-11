@@ -18,7 +18,9 @@
           rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../home/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
         .card {
             max-width: 1000px;
@@ -140,68 +142,99 @@
 <!-- FOOD MENU SECTION -->
 <section class="">
     <div class="container">
-        <div class="row">
-            <div class="card col-8">
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="">Products</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody class="card-body">
-                    <c:set var="totalPrice" value="0"/>
-                    <c:forEach items="${carts}" var="cart">
-                        <%--                        <c:set var="max" value="1"/>--%>
-                        <%--                        <c:forEach items="${productImportDetails}" var="pid">--%>
-                        <%--                            <c:if test="${cart.product.id == pid.product.id}">--%>
-                        <%--                                <c:set var="max" value="${pid.quantity-pid.quantitySold}"/>--%>
-                        <%--                            </c:if>--%>
-                        <%--                        </c:forEach>--%>
-                        <tr>
-                            <td class="col-4">
-                                <img src="../img${cart.product.img}" alt="">
-                                <h5>${cart.product.name}</h5>
-                            </td>
-                            <td class="col-1">
-                                <fmt:formatNumber value="${cart.price}" pattern="#,###.### VNĐ"/>
-                            </td>
-                            <td class="col-1">
-                                    <%--                                    <input min="1" max="${productImportDetails}" name="quantity"--%>
-                                    <%--                                           id="productQuantity" type="number" value="${cart.quantity}"--%>
-                                    <%--                                           style="text-align: center; width: 100px" onchange="handleQuantityChange(this.value,${cart.product.id},${user.id})">--%>
-                                    ${cart.quantity}
-                            </td>
-                            <td class="col-1">
-                                <fmt:formatNumber value="${cart.price * cart.quantity}" pattern="#,###.### VNĐ"/>
-                            </td>
-                            <td class="col-1">
-                                <a class="btn btn-danger" href="/cart?action=delete&idProduct=${cart.product.id}&idUser=${cart.user.id}"
-                                   onclick="return confirm('Do you want to remove' + ${cart.product.name} + '?')"><i class="fa-solid fa-xmark"></i></a>
-                            </td>
-                        </tr>
-                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <h5 style="text-align: center">Cart Total</h5>
-                    <ul>
-                        <p style="text-align: center">Total <span><fmt:formatNumber value="${totalPrice}"
-                                                                                    pattern="#,###.### VNĐ"/> đ</span>
-                        </p>
-                    </ul>
-                    <form method="post" action="/cart?action=checkOut&idUser=${user.id}" style="text-align: center">
-<%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
-                        <button class="primary-btn">PROCEED TO CHECKOUT</button>
-                    </form>
+        <div class="card container px-6" style="height: 100vh">
+            <h3 class="text-center">Product Import Detail</h3>
+            <form action="/cart?action=order&idUser=${user.id}" method="post" id="orderForm">
+                <div class="mb-3">
+                    <input type="text" hidden="hidden" name="customerId" value="${user.id}">
+                    <label for="customerName" class="form-label">Customer Name</label>
+                    <input type="text" class="form-control" id="customerName" name="customerName" required
+                           value="${user.name}" readonly>
+                    <div class="error-message" id="customerName-error"></div>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label for="nameReceiver" class="form-label">Name Receiver</label>
+                    <input type="text" class="form-control" id="nameReceiver" name="nameReceiver" required>
+                    <div class="error-message" id="nameReceiver-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="addressReceiver" class="form-label">Address Receiver</label>
+                    <input type="text" class="form-control" id="addressReceiver" name="addressReceiver" required>
+                    <div class="error-message" id="addressReceiver-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneReceiver" class="form-label">Phone Receiver</label>
+                    <input type="text" class="form-control" id="phoneReceiver" name="phoneReceiver" required>
+                    <div class="error-message" id="phoneReceiver-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="express" class="form-label">Express</label>
+                    <select class="form-control" name="express" id="express" required>
+                        <c:forEach var="e" items="${express}">
+                            <option value="${e.id}">${e.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-5">
+                        Product
+                    </div>
+                    <div class="col-2">
+                        Quantity
+                    </div>
+                    <div class="col-2">
+                        Price
+                    </div>
+                    <div class="col-3">
+                        Total Price
+                    </div>
+                </div>
+                <c:set var="totalPrice" value="0"/>
+                <c:forEach items="${carts}" var="cart">
+                <div class="row mb-3">
+                        <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
+
+                    <div class="col-5">
+                        <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
+                        <input type="number" hidden="hidden" name="productName" value="${cart.product.name}">
+                        <img src="../img${cart.product.img}" style="width: 50%; height: 70%" alt="">
+                        <h5>${cart.product.name}</h5>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" value="${cart.quantity}" name="quantity" readonly class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <fmt:formatNumber var="formattedPrice" value="${cart.price}" pattern="#,###.### VNĐ"/>
+                        <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">
+                        <input type="text" id="formattedPrice" value="${formattedPrice}" readonly class="form-control"/>
+                    </div>
+                    <div class="col-3">
+                        <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}" pattern="#,###.### VNĐ"/>
+                        <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly hidden="hidden">
+                        <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}" class="form-control" readonly>
+                    </div>
+                </div>
+                </c:forEach>
+                <div class="row mb-3">
+                    <div class="col-5">
+
+                    </div>
+                    <div class="col-4">
+
+                    </div>
+                    <div class="col-1">
+                        Total:
+                    </div>
+                    <div class="col-2">
+                        <span><fmt:formatNumber value="${totalPrice}" pattern="#,###.### VNĐ"/></span>
+                        <input type="text" name="total" value="${totalPrice}" hidden="hidden" readonly>
+                    </div>
+                </div>
+                <a href="/homes" class="btn btn-dark">Back</a>
+                <button type="submit" class="btn btn-success"
+                        onclick="return confirm('Would you like to make the payment for the bill?')">Order
+                </button>
+            </form>
         </div>
     </div>
 </section>
@@ -216,7 +249,9 @@
 <script src="lib/tempusdominus/js/moment.min.js"></script>
 <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+        integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script src="../home/js/main.js"></script>

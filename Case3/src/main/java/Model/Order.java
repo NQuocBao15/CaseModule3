@@ -29,6 +29,17 @@ public class Order {
         this.status = status;
     }
 
+    public Order(User user, Date createAt, String nameReceiver, String addressReceiver, String phoneReceiver, Express express, String code, BigDecimal total) {
+        this.user = user;
+        this.createAt = createAt;
+        this.nameReceiver = nameReceiver;
+        this.addressReceiver = addressReceiver;
+        this.phoneReceiver = phoneReceiver;
+        this.express = express;
+        this.code = code;
+        this.total = total;
+    }
+
     public Order() {
     }
 

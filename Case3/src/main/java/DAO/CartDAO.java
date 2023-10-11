@@ -14,7 +14,8 @@ import java.util.List;
 
 public class CartDAO extends DatabaseConnection {
     private final String FIND_CART_BY_2_ID = "select * from carts where product_id = ? AND customer_id = ?;";
-    private final String FIND_CART_BY_ID_USER = "select c.*,p.name as product_name,p.img from carts c join users u on c.customer_id = u.id " +
+    private final String FIND_CART_BY_ID_USER = "select c.*,p.name as product_name,p.img, u.name as customer_name from carts c " +
+            "join users u on c.customer_id = u.id " +
             "join products p on c.product_id = p.id " +
             "where c.customer_id = ?";
     private final String CREATE_CART = "INSERT INTO `carts` (`product_id`, `customer_id`, `quantity`, `price`) VALUES (?, ?, ?, ?);";
@@ -122,7 +123,7 @@ public class CartDAO extends DatabaseConnection {
         var cart = new Cart();
         cart.setId(rs.getInt("id"));
         cart.setProduct(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getString("img")));
-        cart.setUser(new User(rs.getInt("customer_id")));
+        cart.setUser(new User(rs.getInt("customer_id"),rs.getString("customer_name")));
         cart.setQuantity(rs.getInt("quantity"));
         cart.setPrice(rs.getBigDecimal("price"));
         return cart;
