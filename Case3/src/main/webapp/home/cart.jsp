@@ -214,12 +214,7 @@
                             <c:if test="${user.role.id eq '2'}">
                                 <form method="post" action="/cart?action=checkOut&idUser=${user.id}"
                                       style="text-align: center">
-                                        <%--                        <input type="text" hidden="hidden" value="${cart.user.id}" name="idUser">--%>
-<<<<<<< Updated upstream
-                                    <button class="primary-btn">PROCEED TO CHECKOUT</button>
-=======
                                     <button class="btn btn-outline-dark">PROCEED TO CHECKOUT</button>
->>>>>>> Stashed changes
                                 </form>
                             </c:if>
                             <c:if test="${empty loggedIn}">
