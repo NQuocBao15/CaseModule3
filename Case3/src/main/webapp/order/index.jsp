@@ -110,7 +110,7 @@
                         </a>
                         <c:choose>
                             <c:when test="${user.role.id eq '2'}">
-                                <a href="/home">
+                                <a href="/homes">
                                     <div class="menu-item active">
                                         Home
                                     </div>
@@ -165,7 +165,10 @@
                                 <td>Products </td>
                                 <td>Total </td>
                                 <td>Status </td>
-                                <td>Action </td>
+                                <c:if test="${user.role.id eq '1'}">
+                                    <td>Action </td>
+                                </c:if>
+
                             </tr>
                             <c:forEach var="order" items="${page.content}">
                             <tr>
@@ -175,6 +178,7 @@
                                 <td>${order.products} </td>
                                 <td>${order.total} </td>
                                 <td>${order.status} </td>
+                                <c:if test="${user.role.id eq '1'}">
                                 <td>
                                     <c:if test="${order.status != 'DONE' && user.role.id eq '1'}">
                                         <a href="/order?action=edit&id=${order.idOrder}"
@@ -186,6 +190,7 @@
                                         </button>
                                     </c:if>
                                 </td>
+                                </c:if>
                             </tr>
                             </c:forEach>
                         </table>

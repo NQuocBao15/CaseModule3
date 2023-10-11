@@ -10,7 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/profile.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -264,7 +272,7 @@
       <workItem from="1696221648612" duration="295000" />
       <workItem from="1696221950748" duration="16978000" />
       <workItem from="1696470403586" duration="22886000" />
-      <workItem from="1696814335178" duration="51145000" />
+      <workItem from="1696814335178" duration="55329000" />
     </task>
     <servers />
   </component>
@@ -289,11 +297,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/filter/AdminFilter.java</url>
-          <line>11</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductImportController.java</url>
           <line>20</line>
           <option name="timeStamp" value="13" />
@@ -309,11 +312,34 @@
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java</url>
-          <line>93</line>
-          <option name="timeStamp" value="22" />
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/filter/ClientFilter.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/filter/AdminFilter.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/DAO/BillDAO.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/DAO/BillDAO.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="express" />
+        <watch expression="express" />
+        <watch expression="express" />
+        <watch expression="express" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

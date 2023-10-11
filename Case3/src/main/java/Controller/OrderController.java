@@ -53,7 +53,21 @@ public class OrderController extends HttpServlet {
         if(pageString == null){
             pageString = "1";
         }
-        req.setAttribute("page", orderService.findAll(Integer.parseInt(pageString),req.getParameter("search")));
+        String idUserParameter = req.getParameter("idUser");
+        int idUser;
+
+        if (idUserParameter != null && !idUserParameter.isEmpty()) {
+            try {
+                idUser = Integer.parseInt(idUserParameter);
+                req.setAttribute("page", orderService.findAll(Integer.parseInt(pageString), req.getParameter("search"), idUser));
+            } catch (NumberFormatException e) {
+                // Xử lý trường hợp khi không thể chuyển đổi thành số nguyên
+                // Ví dụ: Ghi log, thông báo lỗi, hoặc xử lý một giá trị mặc định
+            }
+        } else {
+            req.setAttribute("page", orderService.findAll(Integer.parseInt(pageString), req.getParameter("search")));
+        }
+
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("search", req.getParameter("search"));
         req.getRequestDispatcher("order/index.jsp").forward(req,resp);

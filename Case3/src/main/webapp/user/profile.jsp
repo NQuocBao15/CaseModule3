@@ -85,7 +85,7 @@
                         <c:when test="${user.role.id eq '2'}">
                             <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
                                     class="fa fa-tachometer-alt me-2"></i>Profile</a>
-                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                            <a href="/order?idUser=${user.id}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                             <a href="/bill" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
                         </c:when>
                     </c:choose>
@@ -107,7 +107,7 @@
                     </a>
                     <c:choose>
                         <c:when test="${user.role.id eq '2'}">
-                            <a href="/home">
+                            <a href="/homes">
                                 <div class="menu-item active">
                                     Home
                                 </div>

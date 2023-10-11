@@ -25,9 +25,9 @@ public class BillDAO extends  DatabaseConnection{
             preparedStatement.setString(3,order.getNameReceiver());
             preparedStatement.setString(4,order.getPhoneReceiver());
             preparedStatement.setString(5,order.getAddressReceiver());
-            preparedStatement.setString(5,order.getExpress().getName());
-            preparedStatement.setString(6,order.getCode());
-            preparedStatement.setBigDecimal(7,order.getTotal());
+            preparedStatement.setString(6,order.getExpress().getName());
+            preparedStatement.setString(7,order.getCode());
+            preparedStatement.setBigDecimal(8,order.getTotal());
             preparedStatement.executeUpdate();
 
             PreparedStatement statementId = connection.prepareStatement(SELECT_MAX_ID);
@@ -112,17 +112,18 @@ public class BillDAO extends  DatabaseConnection{
         }
         return result;
     }
-    public Bill findById(int id) {
+    public Bill findById(int idBill, int idUser) {
         String SELECT_BY_ID = "select b.id, b.create_at, b.name_receiver, b.phone_receiver, b.address_receiver, b.express_name, b.code, b.total, " +
                 "u.name as customer_name, u.id as customer_id, bd.id as bill_detail_id, bd.product_name, bd.price, bd.quantity " +
                 "FROM bills b " +
                 "JOIN bill_details bd " +
                 "JOIN users u ON b.customer_id = u.id " +
-                "WHERE b.id = ?";
+                "WHERE b.id = ? AND b.customer_id = ?";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, idBill);
+            preparedStatement.setInt(2,idUser);
             System.out.println(preparedStatement);
 
             var rs = preparedStatement.executeQuery();
