@@ -187,6 +187,9 @@
             </div>
             <!-- Content End -->
         </c:when>
+        <c:otherwise>
+            <c:redirect url="/auth"/>
+        </c:otherwise>
     </c:choose>
 </div>
 

@@ -40,7 +40,7 @@
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <c:choose>
-        <c:when test="${user.role.id eq '1'}">
+        <c:when test="${user.role.id eq '1' && not empty loggedIn}">
             <!-- Spinner Start -->
             <div id="spinner"
                  class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -104,7 +104,8 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                     <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
-                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
+                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change
+                                        Password</a>
                                     <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
                                 </div>
                             </div>
@@ -200,6 +201,9 @@
             </div>
             <!-- Content End -->
         </c:when>
+        <c:otherwise>
+            <c:redirect url="/auth"/>
+        </c:otherwise>
     </c:choose>
 </div>
 

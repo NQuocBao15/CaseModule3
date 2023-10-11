@@ -67,25 +67,29 @@
                             <span>${user.role.name}</span>
                         </div>
                     </div>
-                    <c:choose>
-                        <c:when test="${user.role.id eq '1'}">
-                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
-                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
-                            <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                            <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
-                                Import</a>
-                            <a href="/user" class="nav-item nav-link active "><i class="fa fa-table me-2"></i>User</a>
-                            <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
-                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                        </c:when>
-                    </c:choose>
-                    <c:choose>
-                        <c:when test="${user.role.id eq '2'}">
-                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
-                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
-                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
-                        </c:when>
-                    </c:choose>
+                    <div class="navbar-nav w-100">
+                        <c:choose>
+                            <c:when test="${user.role.id eq '1'}">
+                                <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
+                                        class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                                <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
+                                <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
+                                    Import</a>
+                                <a href="/user" class="nav-item nav-link active "><i
+                                        class="fa fa-table me-2"></i>User</a>
+                                <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                            </c:when>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${user.role.id eq '2'}">
+                                <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
+                                        class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                                <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                                <a href="/bill" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
+                            </c:when>
+                        </c:choose>
+                    </div>
                 </nav>
             </div>
             <!-- Sidebar End -->
@@ -110,7 +114,8 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                     <a href="/user?action=profile&id=${user.id}" class="dropdown-item">My Profile</a>
-                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change Password</a>
+                                    <a href="/admin?action=changePassword&id=${user.id}" class="dropdown-item">Change
+                                        Password</a>
                                     <a href="/auth?action=logout" class="dropdown-item">Log Out</a>
                                 </div>
                             </div>
@@ -130,7 +135,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="${userUpdate.phone}"
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       value="${userUpdate.phone}"
                                        required="true" onblur="validatePhone()">
                                 <div id="phone-error" class="text-danger"></div>
                             </div>
@@ -172,13 +178,14 @@
                                     </select>
                                 </c:if>
                                 <c:if test="${user.role.id=='2'}">
-                                    <input type="text" class="form-control" id="role" name="role" value="${user.role.name}"
+                                    <input type="text" class="form-control" id="role" name="role"
+                                           value="${user.role.name}"
                                            required="true"
                                            onblur="validateDob()" readonly>
                                 </c:if>
 
                             </div>
-                            <button onclick="goBack()"class="btn btn-dark mb-2 ">Cancel</button>
+                            <button onclick="goBack()" class="btn btn-dark mb-2 ">Cancel</button>
                             <button type="submit" class="btn btn-warning mb-2">Update</button>
                         </form>
                     </div>
@@ -187,6 +194,9 @@
             </div>
             <!-- Content End -->
         </c:when>
+        <c:otherwise>
+            <c:redirect url="/auth"/>
+        </c:otherwise>
     </c:choose>
 </div>
 
@@ -367,5 +377,6 @@
     function goBack() {
         window.history.back();
     }
+</script>
 </body>
 </html>

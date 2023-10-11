@@ -65,8 +65,8 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
-                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                        <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
+                                class="fa fa-tachometer-alt me-2"></i>Profile</a>
 
                         <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                         <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
@@ -179,6 +179,9 @@
 
 
         </c:when>
+        <c:otherwise>
+            <c:redirect url="/auth"/>
+        </c:otherwise>
     </c:choose>
 </div>
 

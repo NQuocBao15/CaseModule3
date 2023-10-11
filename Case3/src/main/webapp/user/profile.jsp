@@ -39,7 +39,8 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <c:if test="${not empty loggedIn}">
+    <c:choose>
+        <c:when test="${not empty loggedIn}">
         <!-- Spinner Start -->
         <div id="spinner"
              class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -67,18 +68,27 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
-                            class="fa fa-tachometer-alt me-2"></i>Profile</a>
                     <c:choose>
                         <c:when test="${user.role.id eq '1'}">
+                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link "><i
+                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
                             <a href="/product" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
                             <a href="/product-import" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Product
                                 Import</a>
-                            <a href="/user" class="nav-item nav-link "><i class="fa fa-table me-2"></i>User</a>
+                            <a href="/user" class="nav-item nav-link active "><i
+                                    class="fa fa-table me-2"></i>User</a>
                             <a href="/express" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Express</a>
+                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
                         </c:when>
                     </c:choose>
-                    <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                    <c:choose>
+                        <c:when test="${user.role.id eq '2'}">
+                            <a href="/user?action=profile&id=${user.id}" class="nav-item nav-link active"><i
+                                    class="fa fa-tachometer-alt me-2"></i>Profile</a>
+                            <a href="/order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Order</a>
+                            <a href="/bill" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Bill</a>
+                        </c:when>
+                    </c:choose>
                 </div>
             </nav>
         </div>
@@ -177,7 +187,11 @@
             </div>
         </div>
         <!-- Content End -->
-    </c:if>
+    </c:when>
+    <c:otherwise>
+        <c:redirect url="/auth"/>
+    </c:otherwise>
+    </c:choose>
 </div>
 
 <!-- JavaScript Libraries -->
