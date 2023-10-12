@@ -10,15 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/bill/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/profile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +267,8 @@
       <workItem from="1696221648612" duration="295000" />
       <workItem from="1696221950748" duration="16978000" />
       <workItem from="1696470403586" duration="22886000" />
-      <workItem from="1696814335178" duration="82290000" />
+      <workItem from="1696814335178" duration="83505000" />
+      <workItem from="1697151165684" duration="3000" />
     </task>
     <servers />
   </component>
@@ -304,12 +299,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java</url>
-          <line>108</line>
+          <line>107</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java</url>
-          <line>47</line>
+          <line>48</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
