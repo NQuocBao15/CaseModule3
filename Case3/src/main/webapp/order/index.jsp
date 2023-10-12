@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -174,7 +175,7 @@
                                 <td>${order.createAt} </td>
                                 <td>${order.customerName} </td>
                                 <td>${order.products} </td>
-                                <td>${order.total} </td>
+                                <td> <fmt:formatNumber value="${order.total}" pattern="#,###.###" /> VND </td>
                                 <td>${order.status} </td>
                                 <c:if test="${user.role.id eq '1'}">
                                 <td>

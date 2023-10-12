@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -177,7 +178,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="total" class="form-label">Total</label>
-                            <input type="text" class="form-control" id="total" name="total" value="${order.total}"
+                            <fmt:formatNumber var="formattedTotal" value="${order.total}"
+                                              pattern="#,###.### VNĐ"/>
+                            <input type="text" class="form-control" id="total" name="total" value="${formattedTotal}"
                                    readonly>
                         </div>
                         <div class="mb-3">
@@ -231,12 +234,19 @@
                                            value="${orderItem.quantity}" readonly>
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control" name="price" value="${orderItem.price}"
+                                    <fmt:formatNumber var="formattedPrice" value="${orderItem.price}"
+                                                      pattern="#,###.### VNĐ"/>
+                                    <input type="text" class="form-control" id="price" name="price" value="${formattedPrice}"
                                            readonly>
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control" name="price"
-                                           value="${orderItem.price * orderItem.quantity}" readonly>
+<%--                                    <input type="number" class="form-control" name="price" --%>
+<%--                                           value="${orderItem.price * orderItem.quantity}" readonly>--%>
+
+                                    <fmt:formatNumber var="formattedTotalPrice" value="${orderItem.price * orderItem.quantity}"
+                                                      pattern="#,###.### VNĐ"/>
+                                    <input type="text" class="form-control" id="totalPrice" name="totalPrice" value="${formattedTotalPrice}"
+                                           readonly>
                                 </div>
                             </c:forEach>
                         </div>

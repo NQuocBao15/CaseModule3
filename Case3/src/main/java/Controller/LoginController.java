@@ -75,7 +75,7 @@ public class LoginController extends HttpServlet {
     private void changePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (userService.checkChangePassword(req, resp)) {
             userService.changePassword(req, resp);
-            resp.sendRedirect("/auth?message=Change Password Success");
+            resp.sendRedirect("/auth?message=Change Password Successfully");
         } else {
             resp.sendRedirect("/auth?message=Password  fail&action=changePassword&id=" + req.getParameter("id"));
         }
@@ -95,7 +95,7 @@ public class LoginController extends HttpServlet {
 
     private void register(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         userService.register(getUserByRequest(req));
-        resp.sendRedirect("/auth?message=Register Success");
+        resp.sendRedirect("/auth?message=Register Successfully");
     }
 
     private User getUserByRequest(HttpServletRequest req) throws UnsupportedEncodingException {

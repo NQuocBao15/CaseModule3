@@ -179,8 +179,13 @@
               </div>
               <div class="mb-3">
                 <label for="total" class="form-label">Total</label>
-                <input type="text" class="form-control" id="total" name="total" required
-                       value="${bill.total}" readonly>
+<%--                <input type="text" class="form-control" id="total" name="total" required--%>
+<%--                       value="${bill.total}" readonly>--%>
+
+                <fmt:formatNumber var="formattedTotal" value="${bill.total}"
+                                  pattern="#,###.### VNĐ"/>
+                <input type="text" class="form-control" id="total" name="total" value="${formattedTotal}"
+                       readonly>
                 <div class="error-message" id="total-error"></div>
               </div>
                 <%--        <div class="mb-3">--%>

@@ -39,6 +39,7 @@ public class UserController extends HttpServlet {
         req.setAttribute("user", userService.findById(Integer.parseInt(req.getParameter("id"))));
         req.setAttribute("roles", roleService.findAll());
         req.setAttribute("genders", EGender.values());
+        req.setAttribute("message", req.getParameter("message"));
         req.getRequestDispatcher("user/profile.jsp").forward(req, resp);
     }
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {

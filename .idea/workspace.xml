@@ -11,14 +11,14 @@
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/CartDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductImportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductImportDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/home/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/home/cart.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/home/checkOut.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/home/checkOut.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/bill/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/bill/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/order/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/user/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/user/profile.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,28 +55,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Java/democase github/democase",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "service.view.auto.scroll.to.source": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Java/democase github/democase&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;service.view.auto.scroll.to.source&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Model" />
@@ -273,7 +273,7 @@
       <workItem from="1696221648612" duration="295000" />
       <workItem from="1696221950748" duration="16978000" />
       <workItem from="1696470403586" duration="22886000" />
-      <workItem from="1696814335178" duration="77873000" />
+      <workItem from="1696814335178" duration="82290000" />
     </task>
     <servers />
   </component>
@@ -319,17 +319,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/OrderController.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/OrderController.java</url>
           <line>89</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java</url>
-          <line>91</line>
+          <line>92</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -338,19 +333,24 @@
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/CartController.java</url>
           <line>110</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" log-message="true" suspend="NONE" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp</url>
+          <line>35</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

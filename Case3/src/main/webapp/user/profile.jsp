@@ -38,6 +38,9 @@
 </head>
 
 <body>
+<c:if test="${message != null}">
+    <h6 class="d-none" id="message">${message}</h6>
+</c:if>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <c:choose>
         <c:when test="${not empty loggedIn}">
@@ -209,6 +212,12 @@
 <script src="../js/main.js"></script>
 <!-- Code injected by live-server -->
 <script>
+
+        const message = document.getElementById('message');
+        if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
+
     function redirectToProfile(userId) {
         window.location.href = `/user?action=profile&id=${user.id}`;
     }
