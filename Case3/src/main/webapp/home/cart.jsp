@@ -55,6 +55,11 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>--%>
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+<%--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">--%>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
     <style>
         .card {
             max-width: 100%;
@@ -164,6 +169,9 @@
             <div class="container card">
                 <div class="row">
                     <div class="col-8" style="overflow-y: scroll; max-height: 500px;">
+                        <c:if test="${message != null}">
+                            <h6 class="d-none" id="message">${message}</h6>
+                        </c:if>
                         <table class="table" >
                             <thead class="bg-dark text-white">
                             <tr>
@@ -251,6 +259,10 @@
 
 <script src="../home/js/main.js"></script>
 <script>
+    const message = document.getElementById('message');
+    if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
     const productID = ${productImportDetails};
     document.getElementById('productQuantity').addEventListener('input', function () {
         var quantity = parseInt(this.value);

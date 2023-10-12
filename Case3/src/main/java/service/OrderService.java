@@ -3,6 +3,7 @@ package service;
 import DAO.BillDAO;
 import DAO.OrderDAO;
 import DAO.ProductDao;
+import DAO.ProductImportDAO;
 import Model.Express;
 import Model.Order;
 import Model.Product;
@@ -25,6 +26,7 @@ public class OrderService {
     private ExpressService expressService;
     private BillDAO billDAO;
     private ProductDao productDao;
+    private ProductImportDAO productImportDAO;
     private String getCode() {
         String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         int length = 10;
@@ -43,6 +45,7 @@ public class OrderService {
         expressService = new ExpressService();
         billDAO = new BillDAO();
         productDao = new ProductDao();
+        productImportDAO = new ProductImportDAO();
     }
     public Page<OrderListResponse> findAll(int page, String search) {
         return orderDAO.findAll(page,search);
@@ -90,9 +93,7 @@ public class OrderService {
             productName.add(product.getName());
             prices.add(product.getPrice());
         }
-//        List<String> productName = Arrays.stream(req.getParameterValues("productName")).map(String::new).toList();
         List<Integer> quantity = Arrays.stream(req.getParameterValues("quantity")).map(Integer::parseInt).toList();
-//        List<BigDecimal> price = Arrays.stream(req.getParameterValues("price")).map(BigDecimal::new).toList();
         BigDecimal total = new BigDecimal(req.getParameter("total"));
         Date createAt = new Date(System.currentTimeMillis());
         String code = getCode();
@@ -103,6 +104,7 @@ public class OrderService {
 
         for(int i = 0; i < quantity.size();i++){
             orderDAO.createOrderItems(order.getId(),productIds.get(i),quantity.get(i),prices.get(i));
+            productImportDAO.setQuantitySold(productIds.get(i),quantity.get(i));
             billDAO.createBillDetail(idBill,productName.get(i),quantity.get(i),prices.get(i));
         }
 

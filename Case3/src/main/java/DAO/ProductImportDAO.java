@@ -230,6 +230,7 @@ public class ProductImportDAO extends DatabaseConnection {
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 result.setQuantity(rs.getInt("quantity"));
+                result.setProduct(new Product(rs.getString("name")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -269,6 +270,20 @@ public class ProductImportDAO extends DatabaseConnection {
         productImportDetail.setProduct(new Product(rs.getInt("product_id")));
         productImportDetail.setQuantity(rs.getInt("quantity"));
         return  productImportDetail;
+    }
+
+    public void setQuantitySold(Integer idProduct, Integer quantity) {
+        String SET_QUANTITY_SOLD = "UPDATE `product_import_details` SET `quantity_sold` = ? " +
+                "WHERE (product_id = ?);";
+        try{
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SET_QUANTITY_SOLD);
+            preparedStatement.setInt(1,quantity);
+            preparedStatement.setInt(2,idProduct);
+            preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
 

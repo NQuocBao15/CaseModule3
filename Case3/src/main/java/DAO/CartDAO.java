@@ -39,7 +39,9 @@ public class CartDAO extends DatabaseConnection {
             while (resultSet.next()) {
                 carts.add(getCartByResultSet(resultSet));
             }
-            return carts;
+            if(carts.size() > 0){
+                return carts;
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

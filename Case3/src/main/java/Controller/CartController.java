@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Cart;
+import Model.ProductImportDetail;
 import service.*;
 
 import javax.servlet.ServletException;
@@ -46,13 +47,30 @@ public class CartController extends HttpServlet {
     }
 
     private void checkOut(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+        if (req.getCharacterEncoding() == null) {
+            req.setCharacterEncoding("UTF-8");
+        }
         int idUser = Integer.parseInt(req.getParameter("idUser"));
-        var cart = cartService.findCartByIdUser(idUser);
+        var carts = cartService.findCartByIdUser(idUser);
         var express = expressService.findAll();
-        req.setAttribute("express", express);
-        req.setAttribute("carts", cart);
-        req.setAttribute("user", req.getSession().getAttribute("user"));
-        req.getRequestDispatcher("home/checkOut.jsp").forward(req,resp);
+        if(carts != null){
+            for(var cart : carts){
+                ProductImportDetail pid = productImportService.getQuantityByIdProduct(cart.getProduct().getId());
+                if(cart.getQuantity() > pid.getQuantity() && pid.getQuantity() > 0){
+                    resp.sendRedirect("/cart?idUser=" + idUser + "&message=" + pid.getProduct().getName() + " are not enough quantity");
+                return;
+                }else if(pid.getQuantity() == 0){
+                    resp.sendRedirect("/cart?idUser=" + idUser + "&message=" + pid.getProduct().getName() + " are sold out");
+                return;
+                }
+            }
+            req.setAttribute("express", express);
+            req.setAttribute("carts", carts);
+            req.setAttribute("user", req.getSession().getAttribute("user"));
+            req.getRequestDispatcher("home/checkOut.jsp").forward(req,resp);
+        }else {
+            resp.sendRedirect("/cart?idUser=" + idUser + "&message=Cart is empty");
+        }
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
