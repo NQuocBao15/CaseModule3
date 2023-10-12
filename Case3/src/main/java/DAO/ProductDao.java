@@ -52,6 +52,44 @@ public class ProductDao extends DatabaseConnection {
         }
         return result;
     }
+    public Page<Product> searchProductByCategory(int page, String search) {
+        var result = new Page<Product>();
+        final int TOTAL_ELEMENT = 8;
+        result.setCurrentPage(page);
+        var content = new ArrayList<Product>();
+        if (search == null) {
+            search = "";
+        }
+        search = "%" + search.toLowerCase().trim() + "%";
+        var SELECT_ALL = " SELECT p.*, c.`name` category_name " +
+                "FROM `products` p LEFT JOIN  `categories` c on c.`id` = p.`category_id` " +
+                " WHERE LOWER(c.`name`) LIKE ? " +
+                " LIMIT ? OFFSET ? ";
+        var SELECT_COUNT = "SELECT COUNT(1) cnt FROM  `products` p " +
+                " LEFT JOIN `categories` c on  c.id = p.`category_id` " +
+                " WHERE LOWER(c.`name`) LIKE ? ";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
+            preparedStatement.setString(1, search);
+            preparedStatement.setInt(2, TOTAL_ELEMENT);
+            preparedStatement.setInt(3, (page - 1) * TOTAL_ELEMENT);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByResultSet(rs));
+            }
+            result.setContent(content);
+            var preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
+            preparedStatementCount.setString(1, search);
+            var rsCount = preparedStatementCount.executeQuery();
+            if (rsCount.next()) {
+                result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 
     public List<Product> findAll() {
         var content = new ArrayList<Product>();

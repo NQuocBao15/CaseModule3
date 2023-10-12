@@ -25,12 +25,14 @@ public class HomeController extends HttpServlet {
     private ProductService productService;
     private ProductImportService productImportService;
     private CartService cartService;
+    private CategoryService categoryService;
 
     @Override
     public void init() throws ServletException {
         productService = new ProductService();
         productImportService = new ProductImportService();
         cartService = new CartService();
+        categoryService = new CategoryService();
     }
 
     @Override
@@ -81,13 +83,9 @@ public class HomeController extends HttpServlet {
         if (pageString == null) {
             pageString = "1";
         }
-        var products = productService.getProducts(Integer.parseInt(pageString), req.getParameter("search"));
-//        for (Product product : products.getContent()) {
-//            var pid = productImportService.getQuantityByIdProduct(product.getId());
-//            if (pid.getQuantity() == 0) {
-//            }
-//        }
+        var products = productService.searchProductByCategory(Integer.parseInt(pageString), req.getParameter("search"));
         req.setAttribute("page", products);
+        req.setAttribute("categories", categoryService.getCategories());
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("search", req.getParameter("search"));
         req.getRequestDispatcher(PAGE + "/index.jsp").forward(req, resp);

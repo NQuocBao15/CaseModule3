@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> FOODY.COM </title>
+    <title> PDB.COM </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -32,6 +33,9 @@
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -85,7 +89,7 @@
     <div class="menu-wrap">
         <a href="/homes">
             <div class="logo">
-                FoodyCom
+                PDB Shop
             </div>
         </a>
         <div class="menu h-xs">
@@ -146,7 +150,7 @@
             <div class="col-6 col-xs-12">
                 <div class="slogan">
                     <h1 class="left-to-right play-on-scroll">
-                        FoodyCom
+                        PDB Shop
                     </h1>
                     <p class="left-to-right play-on-scroll delay-2">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae eveniet ullam perferendis
@@ -179,36 +183,27 @@
             </p>
             <div class="food-category">
                 <div class="zoom play-on-scroll">
-                    <button class="active" data-food-type="all">
-                        All food
-                    </button>
+                    <a data-food-type="all" href="/homes">
+                        <button class="active" data-food-type="all">
+                            All food
+                        </button>
+                    </a>
                 </div>
                 <div class="zoom play-on-scroll delay-2">
-                    <button data-food-type="salad">
-                        Salad
-                    </button>
-                </div>
-                <div class="zoom play-on-scroll delay-4">
-                    <button data-food-type="lorem">
-                        Lorem
-                    </button>
-                </div>
-                <div class="zoom play-on-scroll delay-6">
-                    <button data-food-type="ipsum">
-                        Ipsum
-                    </button>
-                </div>
-                <div class="zoom play-on-scroll delay-8">
-                    <button data-food-type="dolor">
-                        Dolor
-                    </button>
+                    <c:forEach items="${categories}" var="category">
+                        <a href="${pageContext.request.contextPath}/homes?search=${category.name}">
+                            <button <%--class="<c:if test=""></c:if>"--%>>
+                                    ${category.name}
+                            </button>
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
 
             <div class="food-item-wrap all">
                 <c:forEach items="${page.content}" var="product">
-                    <c:if test=""></c:if>
-                    <div class="food-item salad-type">
+                    <div class="food-item <c:if test="${product.category.id == 1}">salad-type</c:if>
+                                          <c:if test="${product.category.id == 2}">lorem-type</c:if>">
                         <div class="item-wrap bottom-up play-on-scroll">
                             <div class="item-img">
                                 <div class="img-holder bg-img"
@@ -220,7 +215,7 @@
                                             ${product.name}
                                     </h3>
                                     <span>
-                                            Price: ${product.price}
+                                            Price: <fmt:formatNumber value="${product.price}" pattern="#,###.### VNĐ"/>
                                     </span>
                                 </div>
                                 <div class="cart-btn">
@@ -232,6 +227,33 @@
                         </div>
                     </div>
                 </c:forEach>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+                <nav aria-label="...">
+                    <c:set var="url" value="/homes?search=${search}&page="/>
+                    <ul class="pagination">
+                        <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
+                            <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
+                               aria-disabled="true">Previous</a>
+                        </li>
+                        <c:forEach var="number" begin="1" end="${page.totalPage}">
+                            <c:if test="${number == page.currentPage}">
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="${url}${number}">${number}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${number != page.currentPage}">
+                                <li class="page-item">
+                                    <a class="page-link" href="${url}${number}">${number}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                        <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
+                            <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -341,7 +363,7 @@
                 <br>
                 <p>Email: kimjayden001@gmail.com</p>
                 <p>Phone: +254712080741</p>
-                <p>Website: foodycom.com</p>
+                <p>Website: PDB Shop.com</p>
             </div>
             <div class="col-2 col-xs-12">
                 <h1>
@@ -388,16 +410,15 @@
     </div>
 </section>
 <!-- END FOOTER SECTION -->
+<script>
+    const message = document.getElementById('message');
+    if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/chart/chart.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/tempusdominus/js/moment.min.js"></script>
-<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script src="../home/js/main.js"></script>
 </body>

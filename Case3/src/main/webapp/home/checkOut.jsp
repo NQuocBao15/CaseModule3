@@ -7,15 +7,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FOODY.COM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>PDB.SHOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="../home/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +26,8 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -46,6 +50,10 @@
             color: red;
             font-style: italic;
         }
+
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -53,29 +61,6 @@
 <!-- MOBILE NAV -->
 <c:choose>
     <c:when test="${not empty loggedIn && user.role.id eq '2'}">
-        <div class="mb-nav">
-            <div class="mb-move-item"></div>
-            <div class="mb-nav-item active">
-                <a href="/homes">
-                    <i class="bx bxs-home"></i>
-                </a>
-            </div>
-            <div class="mb-nav-item">
-                <a href="#about">
-                    <i class='bx bxs-wink-smile'></i>
-                </a>
-            </div>
-            <div class="mb-nav-item">
-                <a href="#food-menu-section">
-                    <i class='bx bxs-food-menu'></i>
-                </a>
-            </div>
-            <div class="mb-nav-item">
-                <a href="#testimonial">
-                    <i class='bx bxs-comment-detail'></i>
-                </a>
-            </div>
-        </div>
         <!-- END MOBILE NAV -->
         <!-- BACK TO TOP BTN -->
         <a href="#home" class="back-to-top">
@@ -87,12 +72,12 @@
             <div class="menu-wrap">
                 <a href="/homes">
                     <div class="logo">
-                        FoodyCom
+                        PDB Shop
                     </div>
                 </a>
                 <div class="menu h-xs">
                     <a href="/homes">
-                        <div class="menu-item active">
+                        <div class="menu-item">
                             Home
                         </div>
                     </a>
@@ -133,10 +118,11 @@
         <!-- FOOD MENU SECTION -->
         <section class="">
             <div class="container">
-                <div class="card container px-6" style="height: 100vh">
-                    <h3 class="text-center">Bill</h3>
-                    <form action="/cart?action=order&idUser=${user.id}" method="post" id="orderForm"
-                          onsubmit="return validateForm()">
+                <form action="/cart?action=order&idUser=${user.id}" method="post" id="orderForm"
+                      onsubmit="return validate()">
+                    <div class="card container px-6" style="height: 100%">
+                        <h3 class="text-center">Bill</h3>
+
                         <div class="mb-3">
                             <input type="text" hidden="hidden" name="customerId" value="${user.id}">
                             <label for="customerName" class="form-label">Customer Name</label>
@@ -151,7 +137,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="addressReceiver" class="form-label">Address Receiver</label>
-                            <input type="text" class="form-control" id="addressReceiver" name="addressReceiver" required>
+                            <input type="text" class="form-control" id="addressReceiver" name="addressReceiver"
+                                   required>
                             <div class="error-message" id="addressReceiver-error"></div>
                         </div>
                         <div class="mb-3">
@@ -172,7 +159,8 @@
                                 <table class="table">
                                     <thead class="bg-dark text-white">
                                     <tr>
-                                        <th>Products</th>
+                                        <th></th>
+                                        <th>Products Name</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
@@ -181,37 +169,29 @@
                                     <tbody class="">
                                     <c:set var="totalPrice" value="0"/>
                                     <c:forEach items="${carts}" var="cart">
-                                        <tr class="card-body">
-                                            <td class="col-6 d-flex">
-                                                <img src="../img${cart.product.img}" alt="">
+                                        <tr class="card-body" style="min-height: 200px;">
+                                            <td class="col-3" style="vertical-align: middle;">
+                                                <div style="max-height: 200px; overflow: hidden;">
+                                                    <img src="../img${cart.product.img}" alt="" style="max-height: 200px;">
+                                                </div>
+                                            </td>
+                                            <td class="col-3" style="vertical-align: middle;">
                                                 <h4>${cart.product.name}</h4>
                                                 <input type="number" hidden="hidden" name="productIds" value="${cart.product.id}">
-                                                <input type="number" hidden="hidden" name="productName"
-                                                       value="${cart.product.name}">
+                                                <input type="number" hidden="hidden" name="productName" value="${cart.product.name}">
                                             </td>
-                                            <td class="col-2">
-                                                <input type="text" value="${cart.quantity}" name="quantity" readonly
-                                                       class="form-control">
+                                            <td class="col-2" style="vertical-align: middle;">
+                                                <input type="text" value="${cart.quantity}" name="quantity" readonly class="form-control">
                                             </td>
-                                            <td class="col-2">
-                                                <fmt:formatNumber var="formattedPrice" value="${cart.price}"
-                                                                  pattern="#,###.### VNĐ"/>
-                                                <input type="text" name="price" value="${cart.price}" readonly
-                                                       hidden="hidden">
-                                                <input type="text" id="formattedPrice" value="${formattedPrice}"
-                                                       readonly
-                                                       class="form-control"/>
+                                            <td class="col-2" style="vertical-align: middle;">
+                                                <fmt:formatNumber var="formattedPrice" value="${cart.price}" pattern="#,###.### VNĐ"/>
+                                                <input type="text" name="price" value="${cart.price}" readonly hidden="hidden">
+                                                <input type="text" id="formattedPrice" value="${formattedPrice}" readonly class="form-control"/>
                                             </td>
-                                            <td class="col-2">
-                                                <fmt:formatNumber var="formattedTotalPrice"
-                                                                  value="${cart.price * cart.quantity}"
-                                                                  pattern="#,###.### VNĐ"/>
-                                                <input type="text" name="totalPrice"
-                                                       value="${cart.price * cart.quantity}" readonly
-                                                       hidden="hidden">
-                                                <input type="text" id="formattedTotalPrice"
-                                                       value="${formattedTotalPrice}"
-                                                       class="form-control" readonly>
+                                            <td class="col-2" style="vertical-align: middle;">
+                                                <fmt:formatNumber var="formattedTotalPrice" value="${cart.price * cart.quantity}" pattern="#,###.### VNĐ"/>
+                                                <input type="text" name="totalPrice" value="${cart.price * cart.quantity}" readonly hidden="hidden">
+                                                <input type="text" id="formattedTotalPrice" value="${formattedTotalPrice}" class="form-control" readonly>
                                             </td>
                                         </tr>
                                         <c:set var="totalPrice" value="${totalPrice + (cart.price * cart.quantity)}"/>
@@ -235,12 +215,15 @@
                                 <input type="text" name="total" value="${totalPrice}" hidden="hidden" readonly>
                             </div>
                         </div>
-                        <a href="/homes" class="btn btn-dark">Back</a>
-                        <button type="submit" class="btn btn-success"
-                                onclick="return confirm('Would you like to make the payment for the bill?')">Order
-                        </button>
-                    </form>
-                </div>
+                        <div class="row">
+                            <span class="col-10"></span>
+                            <a href="/homes" class="btn btn-dark col-1">Back</a>
+                            <button type="submit" class="btn btn-success col-1"
+                                    onclick="return confirm('Would you like to make the payment for the bill?')">Order
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
     </c:when>

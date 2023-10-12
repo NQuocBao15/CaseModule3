@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10,      // 10MB
         maxRequestSize = 1024 * 1024 * 50)  // 50MB
@@ -47,16 +48,16 @@ public class ProductController extends HttpServlet {
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productService.delete(Integer.parseInt(req.getParameter("id")));
         Product product = productService.findById(Integer.parseInt(req.getParameter("id")));
-        if(product != null){
+        if (product != null) {
             resp.sendRedirect("/product?message=Deleted Unsuccessfully");
-        }else {
+        } else {
             resp.sendRedirect("/product?message=Deleted Successfully");
         }
 
     }
 
     private void showListProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showTable(req,  resp);
+        showTable(req, resp);
     }
 
     private void showProductEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -87,9 +88,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void showSearch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("products"
-                , productService.performSearch(req.getParameter("search"))
-        );
+        req.setAttribute("products", productService.performSearch(req.getParameter("search")));
         req.setAttribute("message", req.getParameter("message"));
         req.getRequestDispatcher("product/index.jsp").forward(req, resp);
     }
@@ -112,22 +111,22 @@ public class ProductController extends HttpServlet {
         String img = req.getParameter("img");
         String idCategory = req.getParameter("category");
         Category category = new Category(Integer.parseInt(idCategory));
-        Product product = new Product(name, category, description, price,img);
+        Product product = new Product(name, category, description, price, img);
         String pathServerImage = getServletContext().getRealPath("/") + "img";
-        String pathProjectImage  = "D:\\Java\\CaseMD3\\Case3\\src\\main\\webapp\\img";
+        String pathProjectImage = "D:\\Java\\CaseMD3\\Case3\\src\\main\\webapp\\img";
 
         String dbImageUrl = null;
 
         for (Part part : req.getParts()) {
             String fileName = extractFileName(part);
 
-            if(!fileName.isEmpty()){
+            if (!fileName.isEmpty()) {
                 fileName = new File(fileName).getName();
 
-                if(part.getContentType().equals("image/jpeg")){
+                if (part.getContentType().equals("image/jpeg")) {
                     part.write(pathProjectImage + File.separator + fileName);
                     dbImageUrl = File.separator + fileName;
-                    dbImageUrl = dbImageUrl.replace("\\","/");
+                    dbImageUrl = dbImageUrl.replace("\\", "/");
                     part.write(pathServerImage + File.separator + fileName);
                 }
             }
@@ -165,7 +164,7 @@ public class ProductController extends HttpServlet {
         String img = req.getParameter("img");
         String idCategory = req.getParameter("category");
         Category category = new Category(Integer.parseInt(idCategory));
-        return new Product(name, category, description, price,img);
+        return new Product(name, category, description, price, img);
     }
 
     private String extractFileName(Part part) {

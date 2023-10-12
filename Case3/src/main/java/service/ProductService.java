@@ -22,6 +22,10 @@ public class ProductService {
         return productDao.findAll(page, search);
     }
 
+    public Page<Product> searchProductByCategory(int page, String search) {
+        return productDao.searchProductByCategory(page, search);
+    }
+
     public List<Product> findAll() {
         return productDao.findAll();
     }

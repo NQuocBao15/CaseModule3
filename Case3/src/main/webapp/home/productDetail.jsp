@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> FOODY.COM </title>
+    <title> PDB.SHOP </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -64,6 +64,10 @@
             max-height: 90%; /* Đảm bảo ảnh không vượt quá kích thước của thẻ cha */
             height: auto; /* Đảm bảo tỷ lệ hình ảnh được duy trì */
             width: auto;
+        }
+
+        a {
+            text-decoration: none;
         }
     </style>
 
@@ -125,7 +129,7 @@
     <div class="menu-wrap">
         <a href="/homes">
             <div class="logo">
-                FoodyCom
+                PDB Shop
             </div>
         </a>
         <div class="menu h-xs">
@@ -268,7 +272,7 @@
                 <br>
                 <p>Email: kimjayden001@gmail.com</p>
                 <p>Phone: +254712080741</p>
-                <p>Website: foodycom.com</p>
+                <p>Website: PDB Shop.com</p>
             </div>
             <div class="col-2 col-xs-12">
                 <h1>
