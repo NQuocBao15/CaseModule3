@@ -10,9 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bc564d-e45d-4678-98e9-f66d9885f73b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductImportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/java/DAO/ProductImportDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/home/productDetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/home/productDetail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Case3/src/main/webapp/product/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/Case3/src/main/webapp/product/create.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,6 +273,7 @@
       <workItem from="1696470403586" duration="22886000" />
       <workItem from="1696814335178" duration="83505000" />
       <workItem from="1697151165684" duration="3000" />
+      <workItem from="1697151186233" duration="6029000" />
     </task>
     <servers />
   </component>
@@ -332,11 +337,6 @@
           <line>110</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" log-message="true" suspend="NONE" type="java-line">
-          <url>file://$PROJECT_DIR$/Case3/src/main/webapp/user/index.jsp</url>
-          <line>35</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java</url>
           <line>68</line>
@@ -346,6 +346,16 @@
           <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/UserController.java</url>
           <line>24</line>
           <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/Controller/ProductController.java</url>
+          <line>161</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Case3/src/main/java/DAO/ProductDao.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

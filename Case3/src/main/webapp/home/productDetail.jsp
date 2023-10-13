@@ -91,10 +91,15 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
 </head>
 
 <body>
 <!-- MOBILE NAV -->
+<c:if test="${message != null}">
+    <h6 class="d-none" id="message">${message}</h6>
+</c:if>
 <div class="mb-nav">
     <div class="mb-move-item"></div>
     <div class="mb-nav-item active">
@@ -321,6 +326,11 @@
 <!-- END FOOTER SECTION -->
 
 <script>
+    const message = document.getElementById('message');
+    if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
+
     document.getElementById('productQuantity').addEventListener('input', function () {
         var quantity = parseInt(this.value);
         var price = parseFloat('${product.price}'); // Assuming product.price is in float format

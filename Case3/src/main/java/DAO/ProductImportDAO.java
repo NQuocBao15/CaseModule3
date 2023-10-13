@@ -273,8 +273,8 @@ public class ProductImportDAO extends DatabaseConnection {
     }
 
     public void setQuantitySold(Integer idProduct, Integer quantity) {
-        String SET_QUANTITY_SOLD = "UPDATE `product_import_details` SET `quantity_sold` = ? " +
-                "WHERE (product_id = ?);";
+        String SET_QUANTITY_SOLD = "UPDATE `product_import_details` SET `quantity_sold` = product_import_details.quantity_sold + ? " +
+                "WHERE (product_id = ?)";
         try{
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SET_QUANTITY_SOLD);

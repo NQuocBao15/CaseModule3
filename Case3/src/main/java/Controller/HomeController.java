@@ -65,6 +65,7 @@ public class HomeController extends HttpServlet {
         int idProduct = Integer.parseInt(req.getParameter("idProduct"));
         int quantity = Integer.parseInt(req.getParameter("quantity"));
         int idUser = Integer.parseInt(req.getParameter("idUser"));
+        req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("idProduct", idProduct);
         req.setAttribute("quantity", quantity);
         req.setAttribute("idUser", idUser);
@@ -96,6 +97,7 @@ public class HomeController extends HttpServlet {
         Product product = productService.findById(id);
         ProductImportDetail productImportDetail = productImportService.getQuantityByIdProduct(id);
         req.setAttribute("productImportDetail", productImportDetail);
+        req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("product", product);
         req.getRequestDispatcher(PAGE + "/productDetail.jsp").forward(req, resp);
     }

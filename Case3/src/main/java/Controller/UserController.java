@@ -102,7 +102,7 @@ public class UserController extends HttpServlet {
             }
         } else {
             userService.update(Integer.parseInt(req.getParameter("id")), getUserByRequest(req));
-            resp.sendRedirect("/user?action=profile&id=" + req.getParameter("id") + "&message=Updated Successfully");
+            resp.sendRedirect("/user?&message=Updated Successfully");
         }
     }
 

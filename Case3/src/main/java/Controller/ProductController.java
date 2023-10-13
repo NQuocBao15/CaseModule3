@@ -99,7 +99,7 @@ public class ProductController extends HttpServlet {
 //        resp.sendRedirect("/product?message=Restored&action=restore");
 //    }
 
-    private void editProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void editProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         productService.update(getProductByRequest(req), Integer.parseInt(req.getParameter("id")));
         resp.sendRedirect("/product?message=Updated");
     }
@@ -157,14 +157,44 @@ public class ProductController extends HttpServlet {
         req.getRequestDispatcher("product/index.jsp").forward(req, resp);
     }
 
-    private Product getProductByRequest(HttpServletRequest req) {
+    private Product getProductByRequest(HttpServletRequest req) throws ServletException, IOException {
+        Product product = new Product();
         String name = req.getParameter("name");
         BigDecimal price = new BigDecimal(req.getParameter("price"));
         String description = req.getParameter("description");
         String img = req.getParameter("img");
         String idCategory = req.getParameter("category");
         Category category = new Category(Integer.parseInt(idCategory));
-        return new Product(name, category, description, price, img);
+
+        String pathServerImage = getServletContext().getRealPath("/") + "img";
+        String pathProjectImage = "D:\\Java\\CaseMD3\\Case3\\src\\main\\webapp\\img";
+
+        String dbImageUrl = null;
+
+        for (Part part : req.getParts()) {
+            String fileName = extractFileName(part);
+
+            if (!fileName.isEmpty()) {
+                fileName = new File(fileName).getName();
+
+                if (part.getContentType().equals("image/jpeg")) {
+                    part.write(pathProjectImage + File.separator + fileName);
+                    dbImageUrl = File.separator + fileName;
+                    dbImageUrl = dbImageUrl.replace("\\", "/");
+                    part.write(pathServerImage + File.separator + fileName);
+                }
+            }
+        }
+        if (dbImageUrl == null) {
+            req.setAttribute("errorImage", "File ảnh không được để trống!");
+        } else {
+            product.setImg(dbImageUrl);
+        }
+        product.setName(name);
+        product.setCategory(category);
+        product.setDescription(description);
+        product.setPrice(price);
+        return product;
     }
 
     private String extractFileName(Part part) {

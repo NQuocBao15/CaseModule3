@@ -198,7 +198,7 @@
                                          style="width: 80px;">
                                         Upload
                                         <input type="file" accept="image/*" name="img" id="file"
-                                               onchange="loadFile(event)">
+                                               <c:if test="${product.img != null}">value="${product.img}"</c:if> onchange="loadFile(event)">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
